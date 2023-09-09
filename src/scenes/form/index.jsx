@@ -11,123 +11,20 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { useState } from "react";
-import Checkbox from '@mui/material/Checkbox';
 import React from 'react';
+import CheckField from "../../components/CheckField";
+import Advice from "../../components/Advice";
+import ScrollToFirstError from "../../hooks/ScrollToFirstError";
+import { useRef } from "react";
+import { initialValues } from "../../data/initialValues";
 
-
-
-const Advice = () => {
-      return(
-        <Box 
-          width={"230px"} 
-          height = {"40px"}
-          display={"fixed"}
-          position={"absolute"}
-          backgroundColor={"green"}
-          color = {"white"}
-          zIndex={"10"}
-          top={"120px"}
-          right={"20px"}
-          borderRadius={"10px"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          className = "fade"
-          >
-          <Typography>
-            <h4>Datos añadidos correctamente</h4>
-          </Typography>
-        </Box>
-      )
-};
-class CheckField extends React.Component {
-  render() {
-    return(
-      <Box
-      display={"flex"}
-      alignItems="center"
-      gap={"30px"}
-      gridColumn={"span 4"}
-    
-    >
-      <Typography display={"flex"} style={{flexBasis:"600px",alignItems:"center",gap:"10px"}}>
-        <h4  >{this.props.title}</h4>
-        {this.props.validation ===true ? <p style={{color:"red",display: this.props.value===""?"inline-block":"none",fontSize:"20px",fontWeight:"bold"}}>*</p>:undefined}
-      </Typography>
-      {        
-          this.props.cantElments.map((dato, index) => (
-          <Box
-          alignItems={"center"} 
-          key={index}
-
-          textAlign={"center"}
-        >
-          <Typography >
-            {dato}
-          </Typography>
-          <Checkbox
-              checked={this.props.checkedAll?String(this.props.value).includes(dato):this.props.value ===dato}
-              onChange={this.props.onChange[index]}
-            />
-        </Box>
-          ))
-  
-      }
-    </Box>
-    )
- 
-  }
-};
 
 const Form = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const initialValues = {
-    fecha:"",
-    nombre: "",
-    apellidos: "",
-    nombreDeLaMadre: "",
-    direccion: "",
-    municipio: "",
-    provincia: "",
-    diagnosticoIngreso: "",
-    diagnosticoEgreso: "",
-    alta:"",
-    genetico:'',
-    riesgo: "",
-    precoz: "",
-    numeroControl: "",
-    diagPrenatal: "",
-    hojaConf: "",
-    acccionInmediatas: "",
-    cronogramaSeg: "",
-    infoMaternidad: "",
-    coordinacionEquipo: "",
-    criterioCirujano: "",
-    presenciaEnSalon: "",
-    actuacionAfeccion: "",
-    ginecologoAsig: "",
-    coordinacionTraslado1: "",
-    coincidenciaDiag:"",
-    coordinacionTraslado2: "",
-    justificTrasaldo: "",
-    evaluacionTrasl:"",
-    deficienciasTrasl: "",
-    interconsultCirujano: "",
-    interconsultMedica:"",
-    estudiosInterQuirujica:"",
-    docContrarref:"",
-    programaAcciones:"",
-    cronogramaAtencion:"",
-    confirSegundaOpinion:"",
-    verificarEquipoQururgico:"",
-    verificarEquipoAnestesico:"",
-    clasificacion:"",
-  }; 
-
   
-
   const [actualizarDOM, setActualizarDOM] =useState(true);
 
   const handleOnChangeActualizarDOM = () => {
@@ -135,7 +32,8 @@ const Form = () => {
   };
 
   const [advice,setAdvice] = useState(true);
-  
+  const boxRef = useRef(null);
+
   const handleFormSubmit = (values) => {
     console.log(values);
     var empty = false;
@@ -159,7 +57,7 @@ const Form = () => {
   };
 
   return (
-    <Box m="20px" style={{height:"100%"}} >
+    <Box m="20px" style={{height:"100%"}} ref={boxRef}>
       <Header title="Ingresar paciente" subtitle="Formulario con los datos del paciente a ingresar" />
       <Box 
       darkScrollbar={true}
@@ -168,6 +66,7 @@ const Form = () => {
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
+        
        
       >
         {({
@@ -178,8 +77,10 @@ const Form = () => {
           handleChange,
           handleSubmit,
           
+          
         }) => (
           <form onSubmit={handleSubmit} >
+            <ScrollToFirstError myRefref={boxRef}/>
             <Box
               display="grid"
               gap="30px"
