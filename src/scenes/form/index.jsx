@@ -1,4 +1,4 @@
-import { Box, Button, TextField, darkScrollbar } from "@mui/material";
+import { Box, Button, TextField} from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -20,13 +20,11 @@ import { initialValues } from "../../data/initialValues";
 
 
 const Form = () => {
-
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   
   const [actualizarDOM, setActualizarDOM] =useState(true);
-
   const handleOnChangeActualizarDOM = () => {
     setActualizarDOM(!actualizarDOM);
   };
@@ -53,21 +51,21 @@ const Form = () => {
     setAdvice(false);
     setTimeout(() => setAdvice(true), 3000);
     window.scrollTo(0, 0);
+    boxRef.current.scrollTo(0,0);
     
   };
 
   return (
-    <Box m="20px" style={{height:"100%"}} ref={boxRef}>
+    <Box m="20px" style={{height:"100%"}}>
+      
       <Header title="Ingresar paciente" subtitle="Formulario con los datos del paciente a ingresar" />
       <Box 
-      darkScrollbar={true}
-      style={{overflow:"auto",height:"110%", width:"100%",padding:"0px 0px 40px 0px"}}> 
+      style={{overflow:"auto",height:"108%", width:"100%",padding:"0px 0px 40px 0px"}} ref={boxRef}> 
         <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
         
-       
       >
         {({
           values,
@@ -80,7 +78,7 @@ const Form = () => {
           
         }) => (
           <form onSubmit={handleSubmit} >
-            <ScrollToFirstError myRefref={boxRef}/>
+            {<ScrollToFirstError myRef={boxRef}/>}
             <Box
               display="grid"
               gap="30px"
@@ -88,11 +86,12 @@ const Form = () => {
               sx={{
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
+
             >
-              <Accordion sx={{ gridColumn: "span 4", backgroundColor:colors.grey[700]}}
+              <Accordion sx={{ gridColumn: "span 4", backgroundColor:colors.grey[700]} }
               
               defaultExpanded >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} >
                   <Typography color={colors.greenAccent[100]} variant="h5">
                    Identificación
                   </Typography>
@@ -100,10 +99,8 @@ const Form = () => {
                 <AccordionDetails style={{display:"grid",gap:"30px"}}>
                   
                 <TextField
-                    fullWidth
-                   
+                    fullWidth               
                     type="date"
-                    
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.fecha}
@@ -111,6 +108,7 @@ const Form = () => {
                     error={!!touched.fecha && !!errors.fecha}
                     helperText={touched.fecha && errors.fecha}
                     sx={{ gridColumn: "span 4" }}
+                    
                   />
                   <TextField
                     fullWidth
@@ -881,7 +879,7 @@ const Form = () => {
               </Button>
             </Box>
             {
-              !advice && <Advice/>
+              !advice && <Advice title="Datos añadidos correctamente" colorBox={"green"}/>
             }
           </form>
         )}
@@ -891,9 +889,6 @@ const Form = () => {
     </Box>
   );
 };
-
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
   fecha: yup.string().required("campo obligatorio"),

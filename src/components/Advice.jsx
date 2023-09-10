@@ -1,14 +1,14 @@
 import { Box,Typography } from "@mui/material";
 
 
-const Advice = () => {
+const Advice = ({title,colorBox}) => {
     return(
       <Box 
         width={"230px"} 
         height = {"40px"}
         display={"fixed"}
         position={"absolute"}
-        backgroundColor={"green"}
+        backgroundColor={colorBox}
         color = {"white"}
         zIndex={"10"}
         top={"120px"}
@@ -19,7 +19,7 @@ const Advice = () => {
         className = "fade"
         >
         <Typography>
-          <h4>Datos añadidos correctamente</h4>
+          <h4>{title}</h4>
         </Typography>
       </Box>
     )

@@ -1,25 +1,26 @@
 import { useFormikContext } from 'formik';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
+import Advice from '../components/Advice';
 
-const ScrollToFirstError = () => {
+const ScrollToFirstError = ({ myRef}) => {
   const { errors, isSubmitting, isValidating } = useFormikContext();
-
+  const  [advice,setAdvice] = useState(false);
   useEffect(() => {
-    if (isSubmitting && !isValidating) {
-      const keys = Object.keys(errors);
-      if (keys.length > 0) {
-        const selector = `[name=${keys[0]}]`;
-        const errorElement = document.querySelector(selector);
-        if (errorElement) {
-          errorElement.scrollIntoView();
-          window.scrollTo(0,0);
-        }
-      }
+    if (isSubmitting && !isValidating && Object.keys(errors).length > 0) {
+      myRef.current.scrollTo(0, 0);
+      window.scrollTo(0, 0);
+      setAdvice(true);
+      setTimeout(() =>{setAdvice(false)},3000);
     }
-
   }, [errors, isSubmitting, isValidating]);
-
-  return null;
+ 
+  return (
+    <>
+      {
+        advice && <Advice title="Complete los campos obligatorios" colorBox={"red"}/>
+      }
+    </>
+  );
 };
 
 export default ScrollToFirstError;
