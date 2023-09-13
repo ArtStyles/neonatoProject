@@ -2,7 +2,7 @@ import { Box,Typography } from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 
 
-const CheckField = ({title,value,cantElments=[],checkedAll,onChange=[],validation}) => {
+const CheckField = ({title,value,cantElments=[],checkedAll,onChange=[],validation,checkBoxNames=[]}) => {
       return(
         <Box
         display={"flex"}
@@ -24,7 +24,7 @@ const CheckField = ({title,value,cantElments=[],checkedAll,onChange=[],validatio
             textAlign={"center"}
           >
             <Typography >
-              {dato}
+              {checkBoxNames.length>0?checkBoxNames[index]:dato}
             </Typography>
             <Checkbox
                 checked={checkedAll?String(value).includes(dato):value ===dato}

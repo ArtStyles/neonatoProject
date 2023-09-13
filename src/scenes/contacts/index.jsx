@@ -23,17 +23,18 @@ const Contacts = () => {
     getPacientes()
     .then(data => {
       setPacientes(data.data.pacientes.edges)
+      console.log(data.data.pacientes.edges)
       setLoading(false)
     })
   },[])
 
   return (
-    <Box m="20px">
+    <Box m="20px" position={"relative"}>
       <Header
         title="Datos de los Pacientes"
         subtitle="Informacion relacionada con los pacientes para determinar diagnóstico"
       />
-      {loading?<div className = "loader-container"><Loader/></div>:null}
+      
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -63,6 +64,7 @@ const Contacts = () => {
           },
         }}
       >
+        {loading && <div className = "loader-container"><Loader/></div>}
         <DataGrid hideFilterPanel setFilterLogicOperator={GridLogicOperator.And} checkboxSelection rows={pacientes.map(paciente => paciente.node)} columns={columns}/>
       </Box>
     </Box>

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import SideBar from "./scenes/global/Sidebar";
-
 import Home from "./scenes/home";
 import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";

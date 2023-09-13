@@ -14,6 +14,13 @@ const query = `{
     }
 }`
 
+const selectAllDataquery = `
+
+
+
+
+`
+
 export function getPacientes(){
     return makeFetch({query:query})
     .then(data => {return data})

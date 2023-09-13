@@ -55,7 +55,7 @@ export function useDataGridColumns(){
             return (
               <Button 
                 style={{backgroundColor:`${colors.greenAccent[600]}`,margin:"auto"}}
-                onClick={() => navigate(`/paciente/${params.id}`)}
+                onClick={() => navigate(`/alldata/${"?"+params.id}`)}
                 >
                 <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
                   Ver
