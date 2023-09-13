@@ -64,7 +64,7 @@ const Form = () => {
   return (
     <Box m="20px" style={{height:"100%"}}>
       
-      <Header title="Ingresar paciente" subtitle="Formulario con los datos del paciente a ingresar" />
+      <Header title="Toda la información sobre el paciente" subtitle="Formulario con los datos del paciente" />
       <Box 
       style={{overflow:"auto",height:"108%", width:"100%",padding:"0px 0px 40px 0px"}} ref={boxRef}> 
         <Formik
