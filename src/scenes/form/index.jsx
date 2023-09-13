@@ -1,5 +1,5 @@
 import { Box, Button, TextField} from "@mui/material";
-import { Formik } from "formik";
+import { Formik, useFormik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
@@ -16,7 +16,7 @@ import CheckField from "../../components/CheckField";
 import Advice from "../../components/Advice";
 import ScrollToFirstError from "../../hooks/ScrollToFirstError";
 import { useRef } from "react";
-import { initialValues } from "../../data/initialValues";
+import { values } from "../../data/initialValues";
 
 
 const Form = () => {
@@ -45,15 +45,21 @@ const Form = () => {
       for (var y in values) {
           values[y] = "";
       }
-      handleOnChangeActualizarDOM();
+     // handleOnChangeActualizarDOM();
     } 
     
     setAdvice(false);
     setTimeout(() => setAdvice(true), 3000);
     window.scrollTo(0, 0);
     boxRef.current.scrollTo(0,0);
-    
   };
+  const handleOnChecked =({val,campo,})=>{
+    if(val!==campo)
+      val=campo;
+    else
+      val='';
+    return val;
+    }
 
   return (
     <Box m="20px" style={{height:"100%"}}>
@@ -63,9 +69,10 @@ const Form = () => {
       style={{overflow:"auto",height:"108%", width:"100%",padding:"0px 0px 40px 0px"}} ref={boxRef}> 
         <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
+        initialValues={values}
         validationSchema={checkoutSchema}
-        
+        validateOnChange={false} 
+        validateOnBlur={false}
       >
         {({
           values,
@@ -74,8 +81,7 @@ const Form = () => {
           handleBlur,
           handleChange,
           handleSubmit,
-          
-          
+          setFieldValue,
         }) => (
           <form onSubmit={handleSubmit} >
             {<ScrollToFirstError myRef={boxRef}/>}
@@ -101,7 +107,6 @@ const Form = () => {
                 <TextField
                     fullWidth               
                     type="date"
-                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.fecha}
                     name="fecha"
@@ -115,8 +120,8 @@ const Form = () => {
                     variant="filled"
                     type="text"
                     label="Nombres"
-                    onBlur={handleBlur}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     value={values.nombre}
                     name="nombre"
                     error={!!touched.nombre && !!errors.nombre}
@@ -128,7 +133,6 @@ const Form = () => {
                     variant="filled"
                     type="text"
                     label="Apellidos"
-                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.apellidos}
                     name="apellidos"
@@ -141,12 +145,11 @@ const Form = () => {
                     variant="filled"
                     type="text"
                     label="Nombre de la Madre"
-                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.nombreDeLaMadre}
                     name="nombreDeLaMadre"
-                    error={!!touched.nombreDeLaMadre && !!errors.nombreDeLaMadre}
-                    helperText={touched.nombreDeLaMadre && errors.nombreDeLaMadre}
+                    error={!!errors.nombreDeLaMadre}
+                    helperText={errors.nombreDeLaMadre}
                     sx={{ gridColumn: "span 4" }}
                   />
                   <TextField
@@ -154,7 +157,6 @@ const Form = () => {
                     variant="filled"
                     type="text"
                     label="Dirección"
-                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.direccion}
                     name="direccion"
@@ -166,8 +168,7 @@ const Form = () => {
                     fullWidth
                     variant="filled"
                     type="text"
-                    label="Municipio"
-                    onBlur={handleBlur}
+                    label="Municipio"  
                     onChange={handleChange}
                     value={values.municipio}
                     name="municipio"
@@ -180,7 +181,6 @@ const Form = () => {
                     variant="filled"
                     type="text"
                     label="Provincia"
-                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.provincia}
                     name="provincia"
@@ -193,7 +193,6 @@ const Form = () => {
                     variant="filled"
                     type="text"
                     label="Diagnóstico al Ingreso"
-                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.diagnosticoIngreso}
                     name="diagnosticoIngreso"
@@ -209,48 +208,37 @@ const Form = () => {
                       cantElments={["Atresia Esofágica","Defectos de la Pared","Atresias y estenosis intestinales","Defectos diafragmáticos","Otros"]}
                       onChange={[()=>{
                         if(!values.diagnosticoEgreso.includes("Atresia Esofágica"))
-                          values.diagnosticoEgreso += "Atresia Esofágica, ";
+                          setFieldValue("diagnosticoEgreso","Atresia Esofágica, ");
                         else
-                          values.diagnosticoEgreso = values.diagnosticoEgreso.replace("Atresia Esofágica, ","");
-                        handleOnChangeActualizarDOM()},()=>{
-                          if(!values.diagnosticoEgreso.includes("Defectos de la Pared"))
-                            values.diagnosticoEgreso += "Defectos de la Pared, ";
-                          else
-                          values.diagnosticoEgreso = values.diagnosticoEgreso.replace("Defectos de la Pared, ","");
-
-                        handleOnChangeActualizarDOM()},()=>{
-                          if(!values.diagnosticoEgreso.includes("Atresias y estenosis intestinales"))
-                            values.diagnosticoEgreso+= "Atresias y estenosis intestinales, ";
-                          else
-                            values.diagnosticoEgreso = values.diagnosticoEgreso.replace("Atresias y estenosis intestinales, ","");                            
-                        handleOnChangeActualizarDOM()},()=>{
-                          if(!values.diagnosticoEgreso.includes("Defectos diafragmáticos"))
-                            values.diagnosticoEgreso+= "Defectos diafragmáticos, ";
-                          else
-                            values.diagnosticoEgreso = values.diagnosticoEgreso.replace("Defectos diafragmáticos, ","");
-                        handleOnChangeActualizarDOM()},()=>{
+                          setFieldValue("diagnosticoEgreso", values.diagnosticoEgreso.replace("Atresia Esofágica, ",""));
+                        },()=>{
+                        if(!values.diagnosticoEgreso.includes("Defectos de la Pared"))
+                          setFieldValue("diagnosticoEgreso","Defectos de la Pared, ");
+                        else
+                          setFieldValue("diagnosticoEgreso", values.diagnosticoEgreso.replace("Defectos de la Pared, ",""));
+                        },()=>{
+                        if(!values.diagnosticoEgreso.includes("Atresias y estenosis intestinales"))
+                          setFieldValue("diagnosticoEgreso","Atresias y estenosis intestinales, ");
+                        else
+                          setFieldValue("diagnosticoEgreso", values.diagnosticoEgreso.replace("Atresias y estenosis intestinales, ",""))
+                        },()=>{
+                        if(!values.diagnosticoEgreso.includes("Defectos diafragmáticos"))
+                          setFieldValue("diagnosticoEgreso","Defectos diafragmáticos, ");
+                        else
+                          setFieldValue("diagnosticoEgreso", values.diagnosticoEgreso.replace("Defectos diafragmáticos, ",""))
+                        },()=>{
                           if(!values.diagnosticoEgreso.includes("Otros"))
-                            values.diagnosticoEgreso+= "Otros, ";
-                          else
-                            values.diagnosticoEgreso = values.diagnosticoEgreso.replace("Otros, ","");
-                        handleOnChangeActualizarDOM()}]}              
+                          setFieldValue("diagnosticoEgreso","Otros, ");
+                        else
+                          setFieldValue("diagnosticoEgreso", values.diagnosticoEgreso.replace("Otros, ",""))}]}              
                   /> 
-
-
                   <CheckField title="Resultado del alta"
                       value={values.alta}
-                      cantElments={["Fallecido","Vivo"]}
-                      onChange={[()=>{
-                        if(!values.alta.includes("Fallecido"))
-                          values.alta = "Fallecido";
-                        else
-                          values.alta = values.alta.replace("Fallecido","");
-                        handleOnChangeActualizarDOM()},()=>{
-                          if(!values.alta.includes("Vivo"))
-                          values.alta = "Vivo";
-                        else
-                          values.alta = values.alta.replace("Vivo","");
-                        handleOnChangeActualizarDOM()}]}              
+                      cantElments={["false","true"]}
+                      onChange={[()=>{setFieldValue("alta",handleOnChecked({val:values.alta,campo:"false"}))
+                        },()=>{
+                          setFieldValue("alta",handleOnChecked({val:values.alta,campo:"true"}))
+                        }]}              
                     />  
                 
               </AccordionDetails>
@@ -268,61 +256,34 @@ const Form = () => {
                             o fallecidos con malformaciones"
                       value={values.riesgo}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.riesgo.includes("si"))
-                          values.riesgo = "si";
-                        else
-                          values.riesgo = values.riesgo.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.riesgo.includes("no"))
-                          values.riesgo = "no";
-                        else
-                          values.riesgo = values.riesgo.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.riesgo.includes("np"))
-                          values.riesgo = "np";
-                        else
-                          values.riesgo = values.riesgo.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("riesgo",handleOnChecked({val:values.riesgo,campo:"si"}))
+                        },()=>{
+                          setFieldValue("riesgo",handleOnChecked({val:values.riesgo,campo:"no"}))
+                        },()=>{
+                          setFieldValue("riesgo",handleOnChecked({val:values.riesgo,campo:"np"}))
+                        }]}             
                     /> 
-                    
+
                     <CheckField title="Comprobación del consejo genético"
                       value={values.genetico}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.genetico.includes("si"))
-                          values.genetico = "si";
-                        else
-                          values.genetico = values.genetico.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.genetico.includes("no"))
-                          values.genetico = "no";
-                        else
-                          values.genetico = values.genetico.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.genetico.includes("np"))
-                          values.genetico = "np";
-                        else
-                          values.genetico = values.genetico.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("genetico",handleOnChecked({val:values.genetico,campo:"si"}))
+                        },()=>{
+                          setFieldValue("genetico",handleOnChecked({val:values.genetico,campo:"no"}))
+                        },()=>{
+                          setFieldValue("genetico",handleOnChecked({val:values.genetico,campo:"np"}))
+                        }]}                 
                     /> 
 
                     <CheckField title="Captación precoz"
                       value={values.precoz}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.precoz.includes("si"))
-                          values.precoz = "si";
-                        else
-                          values.precoz = values.genetico.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.precoz.includes("no"))
-                          values.precoz = "no";
-                        else
-                          values.precoz = values.precoz.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
-                    />
-                    
+                      onChange={[()=>{setFieldValue("precoz",handleOnChecked({val:values.precoz,campo:"si"}))
+                        },()=>{
+                          setFieldValue("precoz",handleOnChecked({val:values.precoz,campo:"no"}))
+                        }]}              
+                    />     
+                        
                     <TextField
                       fullWidth
                       sx={{ gridColumn: "span 2" }}   
@@ -334,25 +295,18 @@ const Form = () => {
                       name="numeroControl"
                       error={!!touched.numeroControl && !!errors.numeroControl}
                       helperText={touched.numeroControl && errors.numeroControl}
-                      
-                      
+
                     />
                  
                     <CheckField title="Diagnóstico prenatal"
                       value={values.diagPrenatal}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.diagPrenatal.includes("si"))
-                          values.diagPrenatal = "si";
-                        else
-                          values.diagPrenatal = values.diagPrenatal.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.diagPrenatal.includes("no"))
-                          values.diagPrenatal = "no";
-                        else
-                          values.diagPrenatal = values.diagPrenatal.replace("no","");
-                        handleOnChangeActualizarDOM()}]}             
-                    />
+                      onChange={[()=>{setFieldValue("diagPrenatal",handleOnChecked({val:values.diagPrenatal,campo:"si"}))
+                        },()=>{
+                          setFieldValue("diagPrenatal",handleOnChecked({val:values.diagPrenatal,campo:"no"}))
+                        }]}             
+                    />            
+                 
                    
                   </AccordionDetails>
               </Accordion>
@@ -370,49 +324,28 @@ const Form = () => {
                 <CheckField title="Hoja de Conferencia"
                       value={values.hojaConf}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.hojaConf.includes("si"))
-                          values.hojaConf = "si";
-                        else
-                          values.hojaConf = values.hojaConf.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.hojaConf.includes("no"))
-                          values.hojaConf = "no";
-                        else
-                          values.hojaConf = values.hojaConf.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("hojaConf",handleOnChecked({val:values.hojaConf,campo:"si"}))
+                        },()=>{
+                          setFieldValue("hojaConf",handleOnChecked({val:values.hojaConf,campo:"no"}))
+                        }]}              
                   />
                 
                   <CheckField title="Programa de Acciones Inmediatas"
                       value={values.acccionInmediatas}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.acccionInmediatas.includes("si"))
-                          values.acccionInmediatas = "si";
-                        else
-                          values.acccionInmediatas = values.acccionInmediatas.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.acccionInmediatas.includes("no"))
-                          values.acccionInmediatas = "no";
-                        else
-                          values.acccionInmediatas = values.acccionInmediatas.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("acccionInmediatas",handleOnChecked({val:values.acccionInmediatas,campo:"si"}))
+                        },()=>{
+                          setFieldValue("acccionInmediatas",handleOnChecked({val:values.acccionInmediatas,campo:"no"}))
+                        }]}             
                   />
                   
                   <CheckField title="Cronograma de Seguimiento"
                       value={values.cronogramaSeg}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.cronogramaSeg.includes("si"))
-                          values.cronogramaSeg = "si";
-                        else
-                          values.cronogramaSeg = values.cronogramaSeg.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.cronogramaSeg.includes("no"))
-                          values.cronogramaSeg = "no";
-                        else
-                          values.cronogramaSeg = values.cronogramaSeg.replace("no","");
-                        handleOnChangeActualizarDOM()}]}                  
+                      onChange={[()=>{setFieldValue("cronogramaSeg",handleOnChecked({val:values.cronogramaSeg,campo:"si"}))
+                        },()=>{
+                          setFieldValue("cronogramaSeg",handleOnChecked({val:values.cronogramaSeg,campo:"no"}))
+                        }]}                    
                   />
 
                 </AccordionDetails>
@@ -430,54 +363,30 @@ const Form = () => {
                 <CheckField title="Información a la maternidad"
                       value={values.infoMaternidad}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.infoMaternidad.includes("si"))
-                          values.infoMaternidad = "si";
-                        else
-                          values.infoMaternidad = values.infoMaternidad.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.infoMaternidad.includes("no"))
-                          values.infoMaternidad = "no";
-                        else
-                          values.infoMaternidad = values.infoMaternidad.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("infoMaternidad",handleOnChecked({val:values.infoMaternidad,campo:"si"}))
+                        },()=>{
+                          setFieldValue("infoMaternidad",handleOnChecked({val:values.infoMaternidad,campo:"no"}))
+                        }]}             
                   />
 
                   <CheckField title="Coordinación entre los equipos de ginecología"
                       value={values.coordinacionEquipo}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.coordinacionEquipo.includes("si"))
-                          values.coordinacionEquipo = "si";
-                        else
-                          values.coordinacionEquipo = values.coordinacionEquipo.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.coordinacionEquipo.includes("no"))
-                          values.coordinacionEquipo = "no";
-                        else
-                          values.coordinacionEquipo = values.coordinacionEquipo.replace("no","");
-                        handleOnChangeActualizarDOM()}]}             
+                      onChange={[()=>{setFieldValue("coordinacionEquipo",handleOnChecked({val:values.coordinacionEquipo,campo:"si"}))
+                        },()=>{
+                          setFieldValue("coordinacionEquipo",handleOnChecked({val:values.coordinacionEquipo,campo:"no"}))
+                        }]}              
                   />
                   
                   <CheckField title="Criterio del cirujano"
                       value={values.criterioCirujano}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.criterioCirujano.includes("si"))
-                          values.criterioCirujano = "si";
-                        else
-                          values.criterioCirujano = values.criterioCirujano.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.criterioCirujano.includes("no"))
-                          values.criterioCirujano = "no";
-                        else
-                          values.criterioCirujano = values.criterioCirujano.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.criterioCirujano.includes("np"))
-                          values.criterioCirujano = "np";
-                        else
-                          values.criterioCirujano = values.criterioCirujano.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("criterioCirujano",handleOnChecked({val:values.criterioCirujano,campo:"si"}))
+                        },()=>{
+                          setFieldValue("criterioCirujano",handleOnChecked({val:values.criterioCirujano,campo:"no"}))
+                        },()=>{
+                          setFieldValue("criterioCirujano",handleOnChecked({val:values.criterioCirujano,campo:"np"}))
+                        }]}               
                   /> 
 
                 </AccordionDetails>
@@ -495,80 +404,43 @@ const Form = () => {
                   <CheckField title="Presencia del neonatologo en el salón de parto"
                       value={values.presenciaEnSalon}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.presenciaEnSalon.includes("si"))
-                          values.presenciaEnSalon = "si";
-                        else
-                          values.presenciaEnSalon = values.presenciaEnSalon.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.presenciaEnSalon.includes("no"))
-                          values.presenciaEnSalon = "no";
-                        else
-                          values.presenciaEnSalon = values.presenciaEnSalon.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.presenciaEnSalon.includes("np"))
-                          values.presenciaEnSalon = "np";
-                        else
-                          values.presenciaEnSalon = values.presenciaEnSalon.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("presenciaEnSalon",handleOnChecked({val:values.presenciaEnSalon,campo:"si"}))
+                        },()=>{
+                          setFieldValue("presenciaEnSalon",handleOnChecked({val:values.presenciaEnSalon,campo:"no"}))
+                        },()=>{
+                          setFieldValue("presenciaEnSalon",handleOnChecked({val:values.presenciaEnSalon,campo:"np"}))
+                        }]}               
                   /> 
                 
                   <CheckField title="Actuación de acuerdo a la afección"
                       value={values.actuacionAfeccion}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.actuacionAfeccion.includes("si"))
-                          values.actuacionAfeccion = "si";
-                        else
-                          values.actuacionAfeccion = values.actuacionAfeccion.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.actuacionAfeccion.includes("no"))
-                          values.actuacionAfeccion = "no";
-                        else
-                          values.actuacionAfeccion = values.actuacionAfeccion.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.actuacionAfeccion.includes("np"))
-                          values.actuacionAfeccion = "np";
-                        else
-                          values.actuacionAfeccion = values.actuacionAfeccion.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("actuacionAfeccion",handleOnChecked({val:values.actuacionAfeccion,campo:"si"}))
+                        },()=>{
+                          setFieldValue("actuacionAfeccion",handleOnChecked({val:values.actuacionAfeccion,campo:"no"}))
+                        },()=>{
+                          setFieldValue("actuacionAfeccion",handleOnChecked({val:values.actuacionAfeccion,campo:"np"}))
+                        }]}              
                   /> 
                   
                   <CheckField title="Ginecólogo asignado"
                       value={values.ginecologoAsig}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.ginecologoAsig.includes("si"))
-                          values.ginecologoAsig = "si";
-                        else
-                          values.ginecologoAsig = values.ginecologoAsig.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.ginecologoAsig.includes("no"))
-                          values.ginecologoAsig = "no";
-                        else
-                          values.ginecologoAsig = values.ginecologoAsig.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("ginecologoAsig",handleOnChecked({val:values.ginecologoAsig,campo:"si"}))
+                        },()=>{
+                          setFieldValue("ginecologoAsig",handleOnChecked({val:values.ginecologoAsig,campo:"no"}))
+                        }]}                
                   /> 
                   
                   <CheckField title="Coordinacción del traslado"
                       value={values.coordinacionTraslado1}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.coordinacionTraslado1.includes("si"))
-                          values.coordinacionTraslado1 = "si";
-                        else
-                          values.coordinacionTraslado1 = values.coordinacionTraslado1.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.coordinacionTraslado1.includes("no"))
-                          values.coordinacionTraslado1 = "no";
-                        else
-                          values.coordinacionTraslado1 = values.coordinacionTraslado1.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.coordinacionTraslado1.includes("np"))
-                          values.coordinacionTraslado1 = "np";
-                        else
-                          values.coordinacionTraslado1 = values.coordinacionTraslado1.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("coordinacionTraslado1",handleOnChecked({val:values.coordinacionTraslado1,campo:"si"}))
+                        },()=>{
+                          setFieldValue("coordinacionTraslado1",handleOnChecked({val:values.coordinacionTraslado1,campo:"no"}))
+                        },()=>{
+                          setFieldValue("coordinacionTraslado1",handleOnChecked({val:values.coordinacionTraslado1,campo:"np"}))
+                        }]}              
                   /> 
 
                 </AccordionDetails>
@@ -586,80 +458,43 @@ const Form = () => {
                 <CheckField title="Coincidencia diagnóstica"
                       value={values.coincidenciaDiag}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.coincidenciaDiag.includes("si"))
-                          values.coincidenciaDiag = "si";
-                        else
-                          values.coincidenciaDiag = values.coincidenciaDiag.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.coincidenciaDiag.includes("no"))
-                          values.coincidenciaDiag = "no";
-                        else
-                          values.coincidenciaDiag = values.coincidenciaDiag.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("coincidenciaDiag",handleOnChecked({val:values.coincidenciaDiag,campo:"si"}))
+                        },()=>{
+                          setFieldValue("coincidenciaDiag",handleOnChecked({val:values.coincidenciaDiag,campo:"no"}))
+                        }]}               
                   /> 
 
                   <CheckField title="Coordinacción del traslado"
                       value={values.coordinacionTraslado2}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.coordinacionTraslado2.includes("si"))
-                          values.coordinacionTraslado2 = "si";
-                        else
-                          values.coordinacionTraslado2 = values.coordinacionTraslado2.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.coordinacionTraslado2.includes("no"))
-                          values.coordinacionTraslado2 = "no";
-                        else
-                          values.coordinacionTraslado2 = values.coordinacionTraslado2.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.coordinacionTraslado2.includes("np"))
-                          values.coordinacionTraslado2 = "np";
-                        else
-                          values.coordinacionTraslado2 = values.coordinacionTraslado2.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("coordinacionTraslado2",handleOnChecked({val:values.coordinacionTraslado2,campo:"si"}))
+                        },()=>{
+                          setFieldValue("coordinacionTraslado2",handleOnChecked({val:values.coordinacionTraslado2,campo:"no"}))
+                        },()=>{
+                          setFieldValue("coordinacionTraslado2",handleOnChecked({val:values.coordinacionTraslado2,campo:"np"}))
+                        }]}              
                   /> 
                  
                   <CheckField title="Justificacion del Traslado"
                       value={values.justificTrasaldo}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.justificTrasaldo.includes("si"))
-                          values.coincidenciaDiag = "si";
-                        else
-                          values.justificTrasaldo = values.justificTrasaldo.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.justificTrasaldo.includes("no"))
-                          values.justificTrasaldo = "no";
-                        else
-                          values.justificTrasaldo = values.justificTrasaldo.replace("no","");
-                        handleOnChangeActualizarDOM()}]}               
+                      onChange={[()=>{setFieldValue("justificTrasaldo",handleOnChecked({val:values.justificTrasaldo,campo:"si"}))
+                    },()=>{
+                      setFieldValue("justificTrasaldo",handleOnChecked({val:values.justificTrasaldo,campo:"no"}))
+                    }]}             
                   /> 
 
                   <CheckField title="Evalauacion del Traslado"
                       value={values.evaluacionTrasl}
                       cantElments={["E","MB","B","AT"]}
-                      onChange={[()=>{
-                        if(!values.evaluacionTrasl.includes("E"))
-                          values.evaluacionTrasl = "E";
-                        else
-                          values.evaluacionTrasl = values.evaluacionTrasl.replace("E","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.evaluacionTrasl.includes("MB"))
-                          values.evaluacionTrasl = "MB";
-                        else
-                          values.evaluacionTrasl = values.evaluacionTrasl.replace("MB","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.evaluacionTrasl.includes("B"))
-                          values.evaluacionTrasl = "B";
-                        else
-                          values.evaluacionTrasl = values.evaluacionTrasl.replace("B","");
-                        handleOnChangeActualizarDOM()},()=>{
-                          if(!values.evaluacionTrasl.includes("AT"))
-                            values.evaluacionTrasl = "AT";
-                          else
-                            values.evaluacionTrasl = values.evaluacionTrasl.replace("AT","");
-                          handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("evaluacionTrasl",handleOnChecked({val:values.evaluacionTrasl,campo:"E"}))
+                        },()=>{
+                          setFieldValue("evaluacionTrasl",handleOnChecked({val:values.evaluacionTrasl,campo:"MB"}))
+                        },()=>{
+                          setFieldValue("evaluacionTrasl",handleOnChecked({val:values.evaluacionTrasl,campo:"B"}))
+                        },()=>{
+                          setFieldValue("evaluacionTrasl",handleOnChecked({val:values.evaluacionTrasl,campo:"AT"}))
+                        }]}              
                   /> 
                  
                   <TextField
@@ -679,112 +514,61 @@ const Form = () => {
                   <CheckField title="Interconsulta con el cirujano"
                       value={values.interconsultCirujano}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.interconsultCirujano.includes("si"))
-                          values.interconsultCirujano = "si";
-                        else
-                          values.interconsultCirujano = values.interconsultCirujano.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.interconsultCirujano.includes("no"))
-                          values.interconsultCirujano = "no";
-                        else
-                          values.interconsultCirujano = values.interconsultCirujano.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.interconsultCirujano.includes("np"))
-                          values.interconsultCirujano = "np";
-                        else
-                          values.interconsultCirujano = values.interconsultCirujano.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("interconsultCirujano",handleOnChecked({val:values.interconsultCirujano,campo:"si"}))
+                        },()=>{
+                          setFieldValue("interconsultCirujano",handleOnChecked({val:values.interconsultCirujano,campo:"no"}))
+                        },()=>{
+                          setFieldValue("interconsultCirujano",handleOnChecked({val:values.interconsultCirujano,campo:"np"}))
+                        }]}                  
                   /> 
                  
                   <CheckField title="Interconsulta médica"
                       value={values.interconsultMedica}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.interconsultMedica.includes("si"))
-                          values.interconsultMedica = "si";
-                        else
-                          values.interconsultMedica = values.interconsultMedica.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.interconsultMedica.includes("no"))
-                          values.interconsultMedica = "no";
-                        else
-                          values.interconsultMedica = values.interconsultMedica.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.interconsultMedica.includes("np"))
-                          values.interconsultMedica = "np";
-                        else
-                          values.interconsultMedica = values.interconsultMedica.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("interconsultMedica",handleOnChecked({val:values.interconsultMedica,campo:"si"}))
+                        },()=>{
+                          setFieldValue("interconsultMedica",handleOnChecked({val:values.interconsultMedica,campo:"no"}))
+                        },()=>{
+                          setFieldValue("interconsultMedica",handleOnChecked({val:values.interconsultMedica,campo:"np"}))
+                        }]}                
                   /> 
                   
                   <CheckField title="Estudios para intervención Quirúrjica"
                       value={values.estudiosInterQuirujica}
                       cantElments={["si","no","np"]}
-                      onChange={[()=>{
-                        if(!values.estudiosInterQuirujica.includes("si"))
-                          values.estudiosInterQuirujica = "si";
-                        else
-                          values.estudiosInterQuirujica = values.estudiosInterQuirujica.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.estudiosInterQuirujica.includes("no"))
-                          values.estudiosInterQuirujica = "no";
-                        else
-                          values.estudiosInterQuirujica = values.estudiosInterQuirujica.replace("no","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.estudiosInterQuirujica.includes("np"))
-                          values.estudiosInterQuirujica = "np";
-                        else
-                          values.estudiosInterQuirujica = values.estudiosInterQuirujica.replace("np","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("estudiosInterQuirujica",handleOnChecked({val:values.estudiosInterQuirujica,campo:"si"}))
+                        },()=>{
+                          setFieldValue("estudiosInterQuirujica",handleOnChecked({val:values.estudiosInterQuirujica,campo:"no"}))
+                        },()=>{
+                          setFieldValue("estudiosInterQuirujica",handleOnChecked({val:values.estudiosInterQuirujica,campo:"np"}))
+                        }]}             
                   /> 
 
                   <CheckField title="Documento de Contrarreferencia"
                       value={values.docContrarref}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.docContrarref.includes("si"))
-                          values.docContrarref = "si";
-                        else
-                          values.docContrarref = values.docContrarref.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.docContrarref.includes("no"))
-                          values.docContrarref = "no";
-                        else
-                          values.docContrarref = values.docContrarref.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("docContrarref",handleOnChecked({val:values.docContrarref,campo:"si"}))
+                        },()=>{
+                          setFieldValue("docContrarref",handleOnChecked({val:values.docContrarref,campo:"no"}))
+                        }]}             
                   /> 
 
                   <CheckField title="Programa de acciones de cada caso individual"
                       value={values.programaAcciones}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.programaAcciones.includes("si"))
-                          values.programaAcciones = "si";
-                        else
-                          values.programaAcciones = values.programaAcciones.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.programaAcciones.includes("no"))
-                          values.programaAcciones = "no";
-                        else
-                          values.programaAcciones = values.programaAcciones.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("programaAcciones",handleOnChecked({val:values.programaAcciones,campo:"si"}))
+                        },()=>{
+                          setFieldValue("programaAcciones",handleOnChecked({val:values.programaAcciones,campo:"no"}))
+                        }]}              
                   />   
                  
                   <CheckField title="Cronograma de atención"
                       value={values.cronogramaAtencion}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.cronogramaAtencion.includes("si"))
-                          values.cronogramaAtencion = "si";
-                        else
-                          values.cronogramaAtencion = values.cronogramaAtencion.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.cronogramaAtencion.includes("no"))
-                          values.cronogramaAtencion = "no";
-                        else
-                          values.cronogramaAtencion = values.cronogramaAtencion.replace("no","");
-                        handleOnChangeActualizarDOM()}]}               
+                      onChange={[()=>{setFieldValue("cronogramaAtencion",handleOnChecked({val:values.cronogramaAtencion,campo:"si"}))
+                        },()=>{
+                          setFieldValue("cronogramaAtencion",handleOnChecked({val:values.cronogramaAtencion,campo:"no"}))
+                        }]}               
                   />         
 
                 </AccordionDetails>
@@ -802,49 +586,28 @@ const Form = () => {
                 <CheckField title="Confirmación de segunda opinión"
                       value={values.confirSegundaOpinion}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.confirSegundaOpinion.includes("si"))
-                          values.confirSegundaOpinion = "si";
-                        else
-                          values.confirSegundaOpinion = values.confirSegundaOpinion.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.confirSegundaOpinion.includes("no"))
-                          values.confirSegundaOpinion = "no";
-                        else
-                          values.confirSegundaOpinion = values.confirSegundaOpinion.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("confirSegundaOpinion",handleOnChecked({val:values.confirSegundaOpinion,campo:"si"}))
+                        },()=>{
+                          setFieldValue("confirSegundaOpinion",handleOnChecked({val:values.confirSegundaOpinion,campo:"no"}))
+                        }]}              
                   />
                 
                   <CheckField title="Verificar la integración del equipo quirúrgico"
                       value={values.verificarEquipoQururgico}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.verificarEquipoQururgico.includes("si"))
-                          values.verificarEquipoQururgico = "si";
-                        else
-                          values.verificarEquipoQururgico = values.verificarEquipoQururgico.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.verificarEquipoQururgico.includes("no"))
-                          values.verificarEquipoQururgico = "no";
-                        else
-                          values.verificarEquipoQururgico = values.verificarEquipoQururgico.replace("no","");
-                        handleOnChangeActualizarDOM()}]}               
+                      onChange={[()=>{setFieldValue("verificarEquipoQururgico",handleOnChecked({val:values.verificarEquipoQururgico,campo:"si"}))
+                        },()=>{
+                          setFieldValue("verificarEquipoQururgico",handleOnChecked({val:values.verificarEquipoQururgico,campo:"no"}))
+                        }]}              
                   />
                  
                   <CheckField title="Verificar que el equipo anéstesico sea el asignado"
                       value={values.verificarEquipoAnestesico}
                       cantElments={["si","no"]}
-                      onChange={[()=>{
-                        if(!values.verificarEquipoAnestesico.includes("si"))
-                          values.verificarEquipoAnestesico = "si";
-                        else
-                          values.verificarEquipoAnestesico = values.verificarEquipoAnestesico.replace("si","");
-                        handleOnChangeActualizarDOM()},()=>{
-                        if(!values.verificarEquipoAnestesico.includes("no"))
-                          values.verificarEquipoAnestesico = "no";
-                        else
-                          values.verificarEquipoAnestesico = values.verificarEquipoAnestesico.replace("no","");
-                        handleOnChangeActualizarDOM()}]}              
+                      onChange={[()=>{setFieldValue("verificarEquipoAnestesico",handleOnChecked({val:values.verificarEquipoAnestesico,campo:"si"}))
+                        },()=>{
+                          setFieldValue("verificarEquipoAnestesico",handleOnChecked({val:values.verificarEquipoAnestesico,campo:"no"}))
+                        }]}             
                   />
                   
                 </AccordionDetails>
@@ -861,13 +624,10 @@ const Form = () => {
 
                   <CheckField title="Clasificación"  
                     value={values.clasificacion} 
-
-                     onChange={[()=>{
-                      handleOnChangeActualizarDOM();
-                      values.clasificacion="D"},()=>{
-                      handleOnChangeActualizarDOM();
-                      values.clasificacion="NoD"}]} 
-
+                    onChange={[()=>{setFieldValue("clasificacion",handleOnChecked({val:values.clasificacion,campo:"si"}))
+                  },()=>{
+                    setFieldValue("clasificacion",handleOnChecked({val:values.clasificacion,campo:"no"}))
+                  }]}    
                     cantElments={["D","NoD"]} />
 
                 </AccordionDetails>

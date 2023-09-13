@@ -1,12 +1,30 @@
-const token = localStorage.getItem('token')
-function login(){
-    return fetch(url,{
+
+const query = `{
+    pacientes{
+            edges{
+                node{
+                    id,
+                    nombre
+                }
+            }
+        }
+    }
+`
+function makeFetch(query){
+    return fetch("http://127.0.0.1:8000/graphql/",{
+
         method:'POST',
         headers:{
-            Authorization: `Token {}`
-        }
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({query})
+        
     })
     .then(res => res.json())
-    .then(data => {return data})
+    .then(data => {
+        const pacientes = data.data.pacientes.edges
+        
+        pacientes.map((paciente, i) => {return(paciente.node)})
+    })
 }
 

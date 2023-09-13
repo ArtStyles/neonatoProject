@@ -12,7 +12,7 @@ const ScrollToFirstError = ({ myRef}) => {
       setAdvice(true);
       setTimeout(() =>{setAdvice(false)},3000);
     }
-  }, [errors, isSubmitting, isValidating]);
+  }, [isSubmitting,errors,isValidating,myRef]);
  
   return (
     <>

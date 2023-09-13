@@ -1,5 +1,7 @@
 
-export const initialValues ={
+
+
+export const values ={
     fecha:"",
     nombre: "",
     apellidos: "",
@@ -11,7 +13,7 @@ export const initialValues ={
     diagnosticoEgreso: "",
     alta:"",
     genetico:'',
-    riesgo: "",
+    riesgo: null,
     precoz: "",
     numeroControl: "",
     diagPrenatal: "",
@@ -41,3 +43,6 @@ export const initialValues ={
     verificarEquipoAnestesico:"",
     clasificacion:"",
 };
+
+
+
