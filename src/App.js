@@ -38,7 +38,6 @@ function App() {
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
             </Routes>
-        
           </main>
         </div>
       </ThemeProvider>
