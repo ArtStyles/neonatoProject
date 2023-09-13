@@ -1,77 +1,31 @@
-import { Box,Typography,Button} from "@mui/material";
+import { Box} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
 import { GridLogicOperator } from "@mui/x-data-grid";
+import {useEffect, useState} from 'react'
+import {getPacientes} from '../../services/getPacientes'
+import { useDataGridColumns } from "../../customHooks/useDataGridColumns";
+import Loader from '../../components/Loader'
+import './index.css'
 
-
-const data=1;
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const [pacientes, setPacientes] = useState([])
+  const [loading, setLoading] = useState(true)
+  const {columns} = useDataGridColumns()
   
-  const columns = [
-    { field: "nombre", 
-    headerName: "Nombre del neonato",
-     flex: 0.7
-    },
-    
-
-    {
-      field: "name",
-      headerName: "Nombre de la madre",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-
-    {
-      field: "nmunicipio",
-      headerName: "Municipio",
-      flex: 0.8,
-    },
-    {
-      field: "provincia",
-      headerName: "Provincia",
-      flex: 1,
-    },
-    {
-      field: "fecha",
-      headerName: "Fecha",
-      flex: 0.6,
-    },
-    {
-      field: "diagnosticoEgreso",
-      headerName: "Diagnóstico al egreso",
-      flex: 1,
-    },
-    {
-      field: "button",
-      headerName: "Todo la info",
-      type: "button",
-      flex: 0.5,
-      filterable: false,
-      renderCell: () => {
-        return (
-          <Link to={{
-            pathname: "/alldata",
-            search: `/user/${mockDataContacts.id}`,
-            state: { datos: data },
-            }}
-            >
-          <Button style={{backgroundColor:`${colors.greenAccent[600]}`,margin:"auto"}}>
-          <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-            Ver
-          </Typography>
-          </Button>
-          </Link>
-        );
-      },
-    },
-  ];
+  //se obtienen los pacientes
+  useEffect(() => {
+    setLoading(true)
+    getPacientes()
+    .then(data => {
+      setPacientes(data.data.pacientes.edges)
+      setLoading(false)
+    })
+  },[])
 
   return (
     <Box m="20px">
@@ -79,6 +33,7 @@ const Contacts = () => {
         title="Datos de los Pacientes"
         subtitle="Informacion relacionada con los pacientes para determinar diagnóstico"
       />
+      {loading?<div className = "loader-container"><Loader/></div>:null}
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -108,7 +63,7 @@ const Contacts = () => {
           },
         }}
       >
-        <DataGrid hideFilterPanel setFilterLogicOperator={GridLogicOperator.And} checkboxSelection rows={mockDataContacts} columns={columns}/>
+        <DataGrid hideFilterPanel setFilterLogicOperator={GridLogicOperator.And} checkboxSelection rows={pacientes.map(paciente => paciente.node)} columns={columns}/>
       </Box>
     </Box>
   );
