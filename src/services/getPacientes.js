@@ -5,21 +5,14 @@ const query = `{
             node{
                 id,
                 nombre,
-                nombreMadre,
+                nombreDeLaMadre,
                 municipio,
                 provincia,
-                createdAt,
+                fecha,
             }
         }
     }
 }`
-
-const selectAllDataquery = `
-
-
-
-
-`
 
 export function getPacientes(){
     return makeFetch({query:query})

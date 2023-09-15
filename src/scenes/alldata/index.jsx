@@ -1,5 +1,5 @@
 import { Box, Button, TextField} from "@mui/material";
-import { Formik, useFormik } from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
@@ -17,17 +17,30 @@ import Advice from "../../components/Advice";
 import ScrollToFirstError from "../../hooks/ScrollToFirstError";
 import { useRef } from "react";
 import { values } from "../../data/initialValues";
+import { getAllInfo } from "../../services/getAllInfo";
+import { useEffect } from "react";
 
+import { Location, useLocation } from "react-router-dom";
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  
-  const [actualizarDOM, setActualizarDOM] =useState(true);
-  const handleOnChangeActualizarDOM = () => {
-    setActualizarDOM(!actualizarDOM);
-  };
+  const url = useLocation();
+  const id = url.search.replace("?","");
+  console.log(id);
+
+  const [paciente, setPaciente] = useState()
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    setLoading(true)
+    getAllInfo({id:id})
+    .then(data => {
+      setPaciente(data)
+      console.log(data)
+      setLoading(false)
+    })
+  },[])
 
   const [advice,setAdvice] = useState(true);
   const boxRef = useRef(null);
@@ -45,7 +58,6 @@ const Form = () => {
       for (var y in values) {
           values[y] = "";
       }
-     // handleOnChangeActualizarDOM();
     } 
     
     setAdvice(false);
@@ -69,7 +81,7 @@ const Form = () => {
       style={{overflow:"auto",height:"108%", width:"100%",padding:"0px 0px 40px 0px"}} ref={boxRef}> 
         <Formik
         onSubmit={handleFormSubmit}
-        initialValues={values}
+        initialValues={paciente}
         validationSchema={checkoutSchema}
         validateOnChange={false} 
         validateOnBlur={false}

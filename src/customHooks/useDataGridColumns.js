@@ -15,7 +15,7 @@ export function useDataGridColumns(){
           flex: 0.7
         },
         {
-          field: "nombreMadre",
+          field: "nombreDeLaMadre",
           headerName: "Nombre de la madre",
           flex: 1,
           cellClassName: "name-column--cell",
@@ -31,12 +31,12 @@ export function useDataGridColumns(){
           flex: 1,
         },
         {
-          field: "createdAt",
+          field:"fecha",
           headerName: "Fecha",
           flex: 0.6,
           renderCell: (params) => (
             <Typography variant="subtitle2" color="secondary">
-              {formatDate(params.row.createdAt)}
+              {formatDate(params.row.fecha)}
             </Typography>
           ),
         },
@@ -51,8 +51,7 @@ export function useDataGridColumns(){
           type: "button",
           flex: 0.5,
           filterable: false,
-          renderCell: (params) => {
-            return (
+          renderCell: (params) => (
               <Button 
                 style={{backgroundColor:`${colors.greenAccent[600]}`,margin:"auto"}}
                 onClick={() => navigate(`/alldata/${"?"+params.id}`)}
@@ -61,9 +60,8 @@ export function useDataGridColumns(){
                   Ver
                 </Typography>
               </Button>
-            );
-          },
-    },
+            ) 
+        },
     ];
     
     return {columns}
