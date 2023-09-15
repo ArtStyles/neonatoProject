@@ -7,7 +7,7 @@ import Home from "./scenes/home";
 import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";
 import Bar from "./scenes/bar";
-import Form from "./scenes/form";
+import FormData from "./scenes/form";
 import Line from "./scenes/line";
 import AllData from "./scenes/alldata";
 import Pie from "./scenes/pie";
@@ -32,7 +32,7 @@ function App() {
               <Route path="/alldata" element={<AllData/>} />
               <Route path="/team" element={<Team/>} />
               <Route path="/contacts" element={<Contacts />} />
-              <Route path="/form" element={<Form />} />
+              <Route path="/form" element={<FormData/>} />
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
