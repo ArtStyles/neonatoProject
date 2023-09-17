@@ -35,7 +35,7 @@ const AllData=()=>{
       {!loading &&
         <Form 
         initialValues={paciente}
-        title={"Informacion del paciente"}  
+        title={`Informacion del paciente: ${paciente.nombre} ${paciente.apellidos}`}  
         subtitle={"Todos los datos del paciente"}
         />
       }
