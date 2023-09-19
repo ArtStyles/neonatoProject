@@ -3,7 +3,8 @@ import {makeFetch} from './makeFetch'
 
 export function getAllInfo({id}){
     const query = `{
-        paciente( id:"${id}"){ 
+        paciente( id:"${id}"){
+            id 
             fecha
             nombre
             apellidos

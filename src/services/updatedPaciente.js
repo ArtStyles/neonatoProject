@@ -2,10 +2,11 @@ import { PartyModeSharp } from '@mui/icons-material';
 import {makeFetch} from './makeFetch'
 
 
-export function createPaciente({params}){
+export function updatePaciente({params}){
     const query = `
     mutation {
-        createPaciente(
+        updatePaciente(
+            id:"${params.id}"
             fecha:"${params.fecha.substring(0,10)}"
             nombre:"${params.nombre}"
             apellidos:"${params.apellidos}"
@@ -26,7 +27,7 @@ export function createPaciente({params}){
             hojaConf:${params.hojaConf===""?"EMPTY":params.hojaConf}
             accionInmediatas:${params.accionInmediatas===""?"EMPTY":params.accionInmediatas}
             cronogramaSeg:${params.cronogramaSeg===""?"EMPTY":params.cronogramaSeg}
-            infoMaternidad:${params.infoMaternidad==="0"?"EMPTY":params.infoMaternidad}
+            infoMaternidad:${params.infoMaternidad===""?"EMPTY":params.infoMaternidad}
             coordinacionEquipo:${params.coordinacionEquipo===""?"EMPTY":params.coordinacionEquipo}
             criterioCirujano:${params.criterioCirujano===""?"EMPTY":params.criterioCirujano}
             presenciaEnSalon:${params.presenciaEnSalon===""?"EMPTY":params.presenciaEnSalon}
@@ -43,7 +44,7 @@ export function createPaciente({params}){
             estudiosInterQuirurgica:${params.estudiosInterQuirurgica===""?"EMPTY":params.estudiosInterQuirurgica}
             docContrarref:${params.docContrarref===""?"EMPTY":params.docContrarref}
             programaAcciones:${params.programaAcciones===""?"EMPTY":params.programaAcciones}
-            cronogramaAtencion:${params.cronogramaAtencion==="0"?"EMPTY":params.cronogramaAtencion}
+            cronogramaAtencion:${params.cronogramaAtencion===""?"EMPTY":params.cronogramaAtencion}
             confirSegundaOpinion:${params.confirSegundaOpinion===""?"EMPTY":params.confirSegundaOpinion}
             verificarEquipoQuirurgico:${params.verificarEquipoQuirurgico===""?"EMPTY":params.verificarEquipoQuirurgico}
             verificarEquipoAnestesico:${params.verificarEquipoAnestesico===""?"EMPTY":params.verificarEquipoAnestesico}

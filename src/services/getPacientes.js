@@ -9,6 +9,7 @@ const query = `{
                 municipio,
                 provincia,
                 fecha,
+                diagnosticoEgreso,
             }
         }
     }

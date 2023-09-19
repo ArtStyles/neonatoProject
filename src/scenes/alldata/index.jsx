@@ -34,9 +34,11 @@ const AllData=()=>{
        {loading && <div className = "loader-container"><Loader/></div> }
       {!loading &&
         <Form 
+        onSubmit={"updatePaciente"}
         initialValues={paciente}
         title={`Informacion del paciente: ${paciente.nombre} ${paciente.apellidos}`}  
         subtitle={"Todos los datos del paciente"}
+        id = {id}
         />
       }
     
