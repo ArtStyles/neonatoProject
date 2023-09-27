@@ -22,19 +22,25 @@ import ConfirmationAdv from "./ConfirmationAdvice";
 import { deletePaciente } from "../services/deletePacienete";
 import { useNavigate } from "react-router-dom";
 
-
-const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
+const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [popoverIsVisible, showPopover] = useState(false);
   const [advice, setAdvice] = useState(true);
-  const boxRef = useRef(null);
+  const topRef = useRef(null);
   const deleteRef = useRef(null);
   const navigate = useNavigate();
+  const [info, updateInfo] = useState(false);
 
- 
-  const HandleFormSubmit = (values) => {
+  const scrollToTop = () => {
+    // Utiliza el método scrollIntoView() para desplazarte hacia el elemento
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleFormSubmit = (values) => {
     console.log(values);
     var empty = false;
     for (var key in values) {
@@ -44,16 +50,18 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
       }
     }
 
-    onSubmit === "updatePaciente"
-      ? updatePaciente({ params: values })
-      : createPaciente({ params: values });
-
+    if (onSubmit === "updatePaciente") {
+      updatePaciente({ params: values });
+      updateInfo(!info);
+    } else {
+      createPaciente({ params: values });
+      updateInfo(!info);
+    }
+    scrollToTop();
     setAdvice(false);
-    setTimeout(() => setAdvice(true), 3000);
-    window.scrollTo(0, 0);
-    boxRef.current.scrollTo(0, 0);
-  };
-  
+    setTimeout(() => setAdvice(true), 2000);
+    };
+
   const handleOnChecked = ({ val, campo }) => {
     if (val !== campo) val = campo;
     else val = "EMPTY";
@@ -61,19 +69,11 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
   };
 
   return (
-    <Box m="20px" style={{ height: "100%" }}>
+    <Box m="20px" ref={topRef}>
       <Header title={title} subtitle={subtitle} />
-      <Box
-        style={{
-          overflow: "auto",
-          height: "108%",
-          width: "100%",
-          padding: "0px 0px 40px 0px",
-        }}
-        ref={boxRef}
-      >
+      <Box>
         <Formik
-          onSubmit={HandleFormSubmit}
+          onSubmit={handleFormSubmit}
           initialValues={initialValues}
           validationSchema={checkoutSchema}
           validateOnChange={false}
@@ -89,19 +89,40 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
             setFieldValue,
           }) => (
             <form onSubmit={handleSubmit}>
-              {<ScrollToFirstError myRef={boxRef} />}
+              <ScrollToFirstError myRef={topRef} />
               <Box
                 display="grid"
                 gap="30px"
                 gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                 sx={{
-                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },          
+                  "& .css-100dxe7-MuiPaper-root-MuiAccordion-root":{
+                    backgroundImage:`linear-gradient(${colors.greenSpace[700]}, ${colors.greenSpace[700]}) !important`,
+                    boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]} !important`
+                  },
+                  "& .css-1tu6j12-MuiPaper-root-MuiAccordion-root":{
+                    backgroundImage:`linear-gradient(${colors.greenSpace[700]}, ${colors.greenSpace[700]}) !important`,
+                    boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]} !important`
+                  },
+                  "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root ":{
+                    backgroundColor:`${colors.greenSpace[500]} important`,
+                  
+                  },
+                  "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root:after":{
+                    borderBottom:`2px solid${colors.greenSpace[800]} !important`,
+                  
+                  },
+                  "& .Mui-focused":{
+                    color:`${colors.greenSpace[300]} !important`,
+                  
+                  },
+
                 }}
               >
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.grey[700],
+                   
                   }}
                   defaultExpanded
                 >
@@ -115,7 +136,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                       fullWidth
                       type="date"
                       onChange={handleChange}
-                      value={values.fecha}
+                      value={String(values.fecha).substring(0,10)}
                       name="fecha"
                       error={!!touched.fecha && !!errors.fecha}
                       helperText={touched.fecha && errors.fecha}
@@ -371,7 +392,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.grey[700],
+                    backgroundColor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -466,19 +487,24 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                         },
                       ]}
                     />
-
-                    <TextField
-                      fullWidth
-                      sx={{ gridColumn: "span 2" }}
-                      type="number"
-                      label="Numero de Controles de Embarazo"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.numeroControl}
-                      name="numeroControl"
-                      error={!!touched.numeroControl && !!errors.numeroControl}
-                      helperText={touched.numeroControl && errors.numeroControl}
-                    />
+                    <div
+                    style={{ display:"flex",justifyContent: "center", alignItems: "center", gridColumn:"span 4"}}>
+                      <TextField
+                      sx={{ width:"230px"}}
+                        type="number"
+                        label="Numero de Controles de Embarazo"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.numeroControl}
+                        name="numeroControl"
+                        error={
+                          !!touched.numeroControl && !!errors.numeroControl
+                        }
+                        helperText={
+                          touched.numeroControl && errors.numeroControl
+                        }
+                      />
+                    </div>
 
                     <CheckField
                       title="Diagnóstico prenatal"
@@ -512,7 +538,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.grey[700],
+                    backgroundColor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -608,7 +634,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.grey[700],
+                    backgroundColor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -713,7 +739,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.grey[700],
+                    backgroundColor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -825,8 +851,8 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                     <CheckField
                       title="Coordinacción del traslado"
                       value={values.coordinacionTraslado1}
-                      checkBoxNames={["Si", "No", "Np"]}
-                      cantElments={["SI", "NO", "NP"]}
+                      checkBoxNames={["Si", "No"]}
+                      cantElments={["SI", "NO"]}
                       onChange={[
                         () => {
                           setFieldValue(
@@ -846,15 +872,6 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                             })
                           );
                         },
-                        () => {
-                          setFieldValue(
-                            "coordinacionTraslado1",
-                            handleOnChecked({
-                              val: values.coordinacionTraslado1,
-                              campo: "NP",
-                            })
-                          );
-                        },
                       ]}
                     />
                   </AccordionDetails>
@@ -863,7 +880,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.grey[700],
+                    backgroundColor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -903,8 +920,8 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                     <CheckField
                       title="Coordinacción del traslado"
                       value={values.coordinacionTraslado2}
-                      checkBoxNames={["Si", "No", "Np"]}
-                      cantElments={["SI", "NO", "NP"]}
+                      checkBoxNames={["Si", "No"]}
+                      cantElments={["SI", "NO"]}
                       onChange={[
                         () => {
                           setFieldValue(
@@ -921,15 +938,6 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                             handleOnChecked({
                               val: values.coordinacionTraslado2,
                               campo: "NO",
-                            })
-                          );
-                        },
-                        () => {
-                          setFieldValue(
-                            "coordinacionTraslado2",
-                            handleOnChecked({
-                              val: values.coordinacionTraslado2,
-                              campo: "NP",
                             })
                           );
                         },
@@ -1221,7 +1229,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.grey[700],
+                    backgroundColor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -1317,7 +1325,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.grey[700],
+                    backgroundColor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -1367,20 +1375,17 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                     variant="contained"
                     ref={deleteRef}
                   >
-                    {popoverIsVisible &&  
-                        <ConfirmationAdv
+                    {popoverIsVisible && (
+                      <ConfirmationAdv
                         popoverIsVisivle={popoverIsVisible}
-                        togglePopover={() => showPopover(!popoverIsVisible) } 
-                        delete={()=>{
-                          deletePaciente({id:id})
-                            }
-
-                         }
+                        togglePopover={() => showPopover(!popoverIsVisible)}
+                        delete={() => {
+                          deletePaciente({ id: id });
+                        }}
                         anchorElement={deleteRef.current}
-                        navigate ={()=> navigate("/contacts")}
-                        
+                        navigate={() => navigate("/contacts")}
                       />
-                    }
+                    )}
                     Eliminar
                   </Button>
                 )}
@@ -1388,16 +1393,15 @@ const Form = ({ title, subtitle, initialValues, onSubmit,id }) => {
                   {onSubmit === "updatePaciente" ? "Actualizar" : "Aceptar"}
                 </Button>
               </Box>
-              {!advice && (
-                <Advice
+              {!advice&&<Advice
                   title={
                     onSubmit === "updatePaciente"
                       ? "Datos actualizados correctamente"
                       : "Datos añadidos correctamente"
                   }
                   colorBox={"green"}
-                />
-              )}
+                  type = "success"
+                />}
             </form>
           )}
         </Formik>

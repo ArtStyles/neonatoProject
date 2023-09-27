@@ -1,8 +1,7 @@
-import {makeFetch} from './makeFetch'
+import { makeFetch } from "./makeFetch";
 
-
-export function getAllInfo({id}){
-    const query = `{
+export function getAllInfo({ id }) {
+  const query = `{
         paciente( id:"${id}"){
             id 
             fecha
@@ -49,7 +48,8 @@ export function getAllInfo({id}){
             clasificacion
             
         }
-    }`
-    return makeFetch({query:query})
-    .then(data => {return data})
+    }`;
+  return makeFetch({ query: query }).then((data) => {
+    return data;
+  });
 }

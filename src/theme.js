@@ -1,6 +1,8 @@
 import { createContext, useState,useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 
+
+
 //colors design tokens
 export const tokens = (mode) =>({
 
@@ -17,6 +19,28 @@ export const tokens = (mode) =>({
         800: "#292929",
         900: "#141414"
     },
+    greenSpace: {
+        100: "#cfd1d1",
+        200: "#9fa3a3",
+        300: "#6e7476",
+        400: "#3e4648",
+        500: "#0e181a",
+        600: "#0b1315",
+        700: "#080e10",
+        800: "#060a0a",
+        900: "#030505"
+    },
+    blackGreenSpace: {
+        100: "#cdcfcf",
+        200: "#9b9e9f",
+        300: "#696e6f",
+        400: "#373d3f",
+        500: "#050d0f",
+        600: "#040a0c",
+        700: "#030809",
+        800: "#020506",
+        900: "#010303"
+    },
     primary: {
         100: "#d0d1d5",
         200: "#a1a4ab",
@@ -28,6 +52,7 @@ export const tokens = (mode) =>({
         800: "#080b12",
         900: "#040509"
     },
+
     greenAccent: {
         100: "#dbf5ee",
         200: "#b7ebde",
@@ -51,8 +76,8 @@ export const tokens = (mode) =>({
         900: "#2c100f"
     },
     blueAccent: {
-        100: "#e1e2fe",
-        200: "#c3c6fd",
+        100: "#c3c6fd",
+        200: "#e1e2fe",
         300: "#a4a9fc",
         400: "#868dfb",
         500: "#6870fa",
@@ -62,6 +87,28 @@ export const tokens = (mode) =>({
         900: "#151632"
     },
 }: {
+    greenSpace: {
+        100: "#030505",
+        200: "#060a0a",
+        300: "#080e10",
+        400: "#0b1315",
+        500: "#0e181a",
+        600: "#3e4648",
+        700: "#6e7476",
+        800: "#9fa3a3",
+        900: "#cfd1d1",
+    },
+    blackGreenSpace: {
+        100: "#010303",
+        200: "#020506",
+        300: "#030809",
+        400: "#040a0c",
+        500: "#050d0f",
+        600: "#373d3f",
+        700: "#696e6f",
+        800: "#9b9e9f",
+        900: "#cdcfcf",
+    },
     grey: {
         100: "#141414",
         200: "#292929",

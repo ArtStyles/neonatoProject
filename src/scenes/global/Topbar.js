@@ -9,14 +9,23 @@ import  NotificationsModeOutlinedIcon  from '@mui/icons-material/NotificationAdd
 import  SettingsOutlinedIcon  from '@mui/icons-material/SettingsOutlined';
 import  PersonOutlinedIcon  from '@mui/icons-material/PersonOutlined';
 import  SearchIcon from '@mui/icons-material/SearchOutlined';
+import { useNavigate } from 'react-router-dom';
 
 
 const Topbar=()=>{
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
+    const navigate = useNavigate();
     return (
-        <Box display= "flex" justifyContent="space-between" p={2}>
+        <Box display= "flex" justifyContent="space-between" p={2} 
+            boxShadow={`0px  0px 1px 0px ${colors.greenSpace[100]}`}
+            sx = {{
+                "& .MuiBox-root":{
+                boxShadow:`0px  0px 1px 0px ${colors.greenSpace[100]}`
+            },
+            }}
+        >
            {/* Search bar */}
            <Box   display="flex" 
                 backgroundColor={colors.primary[700]}
@@ -40,7 +49,7 @@ const Topbar=()=>{
                 </IconButton>
 
                 <IconButton>
-                    <SettingsOutlinedIcon/>
+                    <SettingsOutlinedIcon onClick={()=>navigate("/controlUser")}/>
                 </IconButton>
 
                 <IconButton>

@@ -41,7 +41,7 @@ body {
 
   
 ::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: #2c2b2b;
 }
 
 .fade {
@@ -57,7 +57,7 @@ body {
   }
 }
 
-.menu-item:hover {
-  background-color: #4b3d3d !important;
 
-}
+
+
+

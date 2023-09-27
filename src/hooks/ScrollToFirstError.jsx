@@ -7,8 +7,7 @@ const ScrollToFirstError = ({ myRef}) => {
   const  [advice,setAdvice] = useState(false);
   useEffect(() => {
     if (isSubmitting && !isValidating && Object.keys(errors).length > 0) {
-      myRef.current.scrollTo(0, 0);
-      window.scrollTo(0, 0);
+      myRef.current.scrollIntoView({ behavior: 'smooth' });
       setAdvice(true);
       setTimeout(() =>{setAdvice(false)},3000);
     }
@@ -17,7 +16,7 @@ const ScrollToFirstError = ({ myRef}) => {
   return (
     <>
       {
-        advice && <Advice title="Complete los campos obligatorios" colorBox={"red"}/>
+        advice && <Advice title="Complete los campos obligatorios" colorBox={"red"} type = "warning"/>
       }
     </>
   );

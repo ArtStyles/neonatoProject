@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
@@ -11,26 +11,23 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import  logo  from "../../img/logo.jpeg"
+import logo from "../../img/OCCN2.svg";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Link to= {to} style={{textDecorationLine:"none"}}>
-    <MenuItem
-      active={selected === title}
-     
-      style={{
-        color: colors.grey[100],
-      
-      }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-      
-    >
-      <Typography >{title}</Typography>
-    </MenuItem>
+    <Link to={to} style={{ textDecorationLine: "none" }}>
+      <MenuItem
+        active={selected === title}
+        style={{
+          color: colors.grey[100],
+        }}
+        onClick={() => setSelected(title)}
+        icon={icon}
+      >
+        <Typography>{title}</Typography>
+      </MenuItem>
     </Link>
   );
 };
@@ -43,27 +40,51 @@ const SideBar = () => {
 
   return (
     <Box
-    sx={{
-        "& .pro-sidebar-inner": {
-          background: `${colors.grey[800]} !important`,
+  
+      sx={{
+        "& .ps-sidebar-root":{
+            width:"200px;"
         },
-        "& .pro-icon-wrapper": {
+        "& .sidebar-inner": {
+          background: `${colors.grey[100]} !important`,
+        },
+        "& .ps-menu-root": {
+          backgroundColor: `${colors.greenSpace[700]} !important`,
+        },
+        "& .icon-wrapper": {
           backgroundColor: "transparent !important",
         },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
+        "& .inner-item": {
+          padding: "5px px 5px 20px !important",
         },
-        "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+        "a:hover": {
+          color: `${colors.greenAccent[700]} !important`,
+          backgroundColor:"transparent !important",
+          boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]}`
         },
-        "& .pro-menu-item.active": {
-          color: "#446b !important",
+        "& .ps-active": {
+          color: `${colors.greenAccent[400]} !important`,
+        },
+        "& .ps-sidebar-container": {
+          overflowY: "hidden !important",
+          
+        },
+        "& .css-pxpt32": {
+          paddingTop: "25px",
+          
+        },
+        "& .css-1wvake5": {
+          borderRight: "none !important",
+          boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]}`
+          
         },
       }}
-       
     >
-      <Sidebar collapsed={isCollapsed}>
-        <Menu iconShape="square" style={{height:"900px",backgroundColor:colors.grey[800]}}>
+      <Sidebar collapsed={isCollapsed} >
+        <Menu
+          iconShape="square"
+          style={{ height: "100vh", }}
+        >
           {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -71,7 +92,6 @@ const SideBar = () => {
             style={{
               color: colors.grey[100],
             }}
-          
           >
             {!isCollapsed && (
               <Box
@@ -80,7 +100,7 @@ const SideBar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[200]}>
+                <Typography variant="h4" color={colors.grey[200]}>
                   MENÚ
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -91,32 +111,35 @@ const SideBar = () => {
           </MenuItem>
 
           {!isCollapsed && (
-            <Box mb="25">
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-
-                  alt="logo-salud-pública"
-                  width="100px"
-                  height="100px"
-                  src={logo}
-                  style={{ cursor: "pointer", borderRadius: "40%",backgroundSize: "auto",}}
+            <>       
+            <Box
+              mb="25"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              flexDirection={"column"}
+            >
+              <Box width="150px" height="150px">
+                <div
+                  style={{
+                    backgroundImage: `url(${logo})`,
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "cover",
+                    backgroundSize: "50%",
+                    backgroundRepeat: "no-repeat",
+                    borderRadius: "50px",
+                    backgroundPosition: "center",
+                   
+                  }}
                  
-                />
+                ></div>
               </Box>
-              <Box textAlign="center">
-                <Typography
-                  variant="h3"
-                  color={colors.grey[200]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                  Ministerio de Salud Pública
-                </Typography>
-                <Typography variant="h5" color={colors.greenAccent[100]}>
-                  Atención al neonato 
-                </Typography>
-              </Box>
+  
             </Box>
+            
+            </>
+     
           )}
 
           <Box paddingTop={"40px"}>
@@ -130,11 +153,11 @@ const SideBar = () => {
 
             <Item
               title="Control de Usuarios"
-              to ="/team"
+              to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-              style={{paddingLeft:"20px"}}
+              style={{ paddingLeft: "20px" }}
             />
             <Item
               title="Datos de los Pacientes"
@@ -151,8 +174,6 @@ const SideBar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-      
-
 
             <Item
               title="Bar Chart"
@@ -165,13 +186,6 @@ const SideBar = () => {
               title="Pie Chart"
               to="/pie"
               icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

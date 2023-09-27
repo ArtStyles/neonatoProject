@@ -69,14 +69,15 @@ const Team = () => {
   ];
 
   return (
-    <Box m="20px">
+    <Box m="10px">
       <Header title="Control de Usuarios" subtitle="Control de los usuarios del sistema" />
       <Box
-        m="40px 0 0 0"
-        height="75vh"
+        m="10px 0 0 0"
+        height="72vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
+            boxShadow:`0px  0px 1px 0px ${colors.greenSpace[100]}`
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
@@ -85,22 +86,22 @@ const Team = () => {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenSpace[700],
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
+            backgroundColor: colors.greenSpace[500],
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenSpace[700],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid  rows={mockDataTeam} columns={columns} />
       </Box>
     </Box>
   );

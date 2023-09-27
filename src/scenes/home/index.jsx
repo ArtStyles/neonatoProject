@@ -1,107 +1,120 @@
-import { Box,  Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import image1  from "../../img/img1.jpeg"
+import image1 from "../../img/img1.jpeg";
 import { Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-
-
-
+import logo from "../../img/OCCN2.svg";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
-    <Link to= {to} style={{textDecorationLine:"none"}}>
-    <MenuItem
-      active={selected === title}
-      style={{
-        color: colors.primary[100],
-      
-      }}
-      onClick={() => setSelected(title)}
-      icon={icon}
-    >
-      <Typography >{title}</Typography>
-    </MenuItem>
+    <Link to={to} style={{ textDecorationLine: "none" }}>
+      <MenuItem
+        active={selected === title}
+        style={{
+          color: colors.primary[100],
+        }}
+        onClick={() => setSelected(title)}
+        icon={icon}
+      >
+        <Typography>{title}</Typography>
+      </MenuItem>
     </Link>
   );
 };
 
 const Home = () => {
-
   const [selected, setSelected] = useState("Home");
-
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   return (
-    <Box m="20px">
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="HOME"  />
+    <Box
+      m="20px"
+      display={"flex"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      flexDirection={"column"}
+      position={"relative"}
+      
+    >
+      <Box alignSelf={"flex-start"}>
+          <Header title="HOME" />
+      </Box>
+      <Box display={"flex"} 
+           zIndex={"10"} width={"100%"} flexWrap={"wrap"}
+        sx={{ 
+            "a:hover": {
+            color: `${colors.greenAccent[700]} !important`,
+            backgroundColor:"transparent !important",
+            boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]}`,            
+            },
+           "& .ps-active": {
+            color: `${colors.greenAccent[400]} !important`,
 
+          },
+        }}
+      >
+        <Menu iconShape="square" > 
+          <Item
+          
+            to="/team"
+            icon={<PeopleOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <Item
+            to="/contacts"
+            icon={<ContactsOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+
+          <Item
+            to="/form"
+            icon={<PersonOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          </Menu>
       </Box>
       <Box
+
+        width={"70vw"}
+        height={"80vh"}
         display={"flex"}
-        
+        alignItems={"center"}
+        justifyContent={"center"}
+        position={"absolute"}
+        top={"0"} 
       >
-        <Menu iconShape="square" >
+        <div
+          style={{
+            backgroundImage: `url(${logo})`,
+            width: "100%",
+            height: "100%",
+            backgroundRepeat: "no-repeat",
+            alignSelf: "center",
+            backgroundPosition:"center",
+            opacity:"0.7",
+            display:"flex",
+            alignItems:"center",
+            textAlign:"center",
+            justifyContent:"center",
+            backgroundBlendMode:"difference"
 
-          <Box display={"inline-block"}
-          >
-              <Item
-                title="Control de Usuarios"
-                to="/team"
-                icon={<PeopleOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-          </Box>
-          <Box display={"inline-block"}>
-              <Item
-                title="Datos de los Pacientes"
-                to="/contacts"
-                icon={<ContactsOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-          </Box>
-          <Box display={"inline-block"}>
-              <Item
-                title="Ingresar Pacientes"
-                to="/form"
-                icon={<PersonOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-          </Box>
-        </Menu>
+          }}
+        >
+          <Typography variant="h2" fontWeight={"800"} color={colors.greenAccent[600]}>Observatorio Central de Cirugía Neonatal</Typography>
+        </div>
       </Box>
-
-
-      <Box 
-        width={"100%"}
-        height={"500px"}
-      >
-       <img clasName="image" src={image1} alt="" width={"100%"} height={"500px"}
-        style={{opacity:"0.4"}}  /> 
-      
-      <Typography color={"wihte"} variant="h2" fontFamily={"cursive"}>
-        Graduarse de médico es abrir las puertas de un largo camino que conduce a la más noble actividad
-        que un ser humano puede hacer por los demás                        
-      </Typography>
-      <Typography color={"wihte"} variant="h2" fontFamily={"cursive"} textAlign={"end"}>
-        Fidel Castro Rúz                     
-      </Typography>
-      
-
-
-      </Box>
-
-
     </Box>
   );
 };

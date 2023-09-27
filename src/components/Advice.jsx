@@ -1,27 +1,25 @@
-import { Box,Typography } from "@mui/material";
+import { Box,Typography,Alert } from "@mui/material";
+import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 
 
-const Advice = ({title,colorBox}) => {
-    return(
-      <Box 
-        width={"230px"} 
-        height = {"40px"}
-        display={"fixed"}
-        position={"absolute"}
-        backgroundColor={colorBox}
-        color = {"white"}
-        zIndex={"10"}
-        top={"120px"}
-        right={"20px"}
-        borderRadius={"10px"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        className = "fade"
-        >
-        <Typography>
-          <h4>{title}</h4>
-        </Typography>
-      </Box>
+
+
+const Advice = ({title,colorBox,type}) => {
+
+  return(
+      <Box sx={{ width: 500 }}>
+      <Snackbar
+        anchorOrigin={{ vertical:'top', horizontal:'right' }}
+        open={"true"}
+        message="I love snacks"
+        key={"left" + "top"} 
+        autoHideDuration={3000}
+      >
+        <Alert variant="filled" color={type} severity={type} sx={{ width: '100%' }}>
+            {title}
+        </Alert>
+      </Snackbar>
+    </Box>
     )
 };
 

@@ -29,18 +29,19 @@ const Contacts = () => {
   },[])
 
   return (
-    <Box m="20px" position={"relative"}>
+    <Box m="10px" position={"relative"} display={"flex"} flexDirection={"column"}>
       <Header
         title="Datos de los Pacientes"
         subtitle="Informacion relacionada con los pacientes para determinar diagnóstico"
       />
       
       <Box
-        m="40px 0 0 0"
-        height="75vh"
+        m="5px 0 0 0"
+        height="72vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
+            boxShadow:`0px  0px 1px 0px ${colors.greenSpace[100]}`
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
@@ -49,15 +50,15 @@ const Contacts = () => {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[800],
+            backgroundColor: colors.greenSpace[700],
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[800],
+            backgroundColor: colors.greenSpace[500],
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenSpace[700],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
@@ -65,7 +66,12 @@ const Contacts = () => {
         }}
       >
         {loading && <div className = "loader-container"><Loader/></div>}
-        <DataGrid hideFilterPanel setFilterLogicOperator={GridLogicOperator.And} checkboxSelection rows={pacientes.map(paciente => paciente.node)} columns={columns}/>
+        <DataGrid 
+        disableColumnFilter
+        disableColumnSelector
+        disableColumnMenu       
+        rows={pacientes.map(paciente => paciente.node)} 
+        columns={columns}/>
       </Box>
     </Box>
   );
