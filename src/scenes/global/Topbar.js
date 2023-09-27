@@ -49,10 +49,6 @@ const Topbar=()=>{
                 </IconButton>
 
                 <IconButton>
-                    <SettingsOutlinedIcon onClick={()=>navigate("/controlUser")}/>
-                </IconButton>
-
-                <IconButton>
                     <PersonOutlinedIcon/>
                 </IconButton>
                 

@@ -8,9 +8,10 @@ const Advice = ({title,colorBox,type}) => {
 
   return(
       <Box sx={{ width: 500 }}>
+        
       <Snackbar
         anchorOrigin={{ vertical:'top', horizontal:'right' }}
-        open={"true"}
+        open={true}
         message="I love snacks"
         key={"left" + "top"} 
         autoHideDuration={3000}

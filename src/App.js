@@ -3,7 +3,7 @@ import { Routes, Route,Navigate } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import SideBar from "./scenes/global/Sidebar";
 import Home from "./scenes/home";
-import Team from "./scenes/team";
+import Team from "./scenes/controlUser";
 import Contacts from "./scenes/contacts";
 import Bar from "./scenes/bar";
 import FormData from "./scenes/form";
@@ -53,13 +53,12 @@ function App() {
               {autenticate?
                   <>
                     <Route path="/alldata" element={<AllData />} />
-                    <Route path="/team" element={<Team />} />
+                    <Route path="/controlUser" element={<Team />} />
                     <Route path="/contacts" element={<Contacts />} />
                     <Route path="/form" element={<FormData />} />
                     <Route path="/bar" element={<Bar />} />
                     <Route path="/pie" element={<Pie />} />
                     <Route path="/line" element={<Line />} />
-                    <Route path="/controlUser" element={<ControlUser/>}/>
                   </>:<>
                     <Route path="/alldata" element={<Login onLogin={handleLogin} autenticate={autenticate}/>}/>
                     <Route path="/team"  element={<Login onLogin={handleLogin} autenticate={autenticate}/>}/>

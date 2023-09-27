@@ -16,13 +16,23 @@ const Contacts = () => {
   const [pacientes, setPacientes] = useState([])
   const [loading, setLoading] = useState(true)
   const {columns} = useDataGridColumns()
-  
-  //se obtienen los pacientes
+
+//   users{
+//     edges{
+//       node{
+//         id,
+//         username,
+//         email
+//       }
+//     }
+//   }
+// }
+
   useEffect(() => {
     setLoading(true)
     getPacientes()
     .then(data => {
-      setPacientes(data.data.pacientes.edges)
+      setPacientes(data.data.paciente.edges)
       console.log(data.data.pacientes.edges)
       setLoading(false)
     })

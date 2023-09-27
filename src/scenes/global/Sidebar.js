@@ -153,7 +153,7 @@ const SideBar = () => {
 
             <Item
               title="Control de Usuarios"
-              to="/team"
+              to="/controlUser"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
