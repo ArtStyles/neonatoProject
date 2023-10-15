@@ -4,7 +4,7 @@ import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 
 
 
-const Advice = ({title,colorBox,type}) => {
+const Advice = ({title,type}) => {
 
   return(
       <Box sx={{ width: 500 }}>

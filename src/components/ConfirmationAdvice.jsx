@@ -23,8 +23,8 @@ export default function ConfirmationAdv(props) {
         > 
           <Stack direction={"row"} spacing={1} padding={2}>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <p>Esta seguro que desea Eliminar</p>
-              <div style={{display:"flex",gap:"20px", justifyContent:"center", alignItems:"center"}}>
+              Esta seguro que desea Eliminar
+            <div style={{display:"flex",gap:"20px", justifyContent:"center", alignItems:"center"}}>
                 <Button
                   variant="contained"
                   size="small"

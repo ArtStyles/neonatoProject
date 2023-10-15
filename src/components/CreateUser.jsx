@@ -7,19 +7,26 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import {createUser} from "../services/createUser";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import EmailIcon from '@mui/icons-material/Email';
+import PasswordIcon from '@mui/icons-material/Password';
+
 
 
 
 const checkoutSchema = yup.object().shape({
-  password: yup.string().required("required"),
+  password: yup.string().required("required").matches(
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
+    "La contraseña debe  contener al menos \n una mayúscula,  una  minúscula y un  \n número."),
   username: yup.string().required("required"),
-  email: yup.string().required("required"), 
+  email: yup.string().required("required")
 });
 
-const CreateUser=({onClick})=>{
+const CreateUser=({onClick,onCreate})=>{
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [open, close] = useState(true);
+
     const [formData, setFormData] = useState({
       username:"",
       email:"",
@@ -28,12 +35,25 @@ const CreateUser=({onClick})=>{
     });
     const navigate = useNavigate();
 
-      const HandleSubmit = (values) => {  
+      const HandleSubmit = (values,{setFieldError}) => {  
         console.log(values)
-       createUser({username:values.username,isStaff:values.isStaff,email:values.email, password:values.password})  
-       .then(result => console.log(result))
-       navigate("/controlUser")
-        close(!open)
+        createUser({username:values.username,isStaff:values.isStaff,email:values.email, password:values.password})  
+        .then(result => {
+          if (result.errors) {  
+            if(result.errors[0].message==="UNIQUE constraint failed: authentication_customuser.username")
+             setFieldError("username","Ese nombre de usuario ya existe")
+            if(result.errors[0].message==="['Enter a valid email address.']")
+             setFieldError("email","Direccion invalida")
+              console.log(result.errors[0].message)
+          }
+          else{
+            onCreate();
+            close(!open);
+          }
+        });
+        
+      
+       
       };
       
 
@@ -41,7 +61,7 @@ const CreateUser=({onClick})=>{
         <Modal
             open={open}
         >
-            <Box backgraundColor={colors.blackGreenSpace[400]}
+            <Box bgcolor={colors.blackGreenSpace[700]}
             display={"flex"}
             alignItems={"center"}
             flexDirection={"column"}
@@ -49,32 +69,38 @@ const CreateUser=({onClick})=>{
             width={"100%"}
             height={"100%"}
             position = {"relative"}
+            alignSelf="center"
             gap={"5px"}
+            whiteSpace={"pre-line"}
             >
             <Box display="flex" alignItems={"center"} justifyContent={"center"}>   
             <IconButton  style={{display:"flex", gap:"10px"}}  onClick={onClick}>
                  <CloseRoundedIcon/>         
             </IconButton>
-            </Box>  
+            </Box> 
+            <Typography variant = "h2" color={colors.greenAccent[300]} >Create User</Typography>
+            <Typography variant = "h5" color={colors.greenAccent[600]}>Into the data for the new user</Typography> 
             <Formik  
                 initialValues = {formData}
                 onSubmit={HandleSubmit}         
-                validateOnChange={true}
+                validateOnChange={false}
                 validateOnBlur={false}
                 validationSchema={checkoutSchema}
             >
-               {({
-            errors,
-            values,
-            handleSubmit,         
-            handleChange,
-            setFieldValue
+              {({
+                touched,
+                errors,
+                values,
+                handleSubmit,         
+                handleChange,
+             
              })  => (
                 <form  onSubmit={handleSubmit}>
                     <Box
-                     display ="flex"
+                    width = "400px"
+                    display ="flex"
                      gap = "15px"
-                     flexDirection = "column"
+                    flexDirection = "column"
                     padding = "40px"
                     bgcolor={`${colors.greenSpace[500]}`}
                     borderRadius = "15px"
@@ -98,19 +124,25 @@ const CreateUser=({onClick})=>{
                     }}
 
                     >
-                    <Typography variant = "h2" color={colors.greenAccent[300]} >Create User</Typography>
-                    <Typography variant = "h5" color={colors.greenAccent[600]}>Into the data for the new user</Typography>
-                    <TextField
-                      fullWidth
-                      label="Username"
-                      type="text"
-                      value={values.username}
-                      name="username"
-                      onChange={handleChange}
-                      error={errors.username}
-                      helperText={errors.username}
-                    />
-                    <TextField
+                   
+                    <Box display="flex" justifyContent={"center"} >
+                    <AccountCircle sx={{ color: 'action.active', mr: 1, my: 2.5 }} />
+                      <TextField
+                        fullWidth
+                        label="Username"
+                        type="text"
+                        value={values.username}
+                        name="username"
+                        onChange={handleChange}
+                        error={touched.username && Boolean(errors.username)}
+                        helperText={touched.username && errors.username}
+                        variant={"standard"}
+                      />
+                    </Box>
+
+                    <Box display="flex" justifyContent={"center"} >
+                      <EmailIcon sx={{ color: 'action.active', mr: 1, my: 2.5 }} />
+                      <TextField
                       fullWidth
                       label="Mail"
                       type="text"
@@ -119,7 +151,26 @@ const CreateUser=({onClick})=>{
                       onChange={handleChange}
                       error={errors.email}
                       helperText={errors.email}
+                      variant = "standard"
                     />
+                    </Box>
+
+                    <Box display={"flex"}  justifyContent={"center"} >
+                      <PasswordIcon sx={{ color: 'action.active', mr:1,my: 2.5 }}/>
+                      <TextField
+                        fullWidth
+                        label="password"
+                        type="password"
+                        value={values.password}
+                        name="password"
+                        onChange={handleChange}
+                        error={errors.password}
+                        helperText={errors.password}
+                        variant="standard"
+                      />
+
+                    </Box>
+
                     <Box display={"flex"} gap="20px" justifyContent={"center"} alignItems={"center"}>
                       <p>Admin permisson</p>
                       <TextField
@@ -130,21 +181,15 @@ const CreateUser=({onClick})=>{
                       onClick={handleChange}
                     />
                     </Box>
-                    <TextField
-                      fullWidth
-                      label="password"
-                      type="password"
-                      value={values.password}
-                      name="password"
-                      onChange={handleChange}
-                      error={errors.password}
-                      helperText={errors.password}
-                    />
+
+     
+
                     <></>
                     <TextField
                       fullWidth
                       type="submit"
                       name="button"
+
                       style={{backgroundColor:colors.greenSpace[500],}}
                       onSubmit={handleSubmit}
                     />
@@ -156,8 +201,6 @@ const CreateUser=({onClick})=>{
         </Box>
         </Modal>
         
-
-
     );
 }
 

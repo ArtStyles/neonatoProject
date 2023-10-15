@@ -46,10 +46,17 @@ export function getAllInfo({ id }) {
             verificarEquipoQuirurgico
             verificarEquipoAnestesico
             clasificacion
+            evaluacionAtencionPrimaria,
+            evaluacionRegresoNeonatoOperado,
+            evaluacionHogarMaterno,
+            evaluacionServicioNeonatologiaProvinciales,
+            evaluacionServicioNeonatologiaCerecine,
+            evaluacionEquipoQuirurgico,
             
         }
     }`;
   return makeFetch({ query: query }).then((data) => {
+    console.log(data);
     return data;
   });
 }

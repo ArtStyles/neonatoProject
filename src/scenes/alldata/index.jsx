@@ -5,7 +5,7 @@ import Form from "../../components/Form";
 import { useLocation } from "react-router-dom";
 import Loader from "../../components/Loader";
 
-const AllData=()=>{
+const AllData=({mainRef})=>{
   const url = useLocation();
   const id = url.search.replace("?","");
   console.log(id);
@@ -33,6 +33,7 @@ const AllData=()=>{
         title={`Informacion del paciente: ${paciente.nombre} ${paciente.apellidos}`}  
         subtitle={"Todos los datos del paciente"}
         id = {id}
+        mainRef={mainRef}
         />
       }
     

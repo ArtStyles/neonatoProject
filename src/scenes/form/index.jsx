@@ -6,14 +6,18 @@ import { values } from "../../data/initialValues";
 
 
 
-const FormData=()=>{
+const FormData=({mainRef})=>{
     
+
   return(
     <>
       <Form 
       initialValues={values} 
       title={"Ingresar datos del paciente"} 
-      subtitle={"Formulario con los datos a ingresar"}/>
+      subtitle={"Formulario con los datos a ingresar"}
+      mainRef = {mainRef}
+      />
+      
 
     </>
 

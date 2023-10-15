@@ -12,27 +12,32 @@ export function useDataGridColumns(){
     const columns = [
         { field: "nombre", 
           headerName: "Nombre del neonato",
+          minWidth:100,
           flex: 0.7
         },
         {
           field: "nombreDeLaMadre",
           headerName: "Nombre de la madre",
           flex: 1,
+          minWidth:120,
           cellClassName: "name-column--cell",
         },
         {
           field: "municipio",
           headerName: "Municipio",
+          minWidth:100,
           flex: 0.8,
         },
         {
           field: "provincia",
           headerName: "Provincia",
+          minWidth:100,
           flex: 1,
         },
         {
           field:"fecha",
           headerName: "Fecha",
+          minWidth:100,
           flex: 0.6,
           renderCell: (params) => (
             <Typography variant="subtitle2" color="secondary">
@@ -43,12 +48,14 @@ export function useDataGridColumns(){
         {
           field: "diagnosticoEgreso",
           headerName: "Diagnóstico al egreso",
+          minWidth:100,
           flex: 1,
         },
         {
           field: "id",
           headerName: "Todo la info",
           type: "button",
+          minWidth:100,
           flex: 0.5,
           filterable: false,
           renderCell: (params) => (

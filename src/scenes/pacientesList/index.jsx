@@ -3,40 +3,39 @@ import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { GridLogicOperator } from "@mui/x-data-grid";
 import {useEffect, useState} from 'react'
 import {getPacientes} from '../../services/getPacientes'
 import { useDataGridColumns } from "../../customHooks/useDataGridColumns";
 import Loader from '../../components/Loader'
 import './index.css'
+import DataGridFilter from "../../components/DataGridFilter";
 
-const Contacts = () => {
+const PacientesList = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [pacientes, setPacientes] = useState([])
   const [loading, setLoading] = useState(true)
   const {columns} = useDataGridColumns()
-
-//   users{
-//     edges{
-//       node{
-//         id,
-//         username,
-//         email
-//       }
-//     }
-//   }
-// }
+  
 
   useEffect(() => {
     setLoading(true)
     getPacientes()
     .then(data => {
-      setPacientes(data.data.paciente.edges)
+      setPacientes(data.data.pacientes.edges)
       console.log(data.data.pacientes.edges)
       setLoading(false)
     })
   },[])
+
+  const handleOnFilter = (dataFilter) =>{
+    setLoading(true)
+    getPacientes()
+    .then(data => {
+      setPacientes(dataFilter)
+      setLoading(false)
+    })
+  }
 
   return (
     <Box m="10px" position={"relative"} display={"flex"} flexDirection={"column"}>
@@ -44,7 +43,7 @@ const Contacts = () => {
         title="Datos de los Pacientes"
         subtitle="Informacion relacionada con los pacientes para determinar diagnóstico"
       />
-      
+      <DataGridFilter onFilter={handleOnFilter}/>
       <Box
         m="5px 0 0 0"
         height="72vh"
@@ -77,9 +76,9 @@ const Contacts = () => {
       >
         {loading && <div className = "loader-container"><Loader/></div>}
         <DataGrid 
-        disableColumnFilter
+        
         disableColumnSelector
-        disableColumnMenu       
+            
         rows={pacientes.map(paciente => paciente.node)} 
         columns={columns}/>
       </Box>
@@ -87,4 +86,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default PacientesList;

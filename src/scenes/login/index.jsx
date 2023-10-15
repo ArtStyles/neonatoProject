@@ -1,13 +1,14 @@
-import React, { useState,useRef } from 'react';
-import {useEffect} from 'react';
-import axios from 'axios';
+import React, { useState, } from 'react';
 import { Box } from '@mui/material';
 import { tokens } from '../../theme';
-import {useTheme,TextField,Typography,Modal} from '@mui/material';
+import {useTheme,TextField,Typography,Modal,IconButton} from '@mui/material';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import { authenticate } from '../../services/authentication';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import {currentUser} from '../../services/currentUser';
+
 
 const checkoutSchema = yup.object().shape({
   password: yup.string().required("required"),
@@ -15,40 +16,46 @@ const checkoutSchema = yup.object().shape({
  
 });
 
-export default function Login({autenticate,onLogin}){
+export default function Login({onLogin}){
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [formData, setFormData] = useState({
       username:"",
       password:""
     });
-      const [aut,setAut] = useState(autenticate);
- 
+    const [aut,setAut] = useState(true);
+    const navigate = useNavigate();
+      
+   
       // Manejador de envío del formulario
       const HandleSubmit = (values) => {  
         console.log(values)
         authenticate({user:values.username, pass:values.password})
-        .then(response => {
+        .then((response) => {
           console.log(response.data)
           if(response.data.tokenAuth.token){
           localStorage.setItem('token', response.data.tokenAuth.token);
-          onLogin(response.data.tokenAuth.token); 
-          setAut(!aut); 
+          currentUser().then((data)=>{
+              localStorage.setItem('admin', data.data.me.isStaff);
+              console.log(data.data.me.isStaff)
+              onLogin(response.data.tokenAuth.token,data.data.me.isStaff); 
+          })
+          navigate("/") 
           }
           else{
             alert('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
           }
            
         })
-        .catch(error => {
+          .catch(error => {
         }) 
 
       };
     return (
         <Modal
-            open={!aut}
+            open={aut}
         >
-            <Box backgraundColor={colors.blackGreenSpace[400]}
+            <Box bgcolor={colors.blackGreenSpace[700]}
             display={"flex"}
             alignItems={"center"}
             flexDirection={"column"}
@@ -57,6 +64,13 @@ export default function Login({autenticate,onLogin}){
             height={"100%"}
             position = {"relative"}
             >
+            <IconButton  style={{display:"flex", gap:"10px"}}  onClick={()=>{
+              navigate(-1);
+              }}>
+                 <CloseRoundedIcon/>         
+            </IconButton>
+            <Typography variant = "h2" color={colors.greenAccent[300]} >Sign in</Typography>
+            <Typography variant = "h5" color={colors.greenAccent[600]}>Into user and password</Typography>
             <Formik  
                 initialValues = {formData}
                 onSubmit={HandleSubmit}         
@@ -77,7 +91,7 @@ export default function Login({autenticate,onLogin}){
                      gap = "15px"
                      flexDirection = "column"
                     padding = "40px"
-                    bgcolor={`${colors.greenSpace[800]}`}
+                    bgcolor={`${colors.greenSpace[500]}`}
                     borderRadius = "15px"
                     sx={{
                         "& .MuiFormLabel-root":{
@@ -99,8 +113,7 @@ export default function Login({autenticate,onLogin}){
                     }}
 
                     >
-                    <Typography variant = "h2" color={colors.greenAccent[300]} >Sign in</Typography>
-                    <Typography variant = "h5" color={colors.greenAccent[600]}>Into user and password</Typography>
+                   
                     <TextField
                       fullWidth
                       label="user"
@@ -108,7 +121,7 @@ export default function Login({autenticate,onLogin}){
                       value={values.username}
                       name="username"
                       onChange={handleChange}
-                      error={errors.username}
+                      error={!!errors.username}
                       helperText={errors.username}
                     />
                     <TextField
@@ -118,7 +131,7 @@ export default function Login({autenticate,onLogin}){
                       value={values.password}
                       name="password"
                       onChange={handleChange}
-                      error={errors.password}
+                      error={!!errors.password}
                       helperText={errors.password}
                     />
                     <TextField

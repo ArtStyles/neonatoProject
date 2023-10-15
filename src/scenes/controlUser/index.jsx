@@ -1,19 +1,24 @@
-import { Box, Typography, useTheme,IconButton } from "@mui/material";
+import { Box, Typography, useTheme,IconButton,Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from "../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import { DeleteOutlineOutlined } from "@mui/icons-material";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
-import CreateUser from "../../components/CreateUser";
+import CreateUser from "../../components/createUser";
 import Loader from "../../components/Loader";
 import { getUser } from "../../services/getUser";
+import { deleteUser } from "../../services/deleteUser";
+import {useMediaQuery} from "@mui/material";
 
-const Team = () => {
+
+const ControlUser = () => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -21,15 +26,25 @@ const Team = () => {
   const [userData,setUserData] = useState([]);
   const [loading,setLoading] = useState(false);
   
-  useEffect(() => {
-    setLoading(true)
+
+    useEffect(() => {
+      setLoading(true)
+      getUser()
+      .then(data => {
+        setUserData(data.data.users.edges)
+        console.log(data.data.users.edges)
+        setLoading(false)
+      })
+    },[])
+
+
+  const handleOnDataChange=()=>{
     getUser()
     .then(data => {
       setUserData(data.data.users.edges)
-      console.log(data.data.users.edges)
-      setLoading(false)
     })
-  },[])
+  }
+
 
   const handleOnClick = () => {
     activeCreateUser(!createUsers);
@@ -37,34 +52,38 @@ const Team = () => {
 
 
   const columns = [
+
     {
       field: "username",
       headerName: "Nombre",
       flex: 0.5,
+      minWidth:100,
       cellClassName: "name-column--cell",
     },
     {
       field: "email",
       headerName: "Correo",
       flex: 1,
+      minWidth:100,
       cellClassName: "name-column--cell",
     },
 
     {
       field: "isStaff",
       headerName: "Nivel de Acceso",
+      minWidth:120,
       flex: 1,
       renderCell: ({ row: { isStaff } }) => {
         return (
           <Box
-            width="40%"
+            width="100px"
             p="5px"
             display="flex"
             justifyContent="center"
             backgroundColor={
               isStaff
-                ? colors.greenSpace[800]
-                : colors.greenSpace[400]
+                ? colors.greenSpace[900]
+                : colors.greenSpace[600]
             }
             borderRadius="4px"
           >
@@ -73,6 +92,36 @@ const Team = () => {
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
               {isStaff?"Admin":"User"}
             </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "delete",
+      headerName: "Eliminar",
+      flex: 1,
+      minWidth:120,
+      renderCell: (params) => {
+        return (
+          <Box
+            width="100px"
+            p="5px"
+            display="flex"
+            justifyContent="center"
+            backgroundColor={colors.blackGreenSpace[400]}
+            borderRadius="4px"
+          >
+            <Button fullWidth={true} onClick={()=>{
+              deleteUser({id:params.row.id}).then(()=>{
+                  handleOnDataChange();
+              })
+             
+              }}>
+              <DeleteOutlineOutlined />
+              <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+                Delete
+              </Typography>
+            </Button>
           </Box>
         );
       },
@@ -112,20 +161,42 @@ const Team = () => {
           },
         }}
       >  
-        <Box display="flex" position={"absolute"} top="0px" right="0"alignItems={"center"} justifyContent={"center"}>   
-          <IconButton  style={{display:"flex", gap:"10px"}}  onClick={handleOnClick}>
-                <Typography color={colors.greenAccent[400]}>Create User</Typography>          
-                  <SettingsOutlinedIcon />
-          </IconButton>
+        <Box display="flex" 
+        position={"absolute"} 
+        top="0px" right="0"
+        alignItems={"center"} 
+        justifyContent={"center"}
+        borderRadius={"5px"}
+        padding={"5px"}
+        >   
+          <Button color="secondary" variant="outlined" style={{display:"flex", gap:"10px"}} 
+           onClick={()=>{
+            handleOnClick()
+           }}>
+          <Typography color={colors.greenAccent[400]}>Create User</Typography>          
+            <SettingsOutlinedIcon />
+          </Button>
+      
         </Box>
-        <DataGrid  rows={userData.map(user => user.node)} columns={columns} />
+          <Box
+              sx={{ height: 400, width: '100%' }}
+           >
+            <DataGrid  
+              
+            disableRowSelectionOnClick
+            rows={userData.map(user => user.node)} columns={columns} />
+
+          </Box>
+       
       </Box>
       {
-        createUsers && <CreateUser onClick={handleOnClick}/>
+        createUsers && <CreateUser onCreate={handleOnDataChange} onClick={handleOnClick}/>
       }
-
+          {/* {
+          loading && <Loader/>
+        } */}
     </Box>
   );
 };
 
-export default Team;
+export default ControlUser;

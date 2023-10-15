@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import {Chip} from "@mui/material";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
+import {useMediaQuery} from "@mui/material";
 
 const CheckField = ({
   title,
@@ -12,43 +13,47 @@ const CheckField = ({
   validation,
   checkBoxNames = [],
 }) => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+
+
   return (
     <Box
       display={"flex"}
       alignItems="center"
-      gap={"30px"}
       gridColumn={"span 4"}
       flexWrap={"wrap"}
       flexDirection={"column"}
       paddingBottom={"15px"}
+      paddingTop={"15px"}
       boxShadow={` 0px 0px 1px 0px ${colors.greenSpace[300]}`}
+      gap="10px"
+      position="relative"
     >
       <Typography
         display={"flex"}
-        style={{ flexBasis: "", alignItems: "center", gap: "10px" }}
+        style={{ flexBasis: "", alignItems: "center", gap: "10px",fontSize: "1em", }}
       >
-        <p style={{
-              fontSize: "1.2em",
-            }}>{title}</p>
+                  {title}
 
-        {validation === true ? (
+      </Typography>
+      {validation === true ? (
           <p
             style={{
               color: "red",
               display: value === "" ? "inline-block" : "none",
-              fontSize: "2em",
+              fontSize: "0.8em",
               fontWeight: "bold",
             }}
           >
-            *
+            campo obligatorio
           </p>
         ) : undefined}
-      </Typography>
       <Box
         display={"flex"}
-        flexDirection={"row"}
+        flexDirection={(!isNonMobile && checkedAll===true)?"column":"row"}
         gap="1em"
       >
         {cantElments.map((dato, index) => (

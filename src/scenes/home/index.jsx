@@ -32,7 +32,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Home = () => {
-  const [selected, setSelected] = useState("Home");
+  
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -48,43 +48,7 @@ const Home = () => {
       <Box alignSelf={"flex-start"}>
           <Header title="HOME" />
       </Box>
-      <Box display={"flex"} 
-           zIndex={"10"} width={"100%"} flexWrap={"wrap"}
-        sx={{ 
-            "a:hover": {
-            color: `${colors.greenAccent[700]} !important`,
-            backgroundColor:"transparent !important",
-            boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]}`,            
-            },
-           "& .ps-active": {
-            color: `${colors.greenAccent[400]} !important`,
 
-          },
-        }}
-      >
-        <Menu iconShape="square" > 
-          <Item
-          
-            to="/team"
-            icon={<PeopleOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-          <Item
-            to="/contacts"
-            icon={<ContactsOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-
-          <Item
-            to="/form"
-            icon={<PersonOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-          </Menu>
-      </Box>
       <Box
 
         width={"70vw"}

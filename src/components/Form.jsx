@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField,Fab } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import React from "react";
 import CheckField from "./CheckField";
 import Advice from "./Advice";
@@ -21,8 +21,12 @@ import { updatePaciente } from "../services/updatedPaciente";
 import ConfirmationAdv from "./ConfirmationAdvice";
 import { deletePaciente } from "../services/deletePacienete";
 import { useNavigate } from "react-router-dom";
+import ScrollToTopButton from "./ScrollToTopButton";
+import EvalualuationItem from "./evaluationItem";
+import { getAllInfo } from "../services/getAllInfo";
 
-const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
+
+const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef}) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -31,7 +35,6 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
   const topRef = useRef(null);
   const deleteRef = useRef(null);
   const navigate = useNavigate();
-  const [info, updateInfo] = useState(false);
 
   const scrollToTop = () => {
     // Utiliza el método scrollIntoView() para desplazarte hacia el elemento
@@ -39,28 +42,37 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
       topRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+  
+  useEffect(() => {
+  }, [localStorage.getItem("admin"),localStorage.getItem("token")]);
+ 
 
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = (values, { setFieldValue }) => {
     console.log(values);
     var empty = false;
-    for (var key in values) {
-      if (values[key] === null) {
-        empty = true;
-        break;
-      }
-    }
-
+  
     if (onSubmit === "updatePaciente") {
-      updatePaciente({ params: values });
-      updateInfo(!info);
+      updatePaciente({ params: values }).then(() => {
+        getAllInfo({ id: id }).then((data) => {
+          for (const key in data.data.paciente) {
+            setFieldValue(key, data.data.paciente[key]);
+          }
+          scrollToTop();
+          setAdvice(false);
+          setTimeout(() => setAdvice(true), 2000);
+        });
+      });
     } else {
-      createPaciente({ params: values });
-      updateInfo(!info);
+      createPaciente({ params: values }).then(() => {
+        for (var key in values) {
+          setFieldValue(key, "");
+        }
+        scrollToTop();
+        setAdvice(false);
+        setTimeout(() => setAdvice(true), 2000);
+      });
     }
-    scrollToTop();
-    setAdvice(false);
-    setTimeout(() => setAdvice(true), 2000);
-    };
+  };
 
   const handleOnChecked = ({ val, campo }) => {
     if (val !== campo) val = campo;
@@ -91,7 +103,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
             <form onSubmit={handleSubmit}>
               <ScrollToFirstError myRef={topRef} />
               <Box
-                display="grid"
+                display= {"grid"}
                 gap="30px"
                 gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                 sx={{
@@ -126,25 +138,28 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                   }}
                   defaultExpanded
                 >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
                     <Typography color={colors.greenAccent[100]} variant="h5">
                       Identificación
                     </Typography>
                   </AccordionSummary>
-                  <AccordionDetails style={{ display: "grid", gap: "30px" }}>
-                    <TextField
-                      fullWidth
+                  <AccordionDetails style={{ display: isNonMobile?"grid":"flex", gap: "30px",flexDirection: "column "}}
+          
+                  >
+                    <TextField 
                       type="date"
                       onChange={handleChange}
                       value={String(values.fecha).substring(0,10)}
                       name="fecha"
                       error={!!touched.fecha && !!errors.fecha}
                       helperText={touched.fecha && errors.fecha}
-                      sx={{ gridColumn: "span 4" }}
+                      sx={{
+                       gridColumn:isNonMobile?"span 4":undefined,
+                       display:"flex"
+                      }}
                     />
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="text"
                       label="Nombres"
                       onChange={handleChange}
@@ -153,11 +168,10 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       name="nombre"
                       error={!!touched.nombre && !!errors.nombre}
                       helperText={touched.nombre && errors.nombre}
-                      sx={{ gridColumn: "span 2" }}
+                      sx={{ gridColumn: isNonMobile?"span 2":undefined ,dislplay:"flex"}}
                     />
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="text"
                       label="Apellidos"
                       onChange={handleChange}
@@ -165,11 +179,10 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       name="apellidos"
                       error={!!touched.apellidos && !!errors.apellidos}
                       helperText={touched.apellidos && errors.apellidos}
-                      sx={{ gridColumn: "span 2" }}
+                      sx={{ gridColumn: isNonMobile?"span 2":undefined,display:"flex" }}
                     />
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="text"
                       label="Nombre de la Madre"
                       onChange={handleChange}
@@ -177,11 +190,10 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       name="nombreDeLaMadre"
                       error={!!errors.nombreDeLaMadre}
                       helperText={errors.nombreDeLaMadre}
-                      sx={{ gridColumn: "span 4" }}
+                      sx={{ gridColumn: isNonMobile?"span 4":undefined,display:"flex" }}
                     />
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="text"
                       label="Carnet de Identidad de la Madre"
                       onChange={handleChange}
@@ -189,11 +201,10 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       name="carnetIdentidadMadre"
                       error={!!errors.carnetIdentidadMadre}
                       helperText={errors.carnetIdentidadMadre}
-                      sx={{ gridColumn: "span 2" }}
+                      sx={{ gridColumn: isNonMobile?"span 2":undefined,display:"flex" }}
                     />
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="tel"
                       label="Teléfono"
                       onChange={handleChange}
@@ -201,11 +212,11 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       name="telefono"
                       error={!!touched.telefono && !!errors.telefono}
                       helperText={touched.telefono && errors.telefono}
-                      sx={{ gridColumn: "span 2" }}
+                      sx={{ gridColumn: isNonMobile?"span 2":undefined,display:"flex" }}
                     />
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      
+                      variant="standard"
                       type="text"
                       label="Dirección"
                       onChange={handleChange}
@@ -213,11 +224,10 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       name="direccion"
                       error={!!touched.direccion && !!errors.direccion}
                       helperText={touched.direccion && errors.direccion}
-                      sx={{ gridColumn: "span 4" }}
+                      sx={{ gridColumn: isNonMobile?"span 4":undefined,display:"flex" }}
                     />
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="text"
                       label="Municipio"
                       onChange={handleChange}
@@ -225,11 +235,10 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       name="municipio"
                       error={!!touched.municipio && !!errors.municipio}
                       helperText={touched.municipio && errors.municipio}
-                      sx={{ gridColumn: "span 2" }}
+                      sx={{ gridColumn: isNonMobile?"span 2":undefined,display:"flex" }}
                     />
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="text"
                       label="Provincia"
                       onChange={handleChange}
@@ -237,12 +246,11 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       name="provincia"
                       error={!!touched.provincia && !!errors.provincia}
                       helperText={touched.provincia && errors.provincia}
-                      sx={{ gridColumn: "span 2" }}
+                      sx={{ gridColumn: isNonMobile?"span 2":undefined,display:"flex" }}
                     />
 
                     <TextField
-                      fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="text"
                       label="Diagnóstico al Ingreso"
                       onChange={handleChange}
@@ -255,7 +263,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       helperText={
                         touched.diagnosticoIngreso && errors.diagnosticoIngreso
                       }
-                      sx={{ gridColumn: "span 4" }}
+                      sx={{ gridColumn: isNonMobile?"span 4":undefined,display:"flex" }}
                     />
 
                     <CheckField
@@ -392,7 +400,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.greenSpace[800],
+                    bgcolor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -401,7 +409,9 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       Atención Primaria
                     </Typography>
                   </AccordionSummary>
+                  <EvalualuationItem evaluation={values.evaluacionAtencionPrimaria}/>
                   <AccordionDetails style={{ display: "grid", gap: "30px" }}>
+                  
                     <CheckField
                       title="Identificación de la embarazada como riesgo
                             si tenía antencedentes de otros hijos vivos
@@ -490,6 +500,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                     <div
                     style={{ display:"flex",justifyContent: "center", alignItems: "center", gridColumn:"span 4"}}>
                       <TextField
+                      variant="standard"
                       sx={{ width:"230px"}}
                         type="number"
                         label="Numero de Controles de Embarazo"
@@ -538,7 +549,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.greenSpace[800],
+                    bgcolor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -547,7 +558,9 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       Al regreso del neonato operado
                     </Typography>
                   </AccordionSummary>
+                   <EvalualuationItem evaluation={values.evaluacionRegresoNeonatoOperado}/>
                   <AccordionDetails style={{ display: "grid", gap: "30px" }}>
+                 
                     <CheckField
                       title="Hoja de Conferencia"
                       value={values.hojaConf}
@@ -634,16 +647,18 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.greenSpace[800],
+                    bgcolor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography color={colors.greenAccent[100]} variant="h5">
-                      Hogar materno
+                      Hogar materno 
                     </Typography>
                   </AccordionSummary>
+                  <EvalualuationItem evaluation={values.evaluacionHogarMaterno}/>
                   <AccordionDetails style={{ display: "grid", gap: "30px" }}>
+                  
                     <CheckField
                       title="Información a la maternidad"
                       value={values.infoMaternidad}
@@ -739,7 +754,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.greenSpace[800],
+                    bgcolor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -748,7 +763,9 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       Servicios de Neonatologias Provinciales
                     </Typography>
                   </AccordionSummary>
+                  <EvalualuationItem evaluation={values.evaluacionServicioNeonatologiaProvinciales}/>
                   <AccordionDetails style={{ display: "grid", gap: "30px" }}>
+                  
                     <CheckField
                       title="Presencia del neonatologo en el salón de parto"
                       value={values.presenciaEnSalon}
@@ -880,7 +897,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.greenSpace[800],
+                    bgcolor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -888,8 +905,12 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                     <Typography color={colors.greenAccent[100]} variant="h5">
                       Servicios de Neonatologias CERECINE
                     </Typography>
+                    <Box
+                    ></Box>
                   </AccordionSummary>
+                  <EvalualuationItem evaluation={values.evaluacionServicioNeonatologiaCerecine}/>
                   <AccordionDetails style={{ display: "grid", gap: "30px" }}>
+                 
                     <CheckField
                       title="Coincidencia diagnóstica"
                       value={values.coincidenciaDiag}
@@ -1018,7 +1039,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
 
                     <TextField
                       fullWidth
-                      variant="filled"
+                      variant="standard"
                       type="text"
                       label="Deficiencias del Traslado"
                       onBlur={handleBlur}
@@ -1229,7 +1250,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.greenSpace[800],
+                    bgcolor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -1238,6 +1259,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       Equipo Quirúrgico
                     </Typography>
                   </AccordionSummary>
+                  <EvalualuationItem evaluation={values.evaluacionEquipoQuirurgico}/>
                   <AccordionDetails style={{ display: "grid", gap: "30px" }}>
                     <CheckField
                       title="Confirmación de segunda opinión"
@@ -1325,7 +1347,7 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                 <Accordion
                   sx={{
                     gridColumn: "span 4",
-                    backgroundColor: colors.greenSpace[800],
+                    bgcolor: colors.greenSpace[800],
                   }}
                   defaultExpanded
                 >
@@ -1334,7 +1356,9 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                       Centro Provincial de Genética de Holguín
                     </Typography>
                   </AccordionSummary>
+                  <EvalualuationItem evaluation={values.centroProvincialGenetica}/>
                   <AccordionDetails style={{ display: "grid", gap: "30px" }}>
+                  
                     <CheckField
                       title="Clasificación"
                       value={values.clasificacion}
@@ -1364,35 +1388,38 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                   </AccordionDetails>
                 </Accordion>
               </Box>
-              <Box display="flex" justifyContent="end" mt="20px" gap="30px">
-                {onSubmit === "updatePaciente" && (
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      showPopover(true);
-                    }}
-                    color="secondary"
-                    variant="contained"
-                    ref={deleteRef}
-                  >
-                    {popoverIsVisible && (
-                      <ConfirmationAdv
-                        popoverIsVisivle={popoverIsVisible}
-                        togglePopover={() => showPopover(!popoverIsVisible)}
-                        delete={() => {
-                          deletePaciente({ id: id });
-                        }}
-                        anchorElement={deleteRef.current}
-                        navigate={() => navigate("/contacts")}
-                      />
-                    )}
-                    Eliminar
+              { localStorage.getItem("admin") === "true" &&
+                <Box display="flex" justifyContent="end" mt="20px" gap="30px">
+                  
+                  {onSubmit === "updatePaciente" && (
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        showPopover(true);
+                      }}
+                      color="secondary"
+                      variant="outlined"
+                      ref={deleteRef}
+                    >
+                      {popoverIsVisible && (
+                        <ConfirmationAdv
+                          popoverIsVisivle={popoverIsVisible}
+                          togglePopover={() => showPopover(!popoverIsVisible)}
+                          delete={() => {
+                            deletePaciente({ id: id });
+                          }}
+                          anchorElement={deleteRef.current}
+                          navigate={() => navigate("/contacts")}
+                        />
+                      )}
+                      Eliminar
+                    </Button>
+                  )}
+                  <Button type="submit" color="secondary" variant="outlined">
+                    {onSubmit === "updatePaciente" ? "Actualizar" : "Aceptar"}
                   </Button>
-                )}
-                <Button type="submit" color="secondary" variant="contained">
-                  {onSubmit === "updatePaciente" ? "Actualizar" : "Aceptar"}
-                </Button>
               </Box>
+              }
               {!advice&&<Advice
                   title={
                     onSubmit === "updatePaciente"
@@ -1404,7 +1431,9 @@ const Form = ({ title, subtitle, initialValues, onSubmit, id }) => {
                 />}
             </form>
           )}
-        </Formik>
+        </Formik>     
+          <ScrollToTopButton boxRef={mainRef}
+          onClick={()=>scrollToTop()}/>
       </Box>
     </Box>
   );
