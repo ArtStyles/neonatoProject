@@ -5,7 +5,7 @@ import {useTheme,TextField,Typography,Modal,IconButton} from '@mui/material';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
-import {createUser} from "../services/createUser";
+import {createUser} from "../services/CreateUser";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
