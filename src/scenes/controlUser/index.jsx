@@ -9,7 +9,7 @@ import Header from "../../components/Header";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
-import CreateUser from "../../components/createUser";
+import CreateUser from "../../components/CreateUser";
 import CircularProgress from '@mui/material/CircularProgress';
 import { getUser } from "../../services/getUser";
 import { deleteUser } from "../../services/deleteUser";
