@@ -11,7 +11,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
 import CreateUser from "../../components/createUser";
-import Loader from "../../components/Loader";
+import CircularProgress from '@mui/material/CircularProgress';
 import { getUser } from "../../services/getUser";
 import { deleteUser } from "../../services/deleteUser";
 import {useMediaQuery} from "@mui/material";
@@ -41,7 +41,9 @@ const ControlUser = () => {
   const handleOnDataChange=()=>{
     getUser()
     .then(data => {
+      setLoading(true)
       setUserData(data.data.users.edges)
+      setLoading(false)
     })
   }
 
@@ -161,6 +163,7 @@ const ControlUser = () => {
           },
         }}
       >  
+       {loading && <div className = "loader-container"><CircularProgress color="success"/></div>}
         <Box display="flex" 
         position={"absolute"} 
         top="0px" right="0"
@@ -176,25 +179,15 @@ const ControlUser = () => {
           <Typography color={colors.greenAccent[400]}>Create User</Typography>          
             <SettingsOutlinedIcon />
           </Button>
-      
         </Box>
-          <Box
-              sx={{ height: 400, width: '100%' }}
-           >
             <DataGrid  
-              
             disableRowSelectionOnClick
             rows={userData.map(user => user.node)} columns={columns} />
-
-          </Box>
-       
       </Box>
       {
         createUsers && <CreateUser onCreate={handleOnDataChange} onClick={handleOnClick}/>
       }
-          {/* {
-          loading && <Loader/>
-        } */}
+         
     </Box>
   );
 };

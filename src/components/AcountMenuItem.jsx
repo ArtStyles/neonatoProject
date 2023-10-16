@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
 import { useNavigate } from 'react-router-dom';
 import { tokens } from '../theme';
 import { useTheme } from '@emotion/react';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
-import { useEffect } from 'react';
 
 const AcountMenuItem= ({title,onLogout})=> {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -16,10 +14,7 @@ const AcountMenuItem= ({title,onLogout})=> {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [login,setLogin] =useState(false)
-  
-  useEffect(() => {
-  }, [localStorage.getItem("admin"),localStorage.getItem("token")]);
-  
+
   const handleClick = (event) => {
     if(localStorage.getItem("token"))
       setAnchorEl(event.currentTarget);

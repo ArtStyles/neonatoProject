@@ -11,9 +11,11 @@ import PasswordIcon from '@mui/icons-material/Password';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { changeUserPassword } from "../services/changeUserPassword"
 import {Typography} from "@mui/material"
+import {useMediaQuery} from "@mui/material"
 
 
 const AcountSetting = ()=>{
+    const isNonMobile = useMediaQuery("(min-width:600px)");
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate()
@@ -55,7 +57,7 @@ const AcountSetting = ()=>{
                 <Box bgcolor={colors.blackGreenSpace[700]}
                    display={"flex"}
                    alignItems={"center"}
-                   flexDirection={"row"}
+                   flexDirection={isNonMobile?"row":"column"}
                    justifyContent={"center"}
                    width={"100%"}
                    height={"100%"}
@@ -70,14 +72,21 @@ const AcountSetting = ()=>{
                         >
                             <CloseRoundedIcon/>         
                     </IconButton>
-                    <Box  width={"40%"} display="flex" flexDirection={"column"} alignItems={"center"} justifyContent={"center"}>   
-
+                    <Box  
+                        width={isNonMobile?"40%":"100%"}
+                        display="flex" flexDirection={"column"} 
+                        alignItems={"center"} 
+                        justifyContent={"center"}
+                        height={isNonMobile?"100%":"40%"}
+                        >   
+                        
                         <Header title={"Acount Setting"}  subtitle={"Here you can change your password"}/>
                     </Box>
                     <Box
                     display={"flex"}
-                    width={"60%"}
-                    height={"100%"}
+                    width={isNonMobile?"60%":"100%"}
+    
+                    height={isNonMobile?"100%":"60%"}
                     bgcolor={`${colors.greenSpace[500]}`}
                     alignItems={"center"}
                     justifyContent={"center"}

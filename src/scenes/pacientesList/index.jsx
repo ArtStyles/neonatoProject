@@ -6,18 +6,18 @@ import { useTheme } from "@mui/material";
 import {useEffect, useState} from 'react'
 import {getPacientes} from '../../services/getPacientes'
 import { useDataGridColumns } from "../../customHooks/useDataGridColumns";
-import Loader from '../../components/Loader'
 import './index.css'
 import DataGridFilter from "../../components/DataGridFilter";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const PacientesList = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const {columns} = useDataGridColumns()
   const [pacientes, setPacientes] = useState([])
   const [loading, setLoading] = useState(true)
-  const {columns} = useDataGridColumns()
-  
 
+  
   useEffect(() => {
     setLoading(true)
     getPacientes()
@@ -74,7 +74,7 @@ const PacientesList = () => {
           },
         }}
       >
-        {loading && <div className = "loader-container"><Loader/></div>}
+        {loading && <div className = "loader-container"><CircularProgress color="success"/></div>}
         <DataGrid 
         
         disableColumnSelector

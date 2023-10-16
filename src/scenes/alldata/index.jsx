@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import Form from "../../components/Form";
 import { useLocation } from "react-router-dom";
 import Loader from "../../components/Loader";
+import * as React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const AllData=({mainRef})=>{
   const url = useLocation();
@@ -25,7 +27,7 @@ const AllData=({mainRef})=>{
 
   return(
     <>
-       {loading && <div className = "loader-container"><Loader/></div> }
+       {loading && <div className = "loader-container"><CircularProgress color = "success"/></div> }
       {!loading &&
         <Form       
         onSubmit={"updatePaciente"}
