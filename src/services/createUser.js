@@ -1,7 +1,7 @@
 import {makeFetch} from './makeFetch'
 
 
-export function CreateUser({username,email,password,isStaff}){
+export function createUser({username,email,password,isStaff}){
     const query = `mutation{
         createUser(username:"${username}",password:"${password}",email:"${email}",isStaff:${isStaff}){
           user{
