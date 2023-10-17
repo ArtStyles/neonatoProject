@@ -1,4 +1,4 @@
-import { Box,TextField } from "@mui/material";
+import { Box,TextField, debounce } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -70,24 +70,40 @@ const DataGridFilter = ({onFilter}) => {
         diagnosticoEgreso_Contains:values["diagnosticoEgreso"],
     }
 
+
     useEffect(() => {
         var queryValues = "";
+        let timerId;
         for (var key in filter){
             if(filter[key] && filter[key].trim() !== ""){
                 queryValues = queryValues + key + ":\""+filter[key]+"\","
             }
         }
-        if (queryValues!=="") {
-            filterin({filters:queryValues}).then((data)=>{
-                onFilter(data.data.pacientes.edges)
-            })
-        }
-        else{
-            getPacientes().then((data)=>{
-                onFilter(data.data.pacientes.edges)
-            });
-        }
-    },[values]);
+        const debounceSearch = () => {
+            if (queryValues && queryValues.trim() !== "") {
+              filterin({ filters: queryValues }).then((data) => {
+                onFilter(data.data.pacientes.edges);
+              });
+            } else {
+              getPacientes().then((data) => {
+                onFilter(data.data.pacientes.edges);
+              });
+            }
+          };
+        
+          if (timerId) {
+            clearTimeout(timerId); 
+          }
+        
+          timerId = setTimeout(debounceSearch,700); 
+        
+          return () => {
+            clearTimeout(timerId);
+          };
+    },[values])
+
+  
+
 
     const onChangeValue = (campo,valor) => {
         const copiaValues = {...values};
@@ -152,7 +168,9 @@ const DataGridFilter = ({onFilter}) => {
                             key={clave}
                             label={clave+": "+valor}
                             variant={"outlined"}
-                            onDelete={()=>onChangeValue(clave,"")}
+                            onDelete={()=>{
+                            onChangeValue(clave,"")
+                            }}
                             color="default"
                             style={{fontSize:"0.8em"}}
                             
@@ -180,6 +198,7 @@ const DataGridFilter = ({onFilter}) => {
                         value={values.nombre}
                         onChange={(e)=>{
                             onChangeValue("nombre",e.target.value)
+                            
                         }}
                     />
                     <TextField
@@ -190,6 +209,7 @@ const DataGridFilter = ({onFilter}) => {
                         value={values.nombreDeLaMadre}
                         onChange={(e)=>{
                             onChangeValue("nombreDeLaMadre",e.target.value)
+                           
                         }}
                     />
                     <TextField
@@ -199,7 +219,7 @@ const DataGridFilter = ({onFilter}) => {
                         sx={{flexGrow:1,maxWidth:"200px"}}
                         value={values.provincia}
                         onChange={(e)=>{
-                            onChangeValue("provincia",e.target.value)
+                            onChangeValue("provincia",e.target.value)                 
                         }}
                     />
                     <TextField

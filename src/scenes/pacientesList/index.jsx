@@ -9,6 +9,7 @@ import { useDataGridColumns } from "../../customHooks/useDataGridColumns";
 import './index.css'
 import DataGridFilter from "../../components/DataGridFilter";
 import CircularProgress from '@mui/material/CircularProgress';
+import debounce from "@mui/material";
 
 const PacientesList = () => {
   const theme = useTheme();
@@ -30,11 +31,8 @@ const PacientesList = () => {
 
   const handleOnFilter = (dataFilter) =>{
     setLoading(true)
-    getPacientes()
-    .then(data => {
       setPacientes(dataFilter)
       setLoading(false)
-    })
   }
 
   return (
