@@ -6,6 +6,8 @@ import { tokens } from '../theme';
 import { useTheme } from '@emotion/react';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const AcountMenuItem= ({title,onLogout})=> {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -53,12 +55,18 @@ const AcountMenuItem= ({title,onLogout})=> {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem  onClick={()=>{navigate("/acountSetting");handleClose()}}>My account</MenuItem>
+        <MenuItem  onClick={()=>{navigate("/acountSetting");handleClose()}}>
+          My account
+            <SettingsOutlinedIcon fontSize='small' style={{marginLeft:"10px"}}/>
+        </MenuItem>
         <MenuItem onClick={()=>{
             handleClose();
             onLogout(localStorage.removeItem("token"),localStorage.removeItem("admin"))
             navigate("/")
-        }}>Logout</MenuItem>
+        }}>
+          Logout
+          <LogoutIcon  fontSize='small' style={{marginLeft:"36px"}}/>
+        </MenuItem>
       </Menu>
     </div>
   );

@@ -13,6 +13,7 @@ import logo from "../../img/OCCN2.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import {useMediaQuery} from "@mui/material";
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 const Item = ({ title, to, icon, selected, setSelected,onItemClick,}) => {
   const theme = useTheme();
@@ -123,7 +124,7 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
                   MENÚ
                 </Typography>
                 <IconButton onClick={() => {onCollapsed()}}>
-                  <MenuOutlinedIcon />
+                  <CloseRoundedIcon fontSize="small"/>
                 </IconButton>
               </Box>
             )}

@@ -6,7 +6,6 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import Header from "../../components/Header";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
 import CreateUser from "../../components/CreateUser";
@@ -164,9 +163,10 @@ const ControlUser = () => {
       >  
        {loading && <div className = "loader-container"><CircularProgress color="success"/></div>}
         <Box display="flex" 
-        position={"absolute"} 
+        position={isNonMobile?"absolute":"flex"} 
         top="0px" right="0"
         alignItems={"center"} 
+        alignSelf={"flex-start"}
         justifyContent={"center"}
         borderRadius={"5px"}
         padding={"5px"}
@@ -176,12 +176,11 @@ const ControlUser = () => {
             handleOnClick()
            }}>
           <Typography color={colors.greenAccent[400]}>Create User</Typography>          
-            <SettingsOutlinedIcon />
           </Button>
         </Box>
-            <DataGrid  
-            disableRowSelectionOnClick
-            rows={userData.map(user => user.node)} columns={columns} />
+          <DataGrid  
+          disableRowSelectionOnClick
+          rows={userData.map(user => user.node)} columns={columns} />
       </Box>
       {
         createUsers && <CreateUser onCreate={handleOnDataChange} onClick={handleOnClick}/>

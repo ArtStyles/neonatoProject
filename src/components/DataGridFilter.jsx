@@ -102,15 +102,11 @@ const DataGridFilter = ({onFilter}) => {
           };
     },[values])
 
-  
-
-
     const onChangeValue = (campo,valor) => {
         const copiaValues = {...values};
         copiaValues[campo] = valor;
         setValues(copiaValues);
     }
-
 
     return (
         <Box
