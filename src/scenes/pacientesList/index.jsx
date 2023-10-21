@@ -103,7 +103,7 @@ const PacientesList = ({mainRef}) => {
         columns={columns}/>
       </Box>
       {
-        adviceStatus && <Advice title={"El usuario ha sido eliminado con éxito"} type={"success"}/>
+        adviceStatus && <Advice title={"El paciente ha sido eliminado con éxito"} type={"success"}/>
       }
       {
         allDataStatus && 
