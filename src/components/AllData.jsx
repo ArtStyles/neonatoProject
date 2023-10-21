@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { getAllInfo } from "../../services/getAllInfo";
+import { getAllInfo } from "../services/getAllInfo";
 import { useEffect } from "react";
-import Form from "../../components/Form";
+import Form from "./Form";
 import { useLocation } from "react-router-dom";
-import Loader from "../../components/Loader";
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const AllData=({mainRef})=>{
+const AllData=({mainRef,id,activateAdvice,desactivateAllData})=>{
   const url = useLocation();
-  const id = url.search.replace("?","");
   console.log(id);
   const [paciente, setPaciente] = useState([])
   const [loading, setLoading] = useState(true)
@@ -22,7 +20,7 @@ const AllData=({mainRef})=>{
       console.log(data.data.paciente)
       setLoading(false)
     })
-  },[])
+  },[id])
  
 
   return(
@@ -36,6 +34,8 @@ const AllData=({mainRef})=>{
         subtitle={"Todos los datos del paciente"}
         id = {id}
         mainRef={mainRef}
+        activateAdvice={activateAdvice}
+        desactivateAllData={desactivateAllData}
         />
       }
     

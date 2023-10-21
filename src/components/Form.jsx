@@ -26,7 +26,7 @@ import EvalualuationItem from "./evaluationItem";
 import { getAllInfo } from "../services/getAllInfo";
 
 
-const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef}) => {
+const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvice,desactivateAllData}) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -1406,10 +1406,16 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef}) => {
                           popoverIsVisivle={popoverIsVisible}
                           togglePopover={() => showPopover(!popoverIsVisible)}
                           delete={() => {
-                            deletePaciente({ id: id });
+                            deletePaciente({ id: id }).then(() =>{
+                              activateAdvice()
+                              desactivateAllData()
+                              navigate("/pacientesList")
+                            })
                           }}
                           anchorElement={deleteRef.current}
-                          navigate={() => navigate("/contacts")}
+                        
+                        
+                       
                         />
                       )}
                       Eliminar

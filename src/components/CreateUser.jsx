@@ -1,5 +1,5 @@
 import React, { useState,useRef } from 'react';
-import { Box } from '@mui/material';
+import { Box, FormControlLabel } from '@mui/material';
 import { tokens } from '../theme';
 import {useTheme,TextField,Typography,Modal,IconButton} from '@mui/material';
 import { Formik } from 'formik';
@@ -10,6 +10,8 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import PasswordIcon from '@mui/icons-material/Password';
+import {Checkbox} from '@mui/material';
+
 
 
 
@@ -93,6 +95,7 @@ const CreateUser=({onClick,onCreate})=>{
                 values,
                 handleSubmit,         
                 handleChange,
+                setFieldValue,
              
              })  => (
                 <form  onSubmit={handleSubmit}>
@@ -172,14 +175,22 @@ const CreateUser=({onClick,onCreate})=>{
                     </Box>
 
                     <Box display={"flex"} gap="20px" justifyContent={"center"} alignItems={"center"}>
-                      <p>Admin permisson</p>
-                      <TextField
-                      style={{width:"20px",backgroundColor:"transparent"}}
-                      type="checkbox"
-                      value={values.isStaff}
-                      name="isStaff"
-                      onClick={handleChange}
-                    />
+                      <FormControlLabel
+                        label="Admin permissions"
+                        control={    
+                            <Checkbox 
+                              title='Admin permissions'
+                              color='secondary'
+                              value={values.isStaff}
+                              onClick={()=>{
+                                setFieldValue("isStaff",!values.isStaff)
+                              }}
+                          
+                          ></Checkbox>}
+                      ></FormControlLabel>
+                  
+
+          
                     </Box>
 
      

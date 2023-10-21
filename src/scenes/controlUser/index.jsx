@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme,IconButton,Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
@@ -13,6 +12,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { getUser } from "../../services/getUser";
 import { deleteUser } from "../../services/deleteUser";
 import {useMediaQuery} from "@mui/material";
+import ConfirmationAdv from "../../components/ConfirmationAdvice";
+import { useRef } from "react";
+import Advice from "../../components/Advice";
 
 
 const ControlUser = () => {
@@ -23,20 +25,17 @@ const ControlUser = () => {
   const [createUsers,activeCreateUser] = useState(false);
   const [userData,setUserData] = useState([]);
   const [loading,setLoading] = useState(false);
+  const [popoverIsVisible,showPopover] = useState(false);
+  const deleteRef = useRef(null);
+  const [adviceStatus,setAdviceStatus]= useState(false)
   
-
-    useEffect(() => {
-      setLoading(true)
-      getUser()
-      .then(data => {
-        setUserData(data.data.users.edges)
-        console.log(data.data.users.edges)
-        setLoading(false)
-      })
-    },[])
-
+  const handleOnAdviceStatus = () => {
+    setTimeout(()=>setAdviceStatus(true),200) ;
+    setTimeout(()=>setAdviceStatus(false),2500)
+  }
 
   const handleOnDataChange=()=>{
+    setLoading(true)
     getUser()
     .then(data => {
       setLoading(true)
@@ -44,6 +43,12 @@ const ControlUser = () => {
       setLoading(false)
     })
   }
+
+    useEffect(() => {
+      handleOnDataChange();
+    },[])
+
+
 
 
   const handleOnClick = () => {
@@ -111,16 +116,29 @@ const ControlUser = () => {
             backgroundColor={colors.blackGreenSpace[400]}
             borderRadius="4px"
           >
-            <Button fullWidth={true} onClick={()=>{
-              deleteUser({id:params.row.id}).then(()=>{
-                  handleOnDataChange();
-              })
-             
+            <Button fullWidth
+            
+            onClick={()=>{
+                showPopover(true)
               }}>
               <DeleteOutlineOutlined />
               <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
                 Delete
               </Typography>
+              {popoverIsVisible && (
+                        <ConfirmationAdv
+                          popoverIsVisivle={popoverIsVisible}
+                          togglePopover={() => showPopover(!popoverIsVisible)}
+                          delete={() => {
+                            deleteUser({ id: params.row.id }).then(() =>{
+                              handleOnDataChange();
+                              handleOnAdviceStatus()
+                            })
+                          }}
+                          anchorElement={deleteRef.current}
+
+                        />
+                      )}
             </Button>
           </Box>
         );
@@ -132,6 +150,7 @@ const ControlUser = () => {
     <Box m="10px" position="relative">
       <Header title="Control de Usuarios" subtitle="Control de los usuarios del sistema" />
       <Box
+      ref={deleteRef}
         m="10px 0 0 0"
         height="72vh"
         sx={{
@@ -172,9 +191,7 @@ const ControlUser = () => {
         padding={"5px"}
         >   
           <Button color="secondary" variant="outlined" style={{display:"flex", gap:"10px"}} 
-           onClick={()=>{
-            handleOnClick()
-           }}>
+           onClick={handleOnClick}>
           <Typography color={colors.greenAccent[400]}>Create User</Typography>          
           </Button>
         </Box>
@@ -185,7 +202,9 @@ const ControlUser = () => {
       {
         createUsers && <CreateUser onCreate={handleOnDataChange} onClick={handleOnClick}/>
       }
-         
+      {
+        adviceStatus && <Advice title={"Eliminación completada"} type={"success"}/>
+      }
     </Box>
   );
 };

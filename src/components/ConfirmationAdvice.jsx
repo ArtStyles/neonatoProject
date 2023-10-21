@@ -31,9 +31,8 @@ export default function ConfirmationAdv(props) {
                   onClick={(evt) => {
                     evt.stopPropagation();
                     evt.preventDefault();
+                    props.togglePopover()
                     props.delete();
-                    props.togglePopover();
-                    props.navigate();
                   }}
                 >
                   si

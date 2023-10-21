@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { authenticate } from '../../services/authentication';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {currentUser} from '../../services/currentUser';
+import LoadingButton from '../../components/LoadingButton';
 
 
 const checkoutSchema = yup.object().shape({
@@ -25,11 +26,14 @@ export default function Login({onLogin}){
     });
     const [aut,setAut] = useState(true);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
       
    
       // Manejador de envío del formulario
-      const HandleSubmit = (values) => {  
-        console.log(values)
+      const HandleSubmit = (values) => {
+        setSuccess(false);
+        setLoading(true);  
         authenticate({user:values.username, pass:values.password})
         .then((response) => {
           console.log(response.data)
@@ -38,16 +42,20 @@ export default function Login({onLogin}){
           currentUser().then((data)=>{
               localStorage.setItem('admin', data.data.me.isStaff);
               console.log(data.data.me.isStaff)
-              onLogin(response.data.tokenAuth.token,data.data.me.isStaff); 
+              onLogin(response.data.tokenAuth.token,data.data.me.isStaff);
+              setSuccess(true);
+              setLoading(false);      
           })
-          navigate("/") 
+          navigate("/")
           }
           else{
             alert('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+            setLoading(false); 
           }
            
         })
           .catch(error => {
+
         }) 
 
       };
@@ -74,7 +82,7 @@ export default function Login({onLogin}){
             <Formik  
                 initialValues = {formData}
                 onSubmit={HandleSubmit}         
-                validateOnChange={true}
+                validateOnChange={false}
                 validateOnBlur={false}
                 validationSchema={checkoutSchema}
             >
@@ -134,12 +142,11 @@ export default function Login({onLogin}){
                       error={!!errors.password}
                       helperText={errors.password}
                     />
-                    <TextField
-                      fullWidth
-                      type="submit"
-                      name="button"
-                      style={{backgroundColor:colors.greenSpace[500],}}
-                      onSubmit={handleSubmit}
+
+                    <LoadingButton
+                      loading={loading}
+                      success={success}
+                      handleOnClick={handleSubmit}
                     />
                     </Box>
       

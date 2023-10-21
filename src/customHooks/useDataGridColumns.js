@@ -1,13 +1,15 @@
-import {useNavigate} from 'react-router-dom'
-import {useTheme} from "@mui/material";
+
+import {useTheme,} from "@mui/material";
 import {Typography, Button} from "@mui/material";
 import { tokens } from "../theme";
 import { formatDate } from '../utils/formatDate';
 
-export function useDataGridColumns(){
+
+export function useDataGridColumns({activateAllData,setID}){
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const navigate = useNavigate()
+
+ 
 
     const columns = [
         { field: "nombre", 
@@ -61,7 +63,9 @@ export function useDataGridColumns(){
           renderCell: (params) => (
               <Button 
                 style={{backgroundColor:`${colors.greenAccent[600]}`,margin:"auto"}}
-                onClick={() => navigate(`/alldata/${"?"+params.id}`)}
+                onClick={() => {
+                  setID(params.row.id);
+                  activateAllData()}}
                 >
                 <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
                   Ver

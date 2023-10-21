@@ -7,7 +7,6 @@ import Team from "./scenes/controlUser";
 import PacientesList from "./scenes/pacientesList";
 import Bar from "./scenes/bar";
 import FormData from "./scenes/form";
-import AllData from "./scenes/alldata";
 import Pie from "./scenes/pie";
 import Login from "./scenes/login";
 import { CssBaseline, ThemeProvider, colors,Modal,Box } from "@mui/material";
@@ -42,7 +41,7 @@ function App() {
   };
 
   const handleLogin = (token,admin)=> {
-    IsAuntenticate({token:token,isAdmin:admin});
+    IsAuntenticate({token:token,isAdmin:admin});                       
   }
 
 
@@ -79,15 +78,13 @@ function App() {
                       <Route path="/controlUser"  element={<Login onLogin={handleLogin} />}/>
                     </>
                   )
-                  }
-                  <Route path="/alldata" element={<AllData  mainRef = {mainRef}/>}/>                 
-                  <Route path="/pacientesList" element={<PacientesList />} />                   
+                  }              
+                  <Route path="/pacientesList" element={<PacientesList mainRef = {mainRef} />} />                   
                   <Route path="/bar" element={<Bar />} />
                   <Route path="/pie" element={<Pie />} />
                   <Route path="/acountSetting"  element={<AcountSetting />}/>
                 </>:
                 <>
-                  <Route path="/alldata" element={<Login onLogin={handleLogin} />}/>
                   <Route path="/pacientesList" element={<Login onLogin={handleLogin} />}/>
                   <Route path="/bar"  element={<Login onLogin={handleLogin} />}/>
                   <Route path="/pie"  element={<Login onLogin={handleLogin} />} />

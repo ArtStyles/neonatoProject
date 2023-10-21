@@ -112,15 +112,14 @@ const DataGridFilter = ({onFilter}) => {
         <Box
         sx={{        
             "& .css-qoi9-MuiPaper-root-MuiAccordion-root":{
-            backgroundColor: colors.blackGreenSpace[700],
-            backgroundImage:"none "
+            backgroundColor: ` ${colors.blackGreenSpace[700]} !important`,
+            backgroundImage:"none !important"
             
             },
 
             "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root ":{
-            backgroundColor:`${colors.greenSpace[700]} important`,
-            
-            
+            backgroundColor:`${colors.greenSpace[700]} !important`,
+               
             },
             "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root:after":{
             borderBottom:`2px solid${colors.greenSpace[800]} !important`,
@@ -137,6 +136,11 @@ const DataGridFilter = ({onFilter}) => {
             },
             "& .css-75gcxd-MuiFormLabel-root-MuiInputLabel-root.Mui-focused ":{
             color:`${colors.greenAccent[700]} !important`,
+            
+            },
+            "& .MuiInputBase-root:hover":{
+            outlineColor:`${colors.greenAccent[700]} !important`,
+            
             
             },
 

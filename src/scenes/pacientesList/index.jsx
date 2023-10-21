@@ -9,15 +9,34 @@ import { useDataGridColumns } from "../../customHooks/useDataGridColumns";
 import './index.css'
 import DataGridFilter from "../../components/DataGridFilter";
 import CircularProgress from '@mui/material/CircularProgress';
-import debounce from "@mui/material";
+import Advice from "../../components/Advice";
+import AllData from "../../components/AllData";
+import {Modal} from "@mui/material";
+import {IconButton} from "@mui/material";
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
-const PacientesList = () => {
+const PacientesList = ({mainRef}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const {columns} = useDataGridColumns()
   const [pacientes, setPacientes] = useState([])
   const [loading, setLoading] = useState(true)
+  const [adviceStatus,setAdviceStatus] = useState(false)
+  const [allDataStatus,setAllDtaStatus] = useState(false);
+  const [id,setID] = useState(null);
 
+  const handleOnAllDataStatus =()=> { 
+    setAllDtaStatus(!allDataStatus);
+  }
+    const handleAdviceStatus = () => {
+    setAdviceStatus(true);
+    setTimeout(() => setAdviceStatus(false),2000);
+    
+  }
+
+    const handleSetId = (newId) => {
+      setID(newId)
+  }
+  const {columns} = useDataGridColumns({activateAllData:handleOnAllDataStatus,setID:handleSetId}) 
   
   useEffect(() => {
     setLoading(true)
@@ -27,7 +46,10 @@ const PacientesList = () => {
       console.log(data.data.pacientes.edges)
       setLoading(false)
     })
-  },[])
+  },[allDataStatus])
+
+
+
 
   const handleOnFilter = (dataFilter) =>{
     setLoading(true)
@@ -76,10 +98,39 @@ const PacientesList = () => {
         <DataGrid 
         
         disableColumnSelector
-            
+         
         rows={pacientes.map(paciente => paciente.node)} 
         columns={columns}/>
       </Box>
+      {
+        adviceStatus && <Advice title={"El usuario ha sido eliminado con éxito"} type={"success"}/>
+      }
+      {
+        allDataStatus && 
+        <Modal
+          open={allDataStatus}
+          sx={{overflowY:"scroll",bgcolor:colors.blackGreenSpace[500]}}
+          position={"relative"}
+        >
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            paddingTop={"30px"}
+          >
+            <IconButton style={{display:"flex",gap:"10px",position:"absolute",top:"0",left:"0"}}  onClick={()=>{
+                              handleOnAllDataStatus()
+                          }}
+                          >
+                <CloseRoundedIcon/>         
+            </IconButton>
+
+            <AllData id={id} mainRef={mainRef} desactivateAllData={handleOnAllDataStatus} activateAdvice={handleAdviceStatus}/>
+          
+          </Box>
+
+        </Modal>
+        
+      }
     </Box>
   );
 };
