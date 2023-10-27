@@ -55,15 +55,7 @@ const Topbar=({onLogout,onCollapsed})=>{
             
             {/* Icons */}
            <Box display='flex'>
-                <IconButton  style={{
-                    boxShadow:`0px  0px 2px 0px ${colors.greenSpace[100]} `,
-                    backgroundColor:colors.greenSpace[600],   
-                    borderRadius:"12px"              
-                    }}onClick={colorMode.toggleColorMode }>
-                    {theme.palette.mode ==='dark' ? ( <DarkModeOutlinedIcon/>)
-                    :(<LightModeOutlinedIcon /> )}
-                </IconButton>
-
+                
              <AcountMenuItem title={localStorage.getItem("token")?(localStorage.getItem("admin")==="true"?"AD":"U"):null} onLogout={onLogout}/>
 
                 

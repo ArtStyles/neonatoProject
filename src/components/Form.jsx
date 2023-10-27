@@ -117,7 +117,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]} !important`
                   },
                   "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root ":{
-                    backgroundColor:`${colors.greenSpace[500]} important`,
+                    backgroundColor:`${colors.greenSpace[500]} !important`,
                   
                   },
                   "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root:after":{
