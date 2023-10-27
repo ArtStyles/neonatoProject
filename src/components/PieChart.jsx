@@ -1,35 +1,36 @@
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const data = [
   {
-    id: "hack",
-    label: "hack",
+    id: "Defectos de la Pared",
+    label: "Defectos de la Pared",
     value: 239,
     color: "hsl(104, 70%, 50%)",
   },
   {
-    id: "make",
-    label: "make",
+    id: "Artresia Esofágica",
+    label: "Artresia Esofágica",
     value: 170,
     color: "hsl(162, 70%, 50%)",
   },
   {
-    id: "go",
-    label: "go",
+    id: "Artresias y estenosis instestinales",
+    label: "Artresias y estenosis instestinales",
     value: 322,
     color: "hsl(291, 70%, 50%)",
   },
   {
-    id: "lisp",
-    label: "lisp",
+    id: "Defectos diafragmáticos",
+    label: "Defectos diafragmáticos",
     value: 503,
     color: "hsl(229, 70%, 50%)",
   },
   {
-    id: "scala",
-    label: "scala",
+    id: "Otros",
+    label: "Otros",
     value: 584,
     color: "hsl(344, 70%, 50%)",
   },
@@ -38,6 +39,7 @@ const data = [
 const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <ResponsivePie
       data={data}
@@ -112,12 +114,12 @@ const PieChart = () => {
       legends={[
         {
           anchor: "bottom",
-          direction: "row",
+          direction:isNonMobile?"row":"column",
           justify: false,
           translateX: 0,
           translateY: 56,
           itemsSpacing: 0,
-          itemWidth: 100,
+          itemWidth: 200,
           itemHeight: 18,
           itemTextColor: "#999",
           itemDirection: "left-to-right",
@@ -128,7 +130,7 @@ const PieChart = () => {
             {
               on: "hover",
               style: {
-                itemTextColor: "#000",
+                itemTextColor: colors.blueAccent[700],
               },
             },
           ],
