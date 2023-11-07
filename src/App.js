@@ -52,13 +52,14 @@ function App() {
      
         <div className="app">
           <SideBar isSidebar={isSidebar} isCollapsed={isCollapsed} onCollapsed = {handleOnCollapsed}/>
-      
+       
           <main className="content" ref = {mainRef} style={{ overflowX: "hidden",backgroundColor: colors.blackGreenSpace[600]}}>
           <Modal
             open={!isCollapsed}
             onClose={handleOnCollapsed}
           >
-            <Box></Box>
+            <Box
+            ></Box>
           </Modal>
             <Topbar  setIsSidebar = {setIsSidebar} onCollapsed={handleOnCollapsed} onLogout = {handleLogin}/>
             <Routes>  

@@ -9,12 +9,12 @@ const Footer =()=>{
     return(
         <Box
             display={"flex"}
-            width={"auto"}
+            width={"100%"}
             height={"200px"}
-            backgroundColor={colors.grey[900]}
-            position={"relative"}
-            bottom={"0px"}
-            zIndex={"10"}
+            minWidth={"100%"}
+            backgroundColor={colors.blackGreenSpace[900]}
+            zIndex={1000}
+    
            
         >
 

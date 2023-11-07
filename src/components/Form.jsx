@@ -27,7 +27,7 @@ import { getAllInfo } from "../services/getAllInfo";
 
 
 const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvice,desactivateAllData}) => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:1010px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [popoverIsVisible, showPopover] = useState(false);
@@ -1168,7 +1168,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                       title="Documento de Contrarreferencia"
                       value={values.docContrarref}
                       checkBoxNames={["Si", "No"]}
-                      cantElments={["SI", "NP"]}
+                      cantElments={["SI", "NO"]}
                       onChange={[
                         () => {
                           setFieldValue(

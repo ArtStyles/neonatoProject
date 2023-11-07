@@ -13,7 +13,7 @@ const CheckField = ({
   validation,
   checkBoxNames = [],
 }) => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:1010px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
