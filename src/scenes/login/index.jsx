@@ -11,6 +11,7 @@ import {currentUser} from '../../services/currentUser';
 import LoadingButton from '../../components/LoadingButton';
 import logo from "../../img/OCCN2.svg";
 import "./index.css"
+import {useMediaQuery} from '@mui/material';
 
 
 const checkoutSchema = yup.object().shape({
@@ -26,6 +27,7 @@ export default function Login({onLogin}){
       username:"",
       password:""
     });
+    const isNonMobile = useMediaQuery("(min-width:800px)");
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -78,20 +80,24 @@ export default function Login({onLogin}){
               width={"80%"}
               height={"80%"}
               bgcolor={colors.greenSpace[400]}
-              borderRadius={"15px 8px 8px 15px"}
+              borderRadius={isNonMobile?"15px 8px 8px 15px":"15px 15px 8px 8px"}
+              flexWrap={"wrap"}
+              
             >
              <Box
               display={"flex"}
-              width={"30%"}
-              height={"100%"}
+              width={isNonMobile?"30%":"100%"}
+              height={isNonMobile?"100%":"60%"}
               bgcolor={`${colors.greenSpace[500]}`}
               alignItems={"center"}
               justifyContent={"center"}
-              borderRadius={ "8px 0px 80px 8px" }
+              borderRadius={ isNonMobile?"8px 0px 80px 8px":"8px 8px 0px 0px" }
               flexDirection={"column"}
               
              >
-              <Box width="150px" height="150px">
+              {
+                isNonMobile && 
+                <Box width="150px" height="150px">
                 <div
                   style={{
                     backgroundImage: `url(${logo})`,
@@ -106,6 +112,7 @@ export default function Login({onLogin}){
                  
                 ></div>
               </Box>
+              }
              <Formik  
                 initialValues = {formData}
                 onSubmit={HandleSubmit}         
@@ -182,8 +189,8 @@ export default function Login({onLogin}){
              </Box>
              <Box
               display={"flex"}
-              width={"70%"}
-              height={"100%"}
+              width={isNonMobile?"70%":"100%"}
+              height={isNonMobile?"100%":"40%"}
               alignItems={"center"}
               justifyContent={"center"}
               
@@ -196,17 +203,17 @@ export default function Login({onLogin}){
               paddingLeft={"20px"}
               position={"relative"}
               sx={{textShadow:"0px 0px 6px"}}
+           
               >
                 <div className='div_con_fondo_desenfocado'></div>
                 <Box
                   position={"absolute"}
+          
                 >
-                  <Typography fontSize={"6em"} fontFamily="fantasy" variant = "h1" color={colors.greenAccent[900]} >Observatorio</Typography>
-                  <Typography fontSize={"6em"} fontFamily="fantasy" variant = "h1" color={colors.greenAccent[900]} >Central</Typography>
-                  <Typography fontSize={"6em"} fontFamily="fantasy" variant = "h1" color={colors.greenAccent[900]} >de Cirugía</Typography>
-                  <Typography fontSize={"6em"} fontFamily="fantasy" variant = "h1" color={colors.greenAccent[900]} >Neonatal</Typography>
-
-
+                  <Typography fontFamily="fantasy" variant = "h1" fontSize={isNonMobile?"6em":"3em"} color={colors.greenAccent[900]} >Observatorio</Typography>
+                  <Typography fontFamily="fantasy" variant = "h1" fontSize={isNonMobile?"6em":"3em"} color={colors.greenAccent[900]} >Central</Typography>
+                  <Typography fontFamily="fantasy" variant = "h1" fontSize={isNonMobile?"6em":"3em"} color={colors.greenAccent[900]} >de Cirugía</Typography>
+                  <Typography fontFamily="fantasy" variant = "h1" fontSize={isNonMobile?"6em":"3em"} color={colors.greenAccent[900]} >Neonatal</Typography>
                 </Box>
 
               </Box>           
