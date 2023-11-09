@@ -52,34 +52,36 @@ function App() {
      
         <div className="app">
           <SideBar isSidebar={isSidebar} isCollapsed={isCollapsed} onCollapsed = {handleOnCollapsed}/>
-       
+
           <main className="content" ref = {mainRef} style={{ overflowX: "hidden",backgroundColor: colors.blackGreenSpace[600]}}>
+         
           <Modal
             open={!isCollapsed}
             onClose={handleOnCollapsed}
           >
-            <Box
-            ></Box>
+            <Box></Box>
           </Modal>
-            <Topbar  setIsSidebar = {setIsSidebar} onCollapsed={handleOnCollapsed} onLogout = {handleLogin}/>
-            <Routes>  
-              <Route path="/" element={<Home />}/>
-              <Route path="/login"  element={<Login onLogin={handleLogin} />} />
+          
+          <Topbar  setIsSidebar = {setIsSidebar} onCollapsed={handleOnCollapsed} onLogout = {handleLogin}/>
+          
+          <Routes>  
+              <Route path="/"  element={<Login onLogin={handleLogin} />} />
              
               {autenticate.token?
                 <>
                   {autenticate.isAdmin==="true"?
-                    <>
-                      <Route path="/controlUser" element={<Team />} />
-                      <Route path="/form" element={<FormData  mainRef = {mainRef}/>}/>
-                    </>
-                  :(
-                    <>
-                      <Route path="/form"  element={<Login onLogin={handleLogin} />} />
-                      <Route path="/controlUser"  element={<Login onLogin={handleLogin} />}/>
-                    </>
-                  )
-                  }              
+                      <>
+                        <Route path="/controlUser" element={<Team />} />
+                        <Route path="/form" element={<FormData  mainRef = {mainRef}/>}/>
+                      </>
+                    :(
+                      <>
+                        <Route path="/form"  element={<Login onLogin={handleLogin} />} />
+                        <Route path="/controlUser"  element={<Login onLogin={handleLogin} />}/>
+                      </>
+                    )
+                  }    
+                  <Route path="/home" element={<Home />}/>          
                   <Route path="/pacientesList" element={<PacientesList mainRef = {mainRef} />} />                   
                   <Route path="/bar" element={<Bar />} />
                   <Route path="/pie" element={<Pie />} />
@@ -94,8 +96,7 @@ function App() {
                 </>
               }
 
-            </Routes>
-            
+            </Routes> 
           </main>
         </div>
       </ThemeProvider>

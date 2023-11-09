@@ -26,13 +26,10 @@ export default function LoadingButton({loading,success}) {
     };
   }, []);
 
-
-
-
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', width:"100%"}}>
+    <Box sx={{ display:'flex',alignItems:'center',width:"100%"}}>
      
-      <Box sx={{  position: 'relative',  width: "180px"}}>
+      <Box sx={{position:'relative', width:"100%"}}>
         <Button
           fullWidth
           variant={!success?"outlined":"contained"}

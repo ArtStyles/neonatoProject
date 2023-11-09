@@ -58,6 +58,7 @@ const Home = () => {
         justifyContent={"center"}
         position={"absolute"}
         top={"0"} 
+        gap={"70px"}
       >
         <div
           style={{
@@ -76,8 +77,8 @@ const Home = () => {
 
           }}
         >
-          <Typography variant="h2" fontWeight={"800"} color={colors.greenAccent[600]}>Observatorio Central de Cirugía Neonatal</Typography>
         </div>
+        <Typography variant="h1" fontWeight={"800"} fontSize="5em" color={colors.greenAccent[600]}>Observatorio Central de Cirugía Neonatal</Typography>
       </Box>
     </Box>
   );

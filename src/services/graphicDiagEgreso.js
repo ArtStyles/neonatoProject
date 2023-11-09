@@ -1,7 +1,6 @@
 import {makeFetch} from './makeFetch'
 const query = `{
     graphicDiagnosticoEgreso
-
   }
   `
 

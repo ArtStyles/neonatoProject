@@ -18,7 +18,7 @@ const Topbar=({onLogout,onCollapsed})=>{
     const colorMode = useContext(ColorModeContext);
 
     return (
-        <Box display= "flex" justifyContent="space-between" p={1} 
+        <Box display= "flex" alignItems={"flex-end"} justifyContent={"flex-end"} p={1} 
             boxShadow={`0px  0px 1px 0px ${colors.greenSpace[100]}`}
             sx = {{
                 "& .MuiBox-root":{
@@ -40,21 +40,11 @@ const Topbar=({onLogout,onCollapsed})=>{
                 </Box>
             }
 
-           {/* Search bar */}
-            {isNonMobile && 
-                <Box   display="flex" 
-                    backgroundColor={colors.primary[700]}
-                    borderRadius="3px"
-                    > 
-                    <InputBase sx={{ml:2, flex:1}} placeholder= "Search "/>
-                    <IconButton type="button" sx={{p:1}} >
-                        <SearchIcon/>
-                    </IconButton>
-                </Box>
-            }
+        
+     
             
             {/* Icons */}
-           <Box display='flex'>
+           <Box display='flex' >
                 
              <AcountMenuItem title={localStorage.getItem("token")?(localStorage.getItem("admin")==="true"?"AD":"U"):null} onLogout={onLogout}/>
 

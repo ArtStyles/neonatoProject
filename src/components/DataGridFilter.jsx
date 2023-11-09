@@ -112,9 +112,10 @@ const DataGridFilter = ({onFilter}) => {
         <Box
         sx={{        
             "& .css-qoi9-MuiPaper-root-MuiAccordion-root":{
-            backgroundColor: ` ${colors.blackGreenSpace[700]} !important`,
-            backgroundImage:"none !important"
-            
+            backgroundColor: ` transparent !important`,
+            backgroundImage:"none !important",
+            border:"none !importatnt",
+            boxShadow:"none !important"
             },
 
             "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root ":{

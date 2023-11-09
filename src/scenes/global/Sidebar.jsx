@@ -164,7 +164,7 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
           <Box paddingTop={"40px"}>
             <Item
               title="Home"
-              to="/"
+              to="/home"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
