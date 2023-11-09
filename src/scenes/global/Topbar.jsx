@@ -18,7 +18,7 @@ const Topbar=({onLogout,onCollapsed})=>{
     const colorMode = useContext(ColorModeContext);
 
     return (
-        <Box display= "flex" alignItems={"flex-end"} justifyContent={"flex-end"} p={1} 
+        <Box display= "flex" minHeight={"50px"}  p={1} position={"relative"}
             boxShadow={`0px  0px 1px 0px ${colors.greenSpace[100]}`}
             sx = {{
                 "& .MuiBox-root":{
@@ -44,7 +44,11 @@ const Topbar=({onLogout,onCollapsed})=>{
      
             
             {/* Icons */}
-           <Box display='flex' >
+           <Box display='flex' 
+           position={"absolute"}
+            right={"6px"}
+            top={"6px"}
+           >
                 
              <AcountMenuItem title={localStorage.getItem("token")?(localStorage.getItem("admin")==="true"?"AD":"U"):null} onLogout={onLogout}/>
 

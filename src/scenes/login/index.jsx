@@ -77,16 +77,17 @@ export default function Login({onLogin}){
           >
             <Box
               display={"flex"}
-              width={"80%"}
-              height={"80%"}
-              bgcolor={colors.greenSpace[400]}
+              width={"65%"}
+              height={"65%"}
+              bgcolor={"#172A2B"}
               borderRadius={isNonMobile?"15px 8px 8px 15px":"15px 15px 8px 8px"}
               flexWrap={"wrap"}
+              overflow={"hidden"}
               
             >
              <Box
               display={"flex"}
-              width={isNonMobile?"30%":"100%"}
+              width={isNonMobile?"35%":"100%"}
               height={isNonMobile?"100%":"60%"}
               bgcolor={`${colors.greenSpace[500]}`}
               alignItems={"center"}
@@ -97,7 +98,7 @@ export default function Login({onLogin}){
              >
               {
                 isNonMobile && 
-                <Box width="150px" height="150px">
+                <Box width="120px" height="120px">
                 <div
                   style={{
                     backgroundImage: `url(${logo})`,
@@ -155,8 +156,8 @@ export default function Login({onLogin}){
                         }}
 
                       >
-                      <Typography fontFamily="monospace" variant = "h1" color={colors.greenAccent[300]} sx={{textShadow:"0px 0px 10px"}}>Sign in</Typography>
-                      <Typography fontFamily="monospace" variant = "h5" color={colors.greenAccent[600]}>Into user and password</Typography>
+                      <Typography fontFamily="monospace" variant = "h1" color={colors.greenAccent[200]}>Sign in</Typography>
+                     
                       <TextField
                         fullWidth
                         label="user"
@@ -189,7 +190,7 @@ export default function Login({onLogin}){
              </Box>
              <Box
               display={"flex"}
-              width={isNonMobile?"70%":"100%"}
+              width={isNonMobile?"65%":"100%"}
               height={isNonMobile?"100%":"40%"}
               alignItems={"center"}
               justifyContent={"center"}
@@ -202,7 +203,6 @@ export default function Login({onLogin}){
               justifyContent={"center"}
               paddingLeft={"20px"}
               position={"relative"}
-              sx={{textShadow:"0px 0px 6px"}}
            
               >
                 <div className='div_con_fondo_desenfocado'></div>
@@ -210,10 +210,11 @@ export default function Login({onLogin}){
                   position={"absolute"}
           
                 >
-                  <Typography fontFamily="fantasy" variant = "h1" fontSize={isNonMobile?"6em":"3em"} color={colors.greenAccent[900]} >Observatorio</Typography>
-                  <Typography fontFamily="fantasy" variant = "h1" fontSize={isNonMobile?"6em":"3em"} color={colors.greenAccent[900]} >Central</Typography>
-                  <Typography fontFamily="fantasy" variant = "h1" fontSize={isNonMobile?"6em":"3em"} color={colors.greenAccent[900]} >de Cirugía</Typography>
-                  <Typography fontFamily="fantasy" variant = "h1" fontSize={isNonMobile?"6em":"3em"} color={colors.greenAccent[900]} >Neonatal</Typography>
+                  <Typography fontFamily={"sans-serif"} variant = "h1" fontSize={isNonMobile?"5.2em":"2em"} color={colors.greenAccent[200]} >Observatorio</Typography>
+                  <Typography fontFamily={"sans-serif"} variant = "h1" fontSize={isNonMobile?"5.2em":"2em"} color={colors.greenAccent[200]} >Central</Typography>
+                  <Typography fontFamily={"sans-serif"} variant = "h1" fontSize={isNonMobile?"5.2em":"2em"} color={colors.greenAccent[200]} >de Cirugía</Typography>
+                  <Typography fontFamily={"sans-serif"} variant = "h1" fontSize={isNonMobile?"5.2em":"2em"} color={colors.greenAccent[200]} >Neonatal</Typography>
+                  
                 </Box>
 
               </Box>           
