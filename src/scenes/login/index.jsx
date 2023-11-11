@@ -27,7 +27,7 @@ export default function Login({onLogin}){
       username:"",
       password:""
     });
-    const isNonMobile = useMediaQuery("(min-width:800px)");
+    const isNonMobile = useMediaQuery("(min-width:1080px)");
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -79,26 +79,30 @@ export default function Login({onLogin}){
               display={"flex"}
               width={"65%"}
               height={"65%"}
-              bgcolor={"#172A2B"}
+              bgcolor={`${colors.greenSpace[500]}`}
               borderRadius={isNonMobile?"15px 8px 8px 15px":"15px 15px 8px 8px"}
               flexWrap={"wrap"}
               overflow={"hidden"}
+              minWidth={"210px"}
               
             >
              <Box
               display={"flex"}
               width={isNonMobile?"35%":"100%"}
               height={isNonMobile?"100%":"60%"}
-              bgcolor={`${colors.greenSpace[500]}`}
+              bgcolor={`#172A2B`}
               alignItems={"center"}
               justifyContent={"center"}
-              borderRadius={ isNonMobile?"8px 0px 80px 8px":"8px 8px 0px 0px" }
+              borderRadius={ isNonMobile?"8px 0px 40px 8px":"8px 8px 0px 0px" }
               flexDirection={"column"}
               
              >
               {
+                !isNonMobile && <Typography fontFamily="monospace" variant = "h1" color={colors.greenAccent[200]}>Sign in</Typography>
+              }
+              {
                 isNonMobile && 
-                <Box width="120px" height="120px">
+                <Box width="150px" height="150px">
                 <div
                   style={{
                     backgroundImage: `url(${logo})`,
@@ -114,6 +118,7 @@ export default function Login({onLogin}){
                 ></div>
               </Box>
               }
+              
              <Formik  
                 initialValues = {formData}
                 onSubmit={HandleSubmit}         
@@ -138,29 +143,34 @@ export default function Login({onLogin}){
                         justifyContent={"center"}
                         sx={{
                             "& .MuiFormLabel-root":{
-                              opacity:"0.5"
+                              opacity:"0.5 !important",
+                              color:`${colors.greenAccent[600]} !important`,
                             },
                             "& .Mui-focused":{
-                              opacity:"1",
-                              color:`${colors.greenAccent[400]} !important`,
+                              opacity:"0.8 !important",
+                              color:`${colors.greenAccent[500]} !important`,
                             },
 
                             "& .MuiInputBase-input":{
-                              opacity:"1",
+                              opacity:"1 !important",
                               color:`${colors.greenAccent[100]} !important`,
                             },
-
+                            
                             "& .css-9425fu-MuiOutlinedInput-notchedOutline":{
-                              border: `2px solid ${colors.greenAccent[900]}`
-                            } 
+                              border: `3px solid ${colors.greenAccent[700] }!important`,
+                              borderRadius:"15px !important",
+                            },
+
+
+                      
                         }}
 
                       >
-                      <Typography fontFamily="monospace" variant = "h1" color={colors.greenAccent[200]}>Sign in</Typography>
+                      
                      
                       <TextField
                         fullWidth
-                        label="user"
+                        label="User"
                         type="text"
                         value={values.username}
                         name="username"
@@ -170,13 +180,14 @@ export default function Login({onLogin}){
                       />
                       <TextField
                         fullWidth
-                        label="password"
+                        label="Password"
                         type="password"
                         value={values.password}
                         name="password"
                         onChange={handleChange}
                         error={!!errors.password}
                         helperText={errors.password}
+                         
                       />
                       <LoadingButton
                         loading={loading}
@@ -201,38 +212,33 @@ export default function Login({onLogin}){
               display={"flex"}
               alignItems={"center"}
               justifyContent={"center"}
-              paddingLeft={"20px"}
               position={"relative"}
            
               >
                 <div className='div_con_fondo_desenfocado'></div>
                 <Box
                   position={"absolute"}
-          
                 >
-                  <Typography fontFamily={"sans-serif"} variant = "h1" fontSize={isNonMobile?"5.2em":"2em"} color={colors.greenAccent[200]} >Observatorio</Typography>
-                  <Typography fontFamily={"sans-serif"} variant = "h1" fontSize={isNonMobile?"5.2em":"2em"} color={colors.greenAccent[200]} >Central</Typography>
-                  <Typography fontFamily={"sans-serif"} variant = "h1" fontSize={isNonMobile?"5.2em":"2em"} color={colors.greenAccent[200]} >de Cirugía</Typography>
-                  <Typography fontFamily={"sans-serif"} variant = "h1" fontSize={isNonMobile?"5.2em":"2em"} color={colors.greenAccent[200]} >Neonatal</Typography>
-                  
-                </Box>
+                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >O</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >bservatorio</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >entral de</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >irugía</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >N</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >eonatal</Typography>
 
-              </Box>           
+                </Box>
+              </Box>   
+                      
               <Box
                 display={"flex"}
                 flexDirection={"column"}
                 flexShrink={"2"}
-             
               >
-                
               </Box>
-            
-
-             </Box>
-            
+             </Box>    
             </Box>
-            
-            
         </Box>
         </Modal>
         

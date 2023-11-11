@@ -1,17 +1,14 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import image1 from "../../img/img1.jpeg";
 import { Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import logo from "../../img/OCCN2.svg";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -32,7 +29,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Home = () => {
-  
+  const isNonMobile = useMediaQuery("(min-width:1010px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -41,7 +38,7 @@ const Home = () => {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
-      flexDirection={"column"}
+      flexDirection={isNonMobile?"row":"column"}
       position={"relative"}
       
     >
@@ -50,21 +47,18 @@ const Home = () => {
       </Box>
 
       <Box
-
         width={"70vw"}
         height={"80vh"}
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
-        position={"absolute"}
-        top={"0"} 
-        gap={"70px"}
+        flexDirection={"column"}
       >
         <div
           style={{
             backgroundImage: `url(${logo})`,
-            width: "100%",
-            height: "100%",
+            width: `${isNonMobile?"100%":"60%"}`,
+            height: `${isNonMobile?"100%":"60%"}`,
             backgroundRepeat: "no-repeat",
             alignSelf: "center",
             backgroundPosition:"center",
@@ -73,14 +67,22 @@ const Home = () => {
             alignItems:"center",
             textAlign:"center",
             justifyContent:"center",
-            backgroundBlendMode:"difference"
-
           }}
         >
         </div>
-        <Typography variant="h1" fontWeight={"800"} fontSize="5em" color={colors.greenAccent[600]}>Observatorio Central de Cirugía Neonatal</Typography>
       </Box>
-    </Box>
+      <Box>
+        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"12vh":"6vh"} color={colors.greenAccent[600]} >O</Typography>
+        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"9vh":"4vh"}color={colors.greenAccent[100]} >bservatorio</Typography><br></br>
+        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"12vh":"6vh"} color={colors.greenAccent[600]} >C</Typography>
+        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"9vh":"4vh"}color={colors.greenAccent[100]} >entral de</Typography><br></br>
+        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"12vh":"6vh"} color={colors.greenAccent[600]} >C</Typography>
+        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"9vh":"4vh"}color={colors.greenAccent[100]} >irugía</Typography><br></br>
+        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"12vh":"6vh"} color={colors.greenAccent[600]} >N</Typography>
+        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"9vh":"4vh"}color={colors.greenAccent[100]} >eonatal</Typography>
+     </Box>
+      </Box>
+
   );
 };
 
