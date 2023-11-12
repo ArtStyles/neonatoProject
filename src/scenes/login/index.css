@@ -4,7 +4,7 @@
     height: 95%; /* Ajusta esto a tus necesidades */
   }
   
-  .div_con_fondo_desenfocado::after {
+  .div_con_fondo_desenfocado::after{
     content: "";
     background: url(../../img/OCCN2.svg);
     object-fit: cover;

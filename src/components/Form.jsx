@@ -121,13 +121,28 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   
                   },
                   "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root:after":{
-                    borderBottom:`2px solid${colors.greenSpace[800]} !important`,
+                    borderBottom:`2px solid${colors.greenSpace[400]} !important`,
                   
                   },
-                  "& .Mui-focused":{
-                    color:`${colors.greenSpace[300]} !important`,
-                  
+                  "& .MuiOutlinedInput-notchedOutline":{
+                    border:`1px solid ${colors.greenAccent[700]} !important`,
+                    borderRadius: "10px !important"            
+                },
+                "& .MuiInputBase-root:hover > .MuiOutlinedInput-notchedOutline":{
+                    borderColor:`${colors.greenAccent[600]} !important`,
+                },
+                "& .MuiFormLabel-root":{
+                    opacity:"0.5",
+                },
+    
+                "& .Mui-focused":{
+                    opacity:"1 !important",
+                    color:`${colors.greenAccent[500]} !important`,
                   },
+                "& .MuiInputBase-input":{
+                    color:`${colors.greenAccent[200]} !important`
+    
+                },
 
                 }}
               >

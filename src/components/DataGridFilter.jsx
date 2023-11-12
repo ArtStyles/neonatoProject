@@ -111,39 +111,33 @@ const DataGridFilter = ({onFilter}) => {
     return (
         <Box
         sx={{        
-            "& .css-qoi9-MuiPaper-root-MuiAccordion-root":{
+            "& .MuiPaper-root":{
             backgroundColor: ` transparent !important`,
             backgroundImage:"none !important",
-            border:"none !importatnt",
             boxShadow:"none !important"
             },
 
-            "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root ":{
-            backgroundColor:`${colors.greenSpace[700]} !important`,
-               
+
+            "& .MuiOutlinedInput-notchedOutline":{
+                border:`1px solid ${colors.greenAccent[700]} !important`,
+                borderRadius: "10px !important"            
             },
-            "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root:after":{
-            borderBottom:`2px solid${colors.greenSpace[800]} !important`,
-            
+            "& .MuiInputBase-root:hover > .MuiOutlinedInput-notchedOutline":{
+                borderColor:`${colors.greenAccent[600]} !important`,
             },
-            
-            "& .css-1xn768b-MuiInputBase-root-MuiInput-root:after":{
-            border:`2px solid ${colors.greenSpace[800]} !important`,
-            
+            "& .MuiFormLabel-root":{
+                opacity:"0.5",
             },
-            "& .css-iiujvs-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":{
-            borderColor:`${colors.greenAccent[700]} !important`,
-            
+
+            "& .Mui-focused":{
+                opacity:"1 !important",
+                color:`${colors.greenAccent[500]} !important`,
+              },
+            "& .MuiInputBase-input":{
+                color:`${colors.greenAccent[200]} !important`
+
             },
-            "& .css-75gcxd-MuiFormLabel-root-MuiInputLabel-root.Mui-focused ":{
-            color:`${colors.greenAccent[700]} !important`,
-            
-            },
-            "& .MuiInputBase-root:hover":{
-            outlineColor:`${colors.greenAccent[700]} !important`,
-            
-            
-            },
+
 
         }}
         >

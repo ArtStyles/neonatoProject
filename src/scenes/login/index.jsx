@@ -156,9 +156,13 @@ export default function Login({onLogin}){
                               color:`${colors.greenAccent[100]} !important`,
                             },
                             
-                            "& .css-9425fu-MuiOutlinedInput-notchedOutline":{
-                              border: `3px solid ${colors.greenAccent[700] }!important`,
+                            "& .MuiOutlinedInput-notchedOutline":{
+                              border: `3px solid ${colors.greenAccent[700]} !important`,
                               borderRadius:"15px !important",
+                            },
+                            "& .MuiInputBase-root:hover > .MuiOutlinedInput-notchedOutline":{
+                              borderColor: `${colors.greenAccent[600]} !important`,
+                             
                             },
 
 
@@ -169,6 +173,7 @@ export default function Login({onLogin}){
                       
                      
                       <TextField
+                      id='LoginUsername'
                         fullWidth
                         label="User"
                         type="text"
@@ -177,8 +182,10 @@ export default function Login({onLogin}){
                         onChange={handleChange}
                         error={!!errors.username}
                         helperText={errors.username}
+                        autoComplete='undefined'
                       />
                       <TextField
+                        id='loginPassword'
                         fullWidth
                         label="Password"
                         type="password"
@@ -187,6 +194,7 @@ export default function Login({onLogin}){
                         onChange={handleChange}
                         error={!!errors.password}
                         helperText={errors.password}
+                        autoComplete='undefined'
                          
                       />
                       <LoadingButton
