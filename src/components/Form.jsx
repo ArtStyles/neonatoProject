@@ -108,28 +108,22 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                 gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                 sx={{
                   "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },          
-                  "& .css-100dxe7-MuiPaper-root-MuiAccordion-root":{
+
+                  "& .MuiPaper-root":{
                     backgroundImage:`linear-gradient(${colors.greenSpace[700]}, ${colors.greenSpace[700]}) !important`,
                     boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]} !important`
                   },
-                  "& .css-1tu6j12-MuiPaper-root-MuiAccordion-root":{
-                    backgroundImage:`linear-gradient(${colors.greenSpace[700]}, ${colors.greenSpace[700]}) !important`,
-                    boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]} !important`
+                  "& .MuiInput-root:after":{
+                    borderBottom: `2px solid ${colors.greenAccent[500]} !important`
                   },
-                  "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root ":{
-                    backgroundColor:`${colors.greenSpace[500]} !important`,
                   
-                  },
-                  "& .css-1q6gkgc-MuiInputBase-root-MuiFilledInput-root:after":{
-                    borderBottom:`2px solid${colors.greenSpace[400]} !important`,
                   
-                  },
                   "& .MuiOutlinedInput-notchedOutline":{
                     border:`1px solid ${colors.greenAccent[700]} !important`,
                     borderRadius: "10px !important"            
                 },
                 "& .MuiInputBase-root:hover > .MuiOutlinedInput-notchedOutline":{
-                    borderColor:`${colors.greenAccent[600]} !important`,
+                    borderColor:`${colors.greenAccent[500]} !important`,
                 },
                 "& .MuiFormLabel-root":{
                     opacity:"0.5",

@@ -6,7 +6,7 @@ const Pie = () => {
   return (
     <Box m="20px">
       <Header title="Analisis de los datos de los pacientes según diagnóstico de Egreso"/>
-      <Box height="75vh">
+      <Box height="82vh">
         <PieChart />
       </Box>
     </Box>

@@ -3,8 +3,10 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import logo from "../../img/OCCN2.svg";
+import PieChart from "../../components/PieChart";
+import BarChart from "../../components/BarChart";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import "./index.css"
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -34,54 +36,82 @@ const Home = () => {
   const colors = tokens(theme.palette.mode);
   return (
     <Box
-      m="20px"
+      m="10px"  
       display={"flex"}
+      gap={"10px"}
+      position={"relative"}
+      flexWrap={"wrap"}
+      height={"90vh"}
       alignItems={"center"}
       justifyContent={"center"}
-      flexDirection={isNonMobile?"row":"column"}
-      position={"relative"}
+      alignContent={"center"}
       
     >
-      <Box alignSelf={"flex-start"}>
-          <Header title="HOME" />
-      </Box>
-
       <Box
-        width={"70vw"}
-        height={"80vh"}
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
+        display="flex"
+        width={"100%"}
+        height={"100%"}
+        maxWidth={"1400px"}
+        gap={"10px"}
         flexDirection={"column"}
       >
-        <div
-          style={{
-            backgroundImage: `url(${logo})`,
-            width: `${isNonMobile?"100%":"60%"}`,
-            height: `${isNonMobile?"100%":"60%"}`,
-            backgroundRepeat: "no-repeat",
-            alignSelf: "center",
-            backgroundPosition:"center",
-            opacity:"0.7",
-            display:"flex",
-            alignItems:"center",
-            textAlign:"center",
-            justifyContent:"center",
-          }}
+
+        <Box  width={"100%"} position={"relative"} top={"0px"} left={"0px"}>
+          <Header title="HOME" />
+        </Box>
+        <Box className='fondo_desenfocado'></Box>
+        <Box
+          width={"100%"}
+          height={"49%"}
+          display={"flex"}
+          flexDirection={isNonMobile?"row":"column"}
+          gap={"10px"}
         >
-        </div>
+          <Box
+            width={isNonMobile?"50%":"100%"}
+            height={isNonMobile?"100%":"48%"}
+            sx={{msUserSelect:"none"}}
+            boxShadow={`0px 0px 1px 0px ${colors.greenSpace[100]}`}
+            position={"relative"}
+          >
+            <PieChart />
+          </Box>
+          <Box
+            width={isNonMobile?"50%":"100%"}
+            height={isNonMobile?"100%":"50%"}
+            boxShadow={`0px 0px 1px 0px ${colors.greenSpace[100]}`}
+          >
+              <BarChart />
+          </Box>
+        </Box>
+          
+        <Box
+            width={"100%"}
+            height={"50%"}
+            display={"flex"}
+            flexDirection={isNonMobile?"row":"column"}
+            gap={"10px"}
+          >
+            <Box
+              width={isNonMobile?"70%":"100%"}
+              height={isNonMobile?"100%":"50%"}
+              sx={{msUserSelect:"none"}}
+              boxShadow={`0px 0px 1px 0px ${colors.greenSpace[100]}`}
+              position={"relative"}
+            >
+            </Box>
+            <Box
+              width={isNonMobile?"30%":"100%"}
+              height={isNonMobile?"100%":"50%"}
+              boxShadow={`0px 0px 1px 0px ${colors.greenSpace[100]}`}
+            >
+            </Box>
+        </Box>
+
       </Box>
-      <Box>
-        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"12vh":"6vh"} color={colors.greenAccent[600]} >O</Typography>
-        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"9vh":"4vh"}color={colors.greenAccent[100]} >bservatorio</Typography><br></br>
-        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"12vh":"6vh"} color={colors.greenAccent[600]} >C</Typography>
-        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"9vh":"4vh"}color={colors.greenAccent[100]} >entral de</Typography><br></br>
-        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"12vh":"6vh"} color={colors.greenAccent[600]} >C</Typography>
-        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"9vh":"4vh"}color={colors.greenAccent[100]} >irugía</Typography><br></br>
-        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"12vh":"6vh"} color={colors.greenAccent[600]} >N</Typography>
-        <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"9vh":"4vh"}color={colors.greenAccent[100]} >eonatal</Typography>
-     </Box>
-      </Box>
+
+
+    </Box>
 
   );
 };

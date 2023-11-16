@@ -227,14 +227,14 @@ export default function Login({onLogin}){
                 <Box
                   position={"absolute"}
                 >
-                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >O</Typography>
-                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >bservatorio</Typography><br></br>
-                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
-                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >entral de</Typography><br></br>
-                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
-                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >irugía</Typography><br></br>
-                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >N</Typography>
-                  <Typography sx={{display:"inline"}} fontFamily={"cursive"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >eonatal</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >O</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >bservatorio</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >entral de</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >irugía</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >N</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >eonatal</Typography>
 
                 </Box>
               </Box>   

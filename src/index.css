@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+@font-face {
+  font-family:'Merriweather Sans';
+  src: url(../public/fonts/Merriweather_Sans/MerriweatherSans-VariableFont_wght.ttf);
+  font-weight: bold;
+}
+
 
 html,
 body {
