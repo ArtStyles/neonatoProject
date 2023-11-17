@@ -110,7 +110,8 @@ const DataGridFilter = ({onFilter}) => {
 
     return (
         <Box
-        sx={{        
+        sx={{ 
+            
             "& .MuiPaper-root":{
             backgroundColor: ` transparent !important`,
             backgroundImage:"none !important",
@@ -126,7 +127,8 @@ const DataGridFilter = ({onFilter}) => {
                 borderColor:`${colors.greenAccent[600]} !important`,
             },
             "& .MuiFormLabel-root":{
-                opacity:"0.5",
+                opacity:"0.3",
+                fontFamily:"Merriweather Sans"
             },
 
             "& .Mui-focused":{
@@ -134,8 +136,8 @@ const DataGridFilter = ({onFilter}) => {
                 color:`${colors.greenAccent[500]} !important`,
               },
             "& .MuiInputBase-input":{
-                color:`${colors.greenAccent[200]} !important`
-
+                color:`${colors.greenAccent[100]} !important`,
+                fontFamily:"Merriweather Sans"
             },
 
 
@@ -144,7 +146,7 @@ const DataGridFilter = ({onFilter}) => {
             
             <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon/>} style={{display:"flex",gap:"20px"}}>  
-                    <Typography variant="h5">Filtros</Typography> 
+                    <Typography fontFamily="Merriweather Sans" variant="h5">Filtros</Typography> 
                 </AccordionSummary>
                 <Box 
                     display={"flex"}
@@ -167,7 +169,7 @@ const DataGridFilter = ({onFilter}) => {
                             onChangeValue(clave,"")
                             }}
                             color="default"
-                            style={{fontSize:"0.8em"}}
+                            style={{fontSize:"0.8em",fontFamily:"Merriweather Sans"}}
                             />
                         )
                 
@@ -188,7 +190,7 @@ const DataGridFilter = ({onFilter}) => {
                         name="nombre"
                         label="Nombre"
                         variant="outlined"
-                        sx={{flexGrow:1,maxWidth:"200px"}}
+                        sx={{flexGrow:1,maxWidth:"200px",fontFamily:"Merriweather Sans"}}
                         value={values.nombre}
                         onChange={(e)=>{
                             onChangeValue("nombre",e.target.value)
@@ -199,7 +201,7 @@ const DataGridFilter = ({onFilter}) => {
                         name="nombreDeLaMadre"
                         label="Nombre de La Madre"
                         variant="outlined"
-                        sx={{flexGrow:1,maxWidth:"200px"}}
+                        sx={{flexGrow:1,maxWidth:"200px",fontFamily:"Merriweather Sans",}}
                         value={values.nombreDeLaMadre}
                         onChange={(e)=>{
                             onChangeValue("nombreDeLaMadre",e.target.value)
@@ -210,7 +212,7 @@ const DataGridFilter = ({onFilter}) => {
                         name="provincia"
                         label="Provicncia"
                         variant="outlined"
-                        sx={{flexGrow:1,maxWidth:"200px"}}
+                        sx={{flexGrow:1,maxWidth:"200px",fontFamily:"Merriweather Sans",}}
                         value={values.provincia}
                         onChange={(e)=>{
                             onChangeValue("provincia",e.target.value)                 
@@ -221,7 +223,7 @@ const DataGridFilter = ({onFilter}) => {
                         name="municipio"
                         label="Municipio"
                         variant="outlined"
-                        sx={{flexGrow:1,maxWidth:"200px"}}
+                        sx={{flexGrow:1,maxWidth:"200px",fontFamily:"Merriweather Sans",}}
                         value={values.municipio}
                         onChange={(e)=>{
                             onChangeValue("municipio",e.target.value)
@@ -232,7 +234,7 @@ const DataGridFilter = ({onFilter}) => {
               
                         name="fecha"
                         variant="outlined"
-                        sx={{flexGrow:1,maxWidth:"200px",minWidth:"155px"}}
+                        sx={{flexGrow:1,maxWidth:"200px",minWidth:"155px",fontFamily:"Merriweather Sans",}}
                         type="date"
                         value={values.fecha}
                         onChange={(e)=>{
@@ -246,7 +248,7 @@ const DataGridFilter = ({onFilter}) => {
                         name="diagnosticoEgreso"
                         label="Diagnostico de Egreso"
                         variant="outlined"
-                        sx={{flexGrow:8,maxWidth:"200px",minWidth:"155px"}}
+                        sx={{flexGrow:8,maxWidth:"200px",minWidth:"155px",fontFamily:"Merriweather Sans",}}
                         value={values.diagnosticoEgreso}
                         onChange={(e)=>{
                             onChangeValue("diagnosticoEgreso",e.target.value)
@@ -270,7 +272,7 @@ const DataGridFilter = ({onFilter}) => {
                         name="alta"
                         label="Resultado del alta"
                         variant="outlined"
-                        sx={{flexGrow:6,maxWidth:"200px",minWidth:"155px"}}
+                        sx={{flexGrow:6,maxWidth:"200px",minWidth:"155px",fontFamily:"Merriweather Sans !important"}}
                         select
                         value={values.alta}
                         onChange={(e)=>onChangeValue("alta",e.target.value)}

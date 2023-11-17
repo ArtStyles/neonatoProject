@@ -98,7 +98,7 @@ export default function Login({onLogin}){
               
              >
               {
-                !isNonMobile && <Typography fontFamily="monospace" variant = "h1" color={colors.greenAccent[200]}>Sign in</Typography>
+                !isNonMobile && <Typography  fontFamily= "Merriweather Sans"  variant = "h1" color={colors.greenAccent[200]}>Sign in</Typography>
               }
               {
                 isNonMobile && 
@@ -145,6 +145,7 @@ export default function Login({onLogin}){
                             "& .MuiFormLabel-root":{
                               opacity:"0.5 !important",
                               color:`${colors.greenAccent[600]} !important`,
+                              fontFamily:"Merriweather Sans"
                             },
                             "& .Mui-focused":{
                               opacity:"0.8 !important",
@@ -154,6 +155,7 @@ export default function Login({onLogin}){
                             "& .MuiInputBase-input":{
                               opacity:"1 !important",
                               color:`${colors.greenAccent[100]} !important`,
+                              fontFamily:"Merriweather Sans"
                             },
                             
                             "& .MuiOutlinedInput-notchedOutline":{

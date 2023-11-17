@@ -31,10 +31,11 @@ const CheckField = ({
       boxShadow={` 0px 0px 1px 0px ${colors.greenSpace[300]}`}
       gap="10px"
       position="relative"
+    
     >
       <Typography
         display={"flex"}
-        style={{ flexBasis: "", alignItems: "center", gap: "10px",fontSize: "1em", }}
+        style={{ flexBasis: "", alignItems: "center", gap: "10px",fontSize: "1em", fontFamily:"Merriweather Sans"}}
       >
                   {title}
 
@@ -46,6 +47,7 @@ const CheckField = ({
               display: value === "" ? "inline-block" : "none",
               fontSize: "0.8em",
               fontWeight: "bold",
+              fontFamily:"Merriweather Sans"
             }}
           >
             campo obligatorio
@@ -65,7 +67,7 @@ const CheckField = ({
               variant={`${(checkedAll ===true? String(value).includes(dato): value === dato)?"filled":"outlined"}`}
               onClick={onChange[index]}
               color={"success"}
-              style={{fontSize:"1.2em"}}
+              style={{fontSize:"1.2em",fontFamily:"Merriweather Sans"}}
             />
           </Box>
         ))}

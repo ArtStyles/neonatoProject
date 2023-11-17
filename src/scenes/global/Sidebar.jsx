@@ -25,6 +25,7 @@ const Item = ({ title, to, icon, selected, setSelected,onItemClick,}) => {
         active={selected === title}
         style={{
           color: colors.grey[100],
+          fontFamily:"Merriweather Sans"
         }}
         onClick={() => {
           setSelected(title);
@@ -33,7 +34,7 @@ const Item = ({ title, to, icon, selected, setSelected,onItemClick,}) => {
         }}
         icon={icon}
       >
-        <Typography>{title}</Typography>
+        <Typography fontFamily="Merriweather Sans" >{title}</Typography>
       </MenuItem>
   );
 };
@@ -120,7 +121,7 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h4" color={colors.grey[200]}>
+                <Typography fontFamily="Merriweather Sans" variant="h4" color={colors.grey[200]}>
                   MENÚ
                 </Typography>
                 <IconButton onClick={() => {onCollapsed()}}>

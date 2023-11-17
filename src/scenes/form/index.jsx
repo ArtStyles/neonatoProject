@@ -13,8 +13,7 @@ const FormData=({mainRef})=>{
     <>
       <Form 
       initialValues={values} 
-      title={"Ingresar datos del paciente"} 
-      subtitle={"Formulario con los datos a ingresar"}
+      title={"INGRESAR DATOS DEL PACIENTE"} 
       mainRef = {mainRef}
       />
       

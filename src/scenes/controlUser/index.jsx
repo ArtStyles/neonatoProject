@@ -148,7 +148,7 @@ const ControlUser = () => {
 
   return (
     <Box m="10px" position="relative">
-      <Header title="Control de Usuarios" subtitle="Control de los usuarios del sistema" />
+      <Header title="CONTROL DE USUARIOS" />
       <Box
       ref={deleteRef}
         m="10px 0 0 0"
@@ -190,12 +190,12 @@ const ControlUser = () => {
         borderRadius={"5px"}
         padding={"5px"}
         >   
-          <Button color="secondary" variant="outlined" style={{display:"flex", gap:"10px"}} 
+          <Button color="secondary" variant="outlined" style={{display:"flex", gap:"10px",border:"none"}} 
            onClick={handleOnClick}>
-          <Typography color={colors.greenAccent[400]}>Create User</Typography>          
+          <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[400]}>Create User</Typography>          
           </Button>
         </Box>
-          <DataGrid  
+          <DataGrid 
           disableRowSelectionOnClick
           rows={userData.map(user => user.node)} columns={columns} />
       </Box>

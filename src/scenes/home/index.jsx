@@ -45,7 +45,7 @@ const Home = () => {
       alignItems={"center"}
       justifyContent={"center"}
       alignContent={"center"}
-      
+  
     >
       <Box
         display="flex"
@@ -54,6 +54,7 @@ const Home = () => {
         maxWidth={"1400px"}
         gap={"10px"}
         flexDirection={"column"}
+      
       >
 
         <Box  width={"100%"} position={"relative"} top={"0px"} left={"0px"}>
@@ -66,6 +67,7 @@ const Home = () => {
           display={"flex"}
           flexDirection={isNonMobile?"row":"column"}
           gap={"10px"}
+          sx={{msUserSelect:"none"}}
         >
           <Box
             width={isNonMobile?"50%":"100%"}
@@ -73,15 +75,30 @@ const Home = () => {
             sx={{msUserSelect:"none"}}
             boxShadow={`0px 0px 1px 0px ${colors.greenSpace[100]}`}
             position={"relative"}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          
           >
-            <PieChart />
+            <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun Diagnostico de Egreso</h5>
+            <PieChart isDashboard={true} />
           </Box>
           <Box
             width={isNonMobile?"50%":"100%"}
             height={isNonMobile?"100%":"50%"}
             boxShadow={`0px 0px 1px 0px ${colors.greenSpace[100]}`}
+            sx={{msUserSelect:"none"}}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            position={"relative"}
+            zIndex={"200"}
+            
           >
-              <BarChart />
+            <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun relustado del alta</h5>
+              <BarChart isDashboard={true} />
           </Box>
         </Box>
           
@@ -91,6 +108,7 @@ const Home = () => {
             display={"flex"}
             flexDirection={isNonMobile?"row":"column"}
             gap={"10px"}
+            sx={{msUserSelect:"none"}}
           >
             <Box
               width={isNonMobile?"70%":"100%"}
@@ -109,7 +127,7 @@ const Home = () => {
         </Box>
 
       </Box>
-
+      
 
     </Box>
 

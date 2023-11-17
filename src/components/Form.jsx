@@ -81,7 +81,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
   };
 
   return (
-    <Box m="20px" ref={topRef}>
+    <Box m="20px" ref={topRef} >
       <Header title={title} subtitle={subtitle} />
       <Box>
         <Formik
@@ -126,7 +126,8 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     borderColor:`${colors.greenAccent[500]} !important`,
                 },
                 "& .MuiFormLabel-root":{
-                    opacity:"0.5",
+                    opacity:"0.3",
+                    fontFamily:"Merriweather Sans"
                 },
     
                 "& .Mui-focused":{
@@ -134,7 +135,8 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     color:`${colors.greenAccent[500]} !important`,
                   },
                 "& .MuiInputBase-input":{
-                    color:`${colors.greenAccent[200]} !important`
+                    color:`${colors.greenAccent[100]} !important`,
+                    fontFamily:"Merriweather Sans"
     
                 },
 
@@ -148,7 +150,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   defaultExpanded
                 >
                   <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[100]} variant="h5">
+                    <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
                       Identificación
                     </Typography>
                   </AccordionSummary>
@@ -414,7 +416,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[100]} variant="h5">
+                    <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
                       Atención Primaria
                     </Typography>
                   </AccordionSummary>
@@ -563,7 +565,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[100]} variant="h5">
+                    <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
                       Al regreso del neonato operado
                     </Typography>
                   </AccordionSummary>
@@ -661,7 +663,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[100]} variant="h5">
+                    <Typography fontFamily="Merriweather Sans"  color={colors.greenAccent[100]} variant="h5">
                       Hogar materno 
                     </Typography>
                   </AccordionSummary>
@@ -768,7 +770,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[100]} variant="h5">
+                    <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
                       Servicios de Neonatologias Provinciales
                     </Typography>
                   </AccordionSummary>
@@ -911,7 +913,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[100]} variant="h5">
+                    <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
                       Servicios de Neonatologias CERECINE
                     </Typography>
                     <Box
@@ -1264,7 +1266,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[100]} variant="h5">
+                    <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
                       Equipo Quirúrgico
                     </Typography>
                   </AccordionSummary>
@@ -1361,7 +1363,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography color={colors.greenAccent[100]} variant="h5">
+                    <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
                       Centro Provincial de Genética de Holguín
                     </Typography>
                   </AccordionSummary>

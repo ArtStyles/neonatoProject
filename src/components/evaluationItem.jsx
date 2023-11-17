@@ -15,7 +15,8 @@ const EvalualuationItem = ({evaluation}) => {
             justifyContent={"center"}
             marginBottom={"20px"}
         >
-             <span style={{color:`${evaluation==="E" || evaluation =="MB"?"#216B06"
+             <span style={{fontFamily:"Merriweather Sans", 
+                        color:`${evaluation==="E" || evaluation =="MB"?"#216B06"
                         :`${evaluation ==="B"?"#D9C205"
                         :`${evaluation==="R"?"#D97205":"#880015"}`}`}`}}   
                >Evaluacion</span>
@@ -35,7 +36,7 @@ const EvalualuationItem = ({evaluation}) => {
                 :`${evaluation ==="B"?"#D9C205"
                 :`${evaluation==="R"?"#D97205":"#880015"}`}`} `}
             >   
-                <p>{evaluation}</p>
+                <p style={{fontFamily:"Merriweather Sans"}}>{evaluation}</p>
             </Box>
            
         </Box>

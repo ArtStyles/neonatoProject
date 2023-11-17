@@ -38,7 +38,7 @@ const datos = [
   },
 ];
 
-const PieChart = () => {
+const PieChart = ({isDashboard = false}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -70,6 +70,7 @@ const PieChart = () => {
           legend: {
             text: {
               fill: colors.grey[100],
+              fontFamily:" Merriweather Sans",
             },
           },
           ticks: {
@@ -79,12 +80,14 @@ const PieChart = () => {
             },
             text: {
               fill: colors.grey[100],
+              fontFamily:" Merriweather Sans",
             },
           },
         },
         legends: {
           text: {
             fill: colors.grey[100],
+            fontFamily:" Merriweather Sans",
           },
         },
       }}
@@ -130,13 +133,14 @@ const PieChart = () => {
           spacing: 10,
         },
       ]}
-      legends={[
+      legends={ !isDashboard ? [
         {
+          
           padding: 20,
           anchor: "bottom",
           direction:"column",
           justify: false,
-          translateX:isNonMobile?180:0,
+          translateX:isNonMobile ? 180:0,
           translateY: 100,
           itemsSpacing: 3,
           itemWidth: 150,
@@ -147,7 +151,9 @@ const PieChart = () => {
           symbolSize: 10,
           symbolShape: "circle",
           effects: [
+
             {
+              
               on: "hover",
               style: {
                 itemTextColor: colors.greenAccent[700],
@@ -155,7 +161,7 @@ const PieChart = () => {
             },
           ],
         },
-      ]}
+      ]:undefined}
     />
   );
 };

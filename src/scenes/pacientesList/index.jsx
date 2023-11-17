@@ -60,8 +60,7 @@ const PacientesList = ({mainRef}) => {
   return (
     <Box m="10px" position={"relative"} display={"flex"} flexDirection={"column"}>
       <Header
-        title="Datos de los Pacientes"
-        subtitle="Informacion relacionada con los pacientes para determinar diagnóstico"
+        title="DATOS DE LOS PACIENTES"
       />
       <DataGridFilter onFilter={handleOnFilter}/>
       <Box

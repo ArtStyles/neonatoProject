@@ -80,8 +80,8 @@ const CreateUser=({onClick,onCreate})=>{
                  <CloseRoundedIcon/>         
             </IconButton>
             </Box> 
-            <Typography variant = "h2" color={colors.greenAccent[300]} >Create User</Typography>
-            <Typography variant = "h5" color={colors.greenAccent[600]}>Into the data for the new user</Typography> 
+            <Typography fontFamily="Merriweather Sans" variant = "h2" color={colors.greenAccent[300]} >Create User</Typography>
+            <Typography fontFamily="Merriweather Sans" variant = "h5" color={colors.greenAccent[600]}>Into the data for the new user</Typography> 
             <Formik  
                 initialValues = {formData}
                 onSubmit={HandleSubmit}         
@@ -140,6 +140,7 @@ const CreateUser=({onClick,onCreate})=>{
                         error={touched.username && Boolean(errors.username)}
                         helperText={touched.username && errors.username}
                         variant={"standard"}
+                        style={{fontFamily:"Merriweather Sans"}}
                       />
                     </Box>
 
@@ -155,6 +156,7 @@ const CreateUser=({onClick,onCreate})=>{
                       error={errors.email}
                       helperText={errors.email}
                       variant = "standard"
+                      style={{fontFamily:"Merriweather Sans"}}
                     />
                     </Box>
 
@@ -170,6 +172,7 @@ const CreateUser=({onClick,onCreate})=>{
                         error={errors.password}
                         helperText={errors.password}
                         variant="standard"
+                        style={{fontFamily:"Merriweather Sans"}}
                       />
 
                     </Box>
@@ -179,6 +182,7 @@ const CreateUser=({onClick,onCreate})=>{
                         label="Admin permissions"
                         control={    
                             <Checkbox 
+                            style={{fontFamily:"Merriweather Sans"}}
                               title='Admin permissions'
                               color='secondary'
                               value={values.isStaff}
