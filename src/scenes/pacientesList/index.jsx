@@ -117,7 +117,7 @@ const PacientesList = ({mainRef}) => {
             flexDirection={"column"}
             paddingTop={"30px"}
           >
-            <IconButton style={{display:"flex",gap:"10px",position:"absolute",top:"0",left:"0"}}  onClick={()=>{
+            <IconButton style={{display:"flex",gap:"10px",position:"absolute",top:"0",right:"0"}}  onClick={()=>{
                               handleOnAllDataStatus()
                           }}
                           >

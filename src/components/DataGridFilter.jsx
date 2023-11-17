@@ -168,7 +168,6 @@ const DataGridFilter = ({onFilter}) => {
                             }}
                             color="default"
                             style={{fontSize:"0.8em"}}
-                            
                             />
                         )
                 

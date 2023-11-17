@@ -18,7 +18,6 @@ const FormData=({mainRef})=>{
       mainRef = {mainRef}
       />
       
-
     </>
 
   )

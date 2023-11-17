@@ -21,7 +21,7 @@ const AcountMenuItem= ({title,onLogout})=> {
     if(localStorage.getItem("token"))
       setAnchorEl(event.currentTarget);
     else
-      navigate("/login") 
+      navigate("/") 
     };
   const handleClose = () => {
     setAnchorEl(null);
