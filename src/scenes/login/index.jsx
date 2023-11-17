@@ -78,7 +78,7 @@ export default function Login({onLogin}){
             <Box
               display={"flex"}
               width={"65%"}
-              height={"65%"}
+              height={isNonMobile?"65%":"80%"}
               bgcolor={`${colors.greenSpace[500]}`}
               borderRadius={isNonMobile?"15px 8px 8px 15px":"15px 15px 8px 8px"}
               flexWrap={"wrap"}
