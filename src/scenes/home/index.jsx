@@ -31,7 +31,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Home = () => {
-  const isNonMobile = useMediaQuery("(min-width:1010px)");
+  const isNonMobile = useMediaQuery("(min-width:750px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -94,7 +94,7 @@ const Home = () => {
             alignItems={"center"}
             justifyContent={"center"}
             position={"relative"}
-            zIndex={"200"}
+          
             
           >
             <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun relustado del alta</h5>

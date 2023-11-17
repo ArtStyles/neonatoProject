@@ -41,7 +41,7 @@ const datos = [
 const PieChart = ({isDashboard = false}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:1000px)");
   const [graphicData,setGraphicData] = useState(datos)
 
   useEffect(()=>{
@@ -91,7 +91,7 @@ const PieChart = ({isDashboard = false}) => {
           },
         },
       }}
-      margin={{ top: 15, right: 80, bottom: 80, left: 40}}
+      margin={{ top: isDashboard ? 40 : 15, right: 80,  bottom: isDashboard ? !isNonMobile ? 10 :60 :80, left: 40}}
       innerRadius={0.5}
       padAngle={0.7}
       cornerRadius={3}
@@ -102,7 +102,7 @@ const PieChart = ({isDashboard = false}) => {
       }}
       arcLinkLabelsSkipAngle={10}
       arcLinkLabelsTextColor={colors.grey[100]}
-      arcLinkLabelsThickness={2}
+      arcLinkLabelsThickness={0}
       arcLinkLabelsColor={{ from: "color" }}
       enableArcLabels={true}
       arcLabelsRadiusOffset={0.2}
@@ -133,7 +133,7 @@ const PieChart = ({isDashboard = false}) => {
           spacing: 10,
         },
       ]}
-      legends={ !isDashboard ? [
+      legends={ isDashboard && !isNonMobile ? undefined:[
         {
           
           padding: 20,
@@ -141,7 +141,7 @@ const PieChart = ({isDashboard = false}) => {
           direction:"column",
           justify: false,
           translateX:isNonMobile ? 180:0,
-          translateY: 100,
+          translateY: isDashboard? 80: 100,
           itemsSpacing: 3,
           itemWidth: 150,
           itemHeight: 18,
@@ -161,7 +161,7 @@ const PieChart = ({isDashboard = false}) => {
             },
           ],
         },
-      ]:undefined}
+      ]}
     />
   );
 };
