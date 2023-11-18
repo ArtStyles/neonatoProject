@@ -79,6 +79,7 @@ const Home = () => {
             flexDirection={"column"}
             alignItems={"center"}
             justifyContent={"center"}
+            borderRadius={"8px"}
           
           >
             <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun Diagnostico de Egreso</h5>
@@ -94,7 +95,7 @@ const Home = () => {
             alignItems={"center"}
             justifyContent={"center"}
             position={"relative"}
-          
+            borderRadius={"8px"}
             
           >
             <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun relustado del alta</h5>
@@ -116,12 +117,14 @@ const Home = () => {
               sx={{msUserSelect:"none"}}
               boxShadow={`0px 0px 1px 0px ${colors.greenSpace[100]}`}
               position={"relative"}
+              borderRadius={"8px"}
             >
             </Box>
             <Box
               width={isNonMobile?"30%":"100%"}
               height={isNonMobile?"100%":"50%"}
               boxShadow={`0px 0px 1px 0px ${colors.greenSpace[100]}`}
+              borderRadius={"8px"}
             >
             </Box>
         </Box>
