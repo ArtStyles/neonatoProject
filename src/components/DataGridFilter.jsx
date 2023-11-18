@@ -36,7 +36,11 @@ const DataGridFilter = ({onFilter}) => {
         {
             value:"muerto",
             label:"Fallecido"
-        }
+        },
+        {
+            value:"",
+            label:"Ninguno"
+        },
     ];
 
     const currencies2 = [
@@ -59,7 +63,11 @@ const DataGridFilter = ({onFilter}) => {
         {
             value:"Otros",
             label:"Otros"
-        }
+        },
+        {
+            value:"",
+            label:"Ninguno"
+        },
     ];
 
     const filter  = {
@@ -258,7 +266,7 @@ const DataGridFilter = ({onFilter}) => {
                     >
                     {
                         currencies2.map((option) => (
-                                <MenuItem key={option.label} value={option.value}>
+                                <MenuItem sx={{fontFamily:"Merriweather Sans"}} key={option.label} value={option.value}>
                                     {option.label}
                                 </MenuItem>
                                 ))
@@ -272,7 +280,7 @@ const DataGridFilter = ({onFilter}) => {
                         name="alta"
                         label="Resultado del alta"
                         variant="outlined"
-                        sx={{flexGrow:6,maxWidth:"200px",minWidth:"155px",fontFamily:"Merriweather Sans !important"}}
+                        sx={{flexGrow:6,maxWidth:"200px",minWidth:"155px"}}
                         select
                         value={values.alta}
                         onChange={(e)=>onChangeValue("alta",e.target.value)}
@@ -280,7 +288,7 @@ const DataGridFilter = ({onFilter}) => {
                     >
                     {
                         currencies.map((option) => (
-                                <MenuItem key={option.label} value={option.value}>
+                                <MenuItem sx={{fontFamily:"Merriweather Sans"}} key={option.label} value={option.value}>
                                     {option.label}
                                 </MenuItem>
                                 ))

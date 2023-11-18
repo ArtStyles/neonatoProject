@@ -156,8 +156,10 @@ const ControlUser = () => {
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
-            boxShadow:`0px  0px 1px 0px ${colors.greenSpace[100]}`
+            boxShadow:`0px  0px 1px 0px ${colors.greenSpace[100]}`,
+            fontFamily:"Merriweather Sans"
           },
+               
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
           },
@@ -181,20 +183,20 @@ const ControlUser = () => {
         }}
       >  
        {loading && <div className = "loader-container"><CircularProgress color="success"/></div>}
-        <Box display="flex" 
-        position={isNonMobile?"absolute":"flex"} 
-        top="0px" right="0"
-        alignItems={"center"} 
-        alignSelf={"flex-start"}
-        justifyContent={"center"}
-        borderRadius={"5px"}
-        padding={"5px"}
-        >   
-          <Button color="secondary" variant="outlined" style={{display:"flex", gap:"10px",border:"none"}} 
-           onClick={handleOnClick}>
-          <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[400]}>Create User</Typography>          
-          </Button>
-        </Box>
+          <Box display="flex" 
+            position={isNonMobile?"absolute":"flex"} 
+            bottom="-50px" right="0px"
+            alignItems={"center"} 
+            alignSelf={"flex-start"}
+            justifyContent={"center"}
+            borderRadius={"5px"}
+            padding={"5px"}
+            >   
+            <Button color="secondary" variant="outlined" style={{display:"flex", gap:"10px",border:"none"}} 
+            onClick={handleOnClick}>
+            <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[400]}>Create User</Typography>          
+            </Button>
+          </Box>
           <DataGrid 
           disableRowSelectionOnClick
           rows={userData.map(user => user.node)} columns={columns} />

@@ -2,12 +2,17 @@
   font-family:'Merriweather Sans';
   src: url(../public/fonts/Merriweather_Sans/MerriweatherSans-VariableFont_wght.ttf);
 }
-
+@font-face {
+  font-family:'Merriweather Sans Bold';
+  src: url(../public/fonts/Merriweather_Sans/MerriweatherSans-VariableFont_wght.ttf);
+  font-weight: bold;
+}    
 
 html,
 body {
   height: 100%;
   width: 100%;
+  background-color: rgb(4, 10, 12) !important;
 }
 
 #root,
@@ -26,7 +31,6 @@ body {
 .content {
   height: 100%;
   width: 100%;
-  margin-left:80px;
   position: relative;
 }
 

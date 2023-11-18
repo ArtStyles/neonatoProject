@@ -1,25 +1,27 @@
-
 import {Box, IconButton,useTheme,} from '@mui/material';
-import { useContext, } from 'react';
-import { ColorModeContext,tokens } from '../../theme';
-import InputBase from '@mui/material/InputBase';
-import  LightModeOutlinedIcon  from '@mui/icons-material/LightModeOutlined';
-import  DarkModeOutlinedIcon  from '@mui/icons-material/DarkModeOutlined';
-import  SearchIcon from '@mui/icons-material/SearchOutlined';
+import { useState, } from 'react';
+import {tokens } from '../../theme';
 import AcountMenuItem from '../../components/AcountMenuItem';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import {useMediaQuery} from '@mui/material';
+import AcountSetting from '../../components/AcountSetting';
+import logo from "../../img/OCCN2.svg";
 
 
 const Topbar=({onLogout,onCollapsed})=>{
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const colorMode = useContext(ColorModeContext);
+    const [activeAcountSetting,setActiveAcountSetting] = useState(false)
+
+    const handleOnSettingItem = () =>{
+        setActiveAcountSetting(!activeAcountSetting);
+    }
 
     return (
         <Box display= "flex" minHeight={"50px"}  p={1} position={"relative"}
             boxShadow={`0px  0px 1px 0px ${colors.greenSpace[100]}`}
+            
             sx = {{
                 "& .MuiBox-root":{
                 gap:`10px`
@@ -27,7 +29,7 @@ const Topbar=({onLogout,onCollapsed})=>{
             }}
         >
             {/* Menu Button */}
-            { !isNonMobile &&
+          
                 <Box   display="flex" 
                     backgroundColor={colors.greenSpace[600]}
                     borderRadius="3px"
@@ -35,10 +37,25 @@ const Topbar=({onLogout,onCollapsed})=>{
                 > 
                 
                     <IconButton style={{borderRadius:"0px"}} type="button" onClick={()=>{onCollapsed()}}sx={{p:1}} >
-                    <MenuOutlinedIcon style={{borderRadius:"none"}}/>
+                     <MenuOutlinedIcon style={{borderRadius:"none"}}/>
                     </IconButton>
                 </Box>
-            }
+
+                <Box marginLeft={"15px"} width="40px" height="40px">
+                    <div
+                      style={{
+                        backgroundImage: `url(${logo})`,
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "cover",
+                        backgroundSize: "60%",
+                        backgroundRepeat: "no-repeat",
+                      
+                        backgroundPosition: "center",        
+                      }}
+                    
+                    ></div>
+                  </Box>
 
         
      
@@ -50,8 +67,10 @@ const Topbar=({onLogout,onCollapsed})=>{
             top={"6px"}
            >
                 
-             <AcountMenuItem title={localStorage.getItem("token")?(localStorage.getItem("admin")==="true"?"AD":"U"):null} onLogout={onLogout}/>
-
+             <AcountMenuItem onHandleClick={handleOnSettingItem} title={localStorage.getItem("token")?(localStorage.getItem("admin")==="true"?"AD":"U"):null} onLogout={onLogout}/>
+            {
+                activeAcountSetting && <AcountSetting open={activeAcountSetting} onClose={handleOnSettingItem}/>
+            }
                 
            </Box>
 

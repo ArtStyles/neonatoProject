@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const AcountMenuItem= ({title,onLogout})=> {
+const AcountMenuItem= ({title,onLogout,onHandleClick})=> {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -31,9 +31,9 @@ const AcountMenuItem= ({title,onLogout})=> {
     <div>
       <Tooltip arrow title={title?"acount setting":"login"}>
          <Avatar  style={{
-                   
                     backgroundColor:colors.greenSpace[400],   
-                    cursor:"pointer"      
+                    cursor:"pointer",
+                    fontFamily:"Merriweather Sans"   
                     }}
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
@@ -55,11 +55,11 @@ const AcountMenuItem= ({title,onLogout})=> {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem  onClick={()=>{navigate("/acountSetting");handleClose()}}>
+        <MenuItem sx={{fontFamily:"Merriweather Sans"}}  onClick={()=>{onHandleClick();handleClose()}}>
           My account
             <SettingsOutlinedIcon fontSize='small' style={{marginLeft:"10px"}}/>
         </MenuItem>
-        <MenuItem onClick={()=>{
+        <MenuItem sx={{fontFamily:"Merriweather Sans"}} onClick={()=>{
             handleClose();
             onLogout(localStorage.removeItem("token"),localStorage.removeItem("admin"))
             navigate("/")

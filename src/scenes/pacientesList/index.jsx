@@ -69,7 +69,8 @@ const PacientesList = ({mainRef}) => {
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
-            boxShadow:`0px  0px 1px 0px ${colors.greenSpace[100]}`
+            boxShadow:`0px  0px 1px 0px ${colors.greenSpace[100]}`,
+            fontFamily:"Merriweather Sans"
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
@@ -115,13 +116,26 @@ const PacientesList = ({mainRef}) => {
             display={"flex"}
             flexDirection={"column"}
             paddingTop={"30px"}
+
           >
-            <IconButton style={{display:"flex",gap:"10px",position:"absolute",top:"0",right:"0"}}  onClick={()=>{
-                              handleOnAllDataStatus()
-                          }}
-                          >
-                <CloseRoundedIcon/>         
-            </IconButton>
+            <Box
+              sx={{                   
+                "& .MuiButtonBase-root:hover": {
+                bgcolor: colors.greenAccent[700],                  
+              },
+              "& .MuiButtonBase-root": {
+                borderRadius: "0px !important"
+              }
+          }}
+            >
+              <IconButton 
+                style={{display:"flex",gap:"10px",position:"absolute",top:"0",right:"0"}}  
+                onClick={()=>{handleOnAllDataStatus()}}
+              >
+                  <CloseRoundedIcon/>         
+              </IconButton>
+            </Box>
+
 
             <AllData id={id} mainRef={mainRef} desactivateAllData={handleOnAllDataStatus} activateAdvice={handleAdviceStatus}/>
           

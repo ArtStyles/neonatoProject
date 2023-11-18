@@ -6,7 +6,6 @@ import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
 import { authenticate } from '../../services/authentication';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {currentUser} from '../../services/currentUser';
 import LoadingButton from '../../components/LoadingButton';
 import logo from "../../img/OCCN2.svg";
@@ -98,7 +97,7 @@ export default function Login({onLogin}){
               
              >
               {
-                !isNonMobile && <Typography  fontFamily= "Merriweather Sans"  variant = "h1" color={colors.greenAccent[200]}>Sign in</Typography>
+                !isNonMobile && <Typography fontFamily= "Merriweather Sans"  variant = "h1" color={colors.greenAccent[200]}>Sign in</Typography>
               }
               {
                 isNonMobile && 
@@ -229,14 +228,14 @@ export default function Login({onLogin}){
                 <Box
                   position={"absolute"}
                 >
-                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >O</Typography>
-                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >bservatorio</Typography><br></br>
-                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
-                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >entral de</Typography><br></br>
-                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
-                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >irugía</Typography><br></br>
-                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >N</Typography>
-                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >eonatal</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans Bold"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >O</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans Bold"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >bservatorio</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans Bold"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans Bold"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >entral de</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans Bold"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >C</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans Bold"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >irugía</Typography><br></br>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans Bold"} variant = "h1" fontSize={isNonMobile?"10vh":"5vh"} color={colors.greenAccent[600]} >N</Typography>
+                  <Typography sx={{display:"inline"}} fontFamily={"Merriweather Sans Bold"} variant = "h1" fontSize={isNonMobile?"7vh":"2em"} color={colors.greenAccent[100]} >eonatal</Typography>
 
                 </Box>
               </Box>   

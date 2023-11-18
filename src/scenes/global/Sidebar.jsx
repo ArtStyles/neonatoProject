@@ -44,7 +44,8 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState("Home");
- useEffect(()=>{
+ 
+  useEffect(()=>{
 
  },[isAdmin])
 
@@ -56,16 +57,20 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
   }
   return (
     <Box
-      position={"fixed"}
-      left={!isNonMobile && isCollapsed?"-80px":undefined}
+      position={"fixed"}    
+      left={isCollapsed?"-80px":undefined}
       zIndex={isCollapsed?50:10000}
+      
       sx={{
         "& .ps-sidebar-root":{
-            width:"150px;"
+            width:"150px",
+         
         },
+          
         "& .sidebar-inner": {
           background: `${colors.grey[100]} !important`,
         },
+ 
         "& .ps-menu-root": {
           backgroundColor: `${colors.greenSpace[700]} !important`,
         },
@@ -91,16 +96,21 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
           paddingTop: "25px",
           
         },
-        "& .css-1wvake5": {
+        "& .ps-sidebar-root": {
           borderRight: "none !important",
-          boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]}`
-          
+          boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]}`,
+          borderRadius:"0px 15px 15px 0px",
         },
+        "& .ps-sidebar-container": {
+          backgroundColor: `${colors.greenSpace[700]} !important`,
+          borderRadius:"0px 15px 15px 0px",
+        },
+
       }}
     >
 
       <Sidebar collapsed={isCollapsed} 
-        
+        width="300px"
       >
         <Menu
           iconShape="square"
@@ -120,47 +130,49 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
                 justifyContent="space-between"
                 alignItems="center"
                 ml="15px"
+                sx={{
+                  "& .MuiButtonBase-root:hover": {
+                      bgcolor: colors.greenAccent[800],
+                      
+                  },
+                  "& .MuiButtonBase-root": {
+                      borderRadius: "3px !important",
+                      bgcolor: colors.greenAccent[900],
+                  }
+
+              }}
               >
-                <Typography fontFamily="Merriweather Sans" variant="h4" color={colors.grey[200]}>
-                  MENÚ
-                </Typography>
+                <Box
+                  marginTop="25px"
+                  marginLeft={"-20px"}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  flexDirection={"column"}
+                >
+                  <Box width="50px" height="50px">
+                    <div
+                      style={{
+                        backgroundImage: `url(${logo})`,
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "cover",
+                        backgroundSize: "60%",
+                        backgroundRepeat: "no-repeat",
+                      
+                        backgroundPosition: "center",        
+                      }}
+                    
+                    ></div>
+                  </Box>
+      
+                </Box>
                 <IconButton onClick={() => {onCollapsed()}}>
                   <CloseRoundedIcon fontSize="small"/>
                 </IconButton>
               </Box>
             )}
           </MenuItem>
-
-          {!isCollapsed && (
-            <>  
-            <Box
-              mb="25"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              flexDirection={"column"}
-            >
-              <Box width="150px" height="150px">
-                <div
-                  style={{
-                    backgroundImage: `url(${logo})`,
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "cover",
-                    backgroundSize: "50%",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "50px",
-                    backgroundPosition: "center",        
-                  }}
-                 
-                ></div>
-              </Box>
-  
-            </Box>
-            
-            </>
-     
-          )}
 
           <Box paddingTop={"40px"}>
             <Item

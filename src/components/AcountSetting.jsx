@@ -15,7 +15,7 @@ import {useMediaQuery} from "@mui/material"
 
 
 
-const AcountSetting = ()=>{
+const AcountSetting = ({open,onClose})=>{
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -25,7 +25,6 @@ const AcountSetting = ()=>{
         newPassword:"",
         confirmPassword:"",
       });
-    const [open,close] = useState(true)
 
     const checkoutSchema = yup.object().shape({
         newPassword: yup.string().required("campo obligatorio"),
@@ -49,7 +48,7 @@ const AcountSetting = ()=>{
 
     return(
        <>
-       {
+           {
             localStorage.getItem('token')!==null?
             <Modal
                 open={open}
@@ -65,10 +64,19 @@ const AcountSetting = ()=>{
                    position = {"relative"}
                    alignSelf="center"
                    whiteSpace={"pre-line"}
-                        
+                        sx={{
+                            "& .MuiButtonBase-root:hover": {
+                                bgcolor: colors.greenAccent[700],
+                                
+                            },
+                            "& .MuiButtonBase-root": {
+                                borderRadius: "0px !important"
+                            }
+
+                        }}
                 >
-                    <IconButton style={{display:"flex",gap:"10px",position:"absolute",top:"0",left:"0"}}  onClick={()=>{
-                            navigate(-1)
+                    <IconButton style={{display:"flex",gap:"10px",position:"absolute",top:"0",right:"0"}}  onClick={()=>{
+                            onClose();
                         }}
                         >
                             <CloseRoundedIcon/>         

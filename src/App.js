@@ -85,14 +85,12 @@ function App() {
                   <Route path="/pacientesList" element={<PacientesList mainRef = {mainRef} />} />                   
                   <Route path="/bar" element={<Bar />} />
                   <Route path="/pie" element={<Pie />} />
-                  <Route path="/acountSetting"  element={<AcountSetting />}/>
                 </>:
+                
                 <>
                   <Route path="/pacientesList" element={<Login onLogin={handleLogin} />}/>
                   <Route path="/bar"  element={<Login onLogin={handleLogin} />}/>
-                  <Route path="/pie"  element={<Login onLogin={handleLogin} />} />
-                  <Route path="/acountSetting"  element={<Login onLogin={handleLogin} />} />
-                 
+                  <Route path="/pie"  element={<Login onLogin={handleLogin} />} /> 
                 </>
               }
 
