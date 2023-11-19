@@ -6,6 +6,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import {useMediaQuery} from '@mui/material';
 import AcountSetting from '../../components/AcountSetting';
 import logo from "../../img/OCCN2.svg";
+import { useNavigate } from "react-router-dom";
 
 
 const Topbar=({onLogout,onCollapsed})=>{
@@ -13,6 +14,7 @@ const Topbar=({onLogout,onCollapsed})=>{
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [activeAcountSetting,setActiveAcountSetting] = useState(false)
+    const navigate = useNavigate();
 
     const handleOnSettingItem = () =>{
         setActiveAcountSetting(!activeAcountSetting);
@@ -41,8 +43,13 @@ const Topbar=({onLogout,onCollapsed})=>{
                     </IconButton>
                 </Box>
 
-                <Box marginLeft={"15px"} width="40px" height="40px">
-                    <div
+                <Box marginLeft={"15px"} width="40px" height="40px"
+                                 
+                >
+                    <div 
+                    onClick={()=>{
+                        navigate("/home")
+                    }}
                       style={{
                         backgroundImage: `url(${logo})`,
                         height: "100%",
@@ -50,7 +57,7 @@ const Topbar=({onLogout,onCollapsed})=>{
                         objectFit: "cover",
                         backgroundSize: "60%",
                         backgroundRepeat: "no-repeat",
-                      
+                        cursor:"pointer",
                         backgroundPosition: "center",        
                       }}
                     
