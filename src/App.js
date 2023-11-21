@@ -5,14 +5,14 @@ import SideBar from "./scenes/global/Sidebar";
 import Home from "./scenes/home";
 import Team from "./scenes/controlUser";
 import PacientesList from "./scenes/pacientesList";
-import Bar from "./scenes/bar";
+import GraphDiagnosticoEgreso from "./scenes/pieChartDiagnoticoEgres";
 import FormData from "./scenes/form";
-import Pie from "./scenes/pie";
+import GraphResultadoAlta from "./scenes/pieChartResultadoAlta";
 import Login from "./scenes/login";
 import { CssBaseline, ThemeProvider, colors,Modal,Box } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import { tokens } from "./theme";
-import AcountSetting from "./components/AcountSetting";
+
 
 const initialAuthState = {
   token: localStorage.getItem("token") || null,
@@ -51,46 +51,41 @@ function App() {
         <CssBaseline/>
      
         <div className="app">
-          <SideBar isSidebar={isSidebar} isCollapsed={isCollapsed} onCollapsed = {handleOnCollapsed}/>
-
           <main className="content" ref = {mainRef} style={{ overflowX: "hidden",backgroundColor: colors.blackGreenSpace[600]}}>
-         
-          <Modal
-            open={!isCollapsed}
-            onClose={handleOnCollapsed}
-          >
-            <Box></Box>
-          </Modal>
-          
-          <Topbar  setIsSidebar = {setIsSidebar} onCollapsed={handleOnCollapsed} onLogout = {handleLogin}/>
-          
+
+          {autenticate.token ?
+          <>
+              <SideBar isSidebar={isSidebar} isCollapsed={isCollapsed} onCollapsed = {handleOnCollapsed}/>
+              <Topbar  setIsSidebar = {setIsSidebar} onCollapsed={handleOnCollapsed} onLogout = {handleLogin}/>
+          </>
+            : undefined
+          }
           <Routes>  
               <Route path="/"  element={<Login onLogin={handleLogin} />} />
-             
-              {autenticate.token?
+              {autenticate.token ?
                 <>
                   {autenticate.isAdmin==="true"?
                       <>
                         <Route path="/controlUser" element={<Team />} />
-                        <Route path="/form" element={<FormData  mainRef = {mainRef}/>}/>
+                      
                       </>
                     :(
                       <>
-                        <Route path="/form"  element={<Login onLogin={handleLogin} />} />
                         <Route path="/controlUser"  element={<Login onLogin={handleLogin} />}/>
                       </>
                     )
-                  }    
+                  }  
+                  <Route path="/form" element={<FormData  mainRef = {mainRef}/>}/>  
                   <Route path="/home" element={<Home />}/>          
                   <Route path="/pacientesList" element={<PacientesList mainRef = {mainRef} />} />                   
-                  <Route path="/bar" element={<Bar />} />
-                  <Route path="/pie" element={<Pie />} />
+                  <Route path="/graphResultadoAlta" element={<GraphResultadoAlta />} />
+                  <Route path="/graphDiagEgreso"  element={<GraphDiagnosticoEgreso />} />
                 </>:
-                
                 <>
+                  <Route path="/form"  element={<Login onLogin={handleLogin} />} />
                   <Route path="/pacientesList" element={<Login onLogin={handleLogin} />}/>
-                  <Route path="/bar"  element={<Login onLogin={handleLogin} />}/>
-                  <Route path="/pie"  element={<Login onLogin={handleLogin} />} /> 
+                  <Route path="/graphResultadoAlta"  element={<Login onLogin={handleLogin} />}/>
+                  <Route path="/graphDiagEgreso"  element={<Login onLogin={handleLogin} />} /> 
                 </>
               }
 

@@ -99,7 +99,7 @@ const Home = () => {
             
           >
             <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun relustado del alta</h5>
-              <BarChart isDashboard={true} />
+              <PieChart isDashboard={true} />
           </Box>
         </Box>
           

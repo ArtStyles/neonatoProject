@@ -1,16 +1,16 @@
 import { Box } from "@mui/material";
 import Header from "../../components/Header";
-import BarChart from "../../components/BarChart";
+import PieChart from "../../components/PieChart";
 
-const Bar = () => {
+const GraphResuladoAlta = () => {
   return (
     <Box m="20px">
       <Header title="ANALISIS SEGUN RESULTADO DEL ALTA" />
       <Box height="82vh">
-        <BarChart />
+        <PieChart />
       </Box>
     </Box>
   );
 };
 
-export default Bar;
+export default GraphResuladoAlta;

@@ -1399,7 +1399,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   </AccordionDetails>
                 </Accordion>
               </Box>
-              { localStorage.getItem("admin") === "true" &&
+             
                 <Box display="flex" justifyContent="end" mt="20px" gap="30px">
                   
                   {onSubmit === "updatePaciente" && (
@@ -1436,7 +1436,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     {onSubmit === "updatePaciente" ? "Actualizar" : "Aceptar"}
                   </Button>
               </Box>
-              }
+              
               {!advice&&<Advice
                   title={
                     onSubmit === "updatePaciente"

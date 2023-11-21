@@ -2,85 +2,60 @@ import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
 import {useMediaQuery} from "@mui/material";
+import { graphicDiagEgreso } from "../services/graphicDiagEgreso";
+import { useState,useEffect } from "react";
 
-const data = [
-  {
-    municipio: "Antilla",
-    vivo: 72,
-    vivoColor: "hsl(97, 70%, 50%)",
-    fallecido: 140,
-    fallecidoColor: "hsl(340, 70%, 50%)",
-  },
-  {
-    municipio: "Banes",
-    vivo: 58,
-    vivoColor: "hsl(273, 70%, 50%)",
-    fallecido: 29,
-    fallecidoColor: "hsl(275, 70%, 50%)",
-  },
-  {
-    municipio: "Calixto Garcia",
-    vivo: 34,
-    vivoColor: "hsl(106, 70%, 50%)",
-    fallecido: 152,
-    fallecidoColor: "hsl(256, 70%, 50%)",
-  },
-  {
-    municipio: "Cueto",
-    vivo: 43,
-    vivoColor: "hsl(110, 70%, 50%)",
-    fallecido: 83,
-    fallecidoColor: "hsl(9, 70%, 50%)",
-  },
-  {
-    municipio: "Moa",
-    vivo: 112,
-    fallecidoColor: "hsl(54, 70%, 50%)",
-    fallecido: 35,
-    fallecidoColor: "hsl(285, 70%, 50%)",
-  },
-  {
-    municipio: "Sagua",
-    vivo: 167,
-    vivoColor: "hsl(182, 70%, 50%)",
-    fallecido: 18,
-    fallecidoColor: "hsl(76, 70%, 50%)",
-  },
-  {
-    municipio: "Holguín",
-    vivo: 158,
-    vivoColor: "hsl(224, 70%, 50%)",
-    fallecido: 49,
-    fallecidoColor: "hsl(274, 70%, 50%)",
-  },
-  {
-    municipio: "Freire",
-    vivo: 158,
-    vivoColor: "hsl(224, 70%, 50%)",
-    fallecido: 49,
-    fallecidoColor: "hsl(274, 70%, 50%)",
-  },
-  {
-    municipio: "Gibara",
-    vivo: 58,
-    vivoColor: "hsl(224, 70%, 50%)",
-    fallecido: 10,
-    fallecidoColor: "hsl(274, 70%, 50%)",
-  },
-  {
-    municipio: "Báguanos",
-    vivo: 30,
-    vivoColor: "hsl(224, 70%, 50%)",
-    fallecido: 2,
-    fallecidoColor: "hsl(274, 70%, 50%)",
-  },
+  const data = [
+      {
+        id: "Defectos de la Pared",
+        label: "Defectos de la Pared",
+        value: 0,
+        color: "hsl(104, 70%, 50%)",
+      },
+      {
+        id: "Artresia Esofágica",
+        label: "Artresia Esofágica",
+        value: 0,
+        color: "hsl(162, 70%, 50%)",
+      },
+      {
+        id: "Artresias y estenosis instestinales",
+        label: "Artresias y estenosis instestinales",
+        value: 0,
+        color: "hsl(291, 70%, 50%)",
+      },
+      {
+        id: "Defectos diafragmáticos",
+        label: "Defectos diafragmáticos",
+        value: 0,
+        color: "hsl(229, 70%, 50%)",
+      },
+      {
+        id: "Otros",
+        label: "Otros",
+        value: 0,
+        color: "hsl(344, 70%, 50%)",
+      },
 ];
 
 const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)")
+  const [graphicData,setGraphicData] = useState(data)
 
+  useEffect(()=>{
+    graphicDiagEgreso().then((data)=>{
+      let datosCopy = [...graphicData]
+      datosCopy[0].value=data.data.graphicDiagnosticoEgreso.pacientes_defectos_pared
+      datosCopy[1].value=data.data.graphicDiagnosticoEgreso.pacientes_atresia_esofagica
+      datosCopy[2].value=data.data.graphicDiagnosticoEgreso.pacientes_atresias_y_estenosis_intestinales
+      datosCopy[3].value=data.data.graphicDiagnosticoEgreso.pacientes_defectos_diafragmaticos
+      datosCopy[4].value=data.data.graphicDiagnosticoEgreso.pacientes_otros
+      setGraphicData(datosCopy);
+    })
+
+  },[])
   return (
     <ResponsiveBar
       data={data}
@@ -118,8 +93,8 @@ const BarChart = ({ isDashboard = false }) => {
         },
       }}
       // isInteractive={false}
-      keys={["vivo", "fallecido"]}
-      indexBy="municipio"
+      keys={["value"]}
+      indexBy="id"
       margin={{ top: 30, right: 95,  bottom: !isNonMobile && isDashboard ? 20 : 60, left: !isNonMobile && isDashboard ? 40: 60 }}
       padding={0.5}
       animate={true}
@@ -156,7 +131,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 4,
         tickPadding: 5,
         tickRotation: isDashboard ? 38 : 0 && isNonMobile ? 0 : 38,
-        legend: isDashboard ? undefined : "Municipios",
+        legend: isDashboard ? undefined : "Resultado del alta",
         legendPosition: isNonMobile? "middle":"left",
         legendOffset: isNonMobile?35:43,
         
@@ -165,7 +140,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Nonatos",
+        legend: isDashboard ? undefined : "",
         legendPosition: "middle",
         legendOffset: -40,
       }}

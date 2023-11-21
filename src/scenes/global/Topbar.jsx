@@ -43,8 +43,7 @@ const Topbar=({onLogout,onCollapsed})=>{
                     </IconButton>
                 </Box>
 
-                <Box marginLeft={"15px"} width="40px" height="40px"
-                                 
+                <Box marginLeft={"15px"} width="40px" height="40px"             
                 >
                     <div 
                     onClick={()=>{
