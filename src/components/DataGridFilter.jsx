@@ -30,11 +30,11 @@ const DataGridFilter = ({onFilter}) => {
     const valuesaArray = Object.entries(values);
     const currencies = [
         {
-            value:"vivo",
-            label:"Vivo"
+            value:"VIVO",
+            label:"vivo"
         },
         {
-            value:"muerto",
+            value:"MUERTO",
             label:"Fallecido"
         },
         {
@@ -76,6 +76,7 @@ const DataGridFilter = ({onFilter}) => {
         nombreDeLaMadre_Contains:values["nombreDeLaMadre"],
         provincia_Contains:values["provincia"],
         diagnosticoEgreso_Contains:values["diagnosticoEgreso"],
+        filterByResultadoAlta:values["alta"]
     }
 
 

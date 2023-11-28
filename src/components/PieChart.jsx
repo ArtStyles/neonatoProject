@@ -2,64 +2,18 @@ import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { graphicDiagEgreso } from "../services/graphicDiagEgreso";
-import { useState,useEffect} from "react";
 
-const datos = [
-  {
-    id: "Defectos de la Pared",
-    label: "Defectos de la Pared",
-    value: 0,
-    color: "hsl(104, 70%, 50%)",
-  },
-  {
-    id: "Artresia Esofágica",
-    label: "Artresia Esofágica",
-    value: 0,
-    color: "hsl(162, 70%, 50%)",
-  },
-  {
-    id: "Artresias y estenosis instestinales",
-    label: "Artresias y estenosis instestinales",
-    value: 0,
-    color: "hsl(291, 70%, 50%)",
-  },
-  {
-    id: "Defectos diafragmáticos",
-    label: "Defectos diafragmáticos",
-    value: 0,
-    color: "hsl(229, 70%, 50%)",
-  },
-  {
-    id: "Otros",
-    label: "Otros",
-    value: 0,
-    color: "hsl(344, 70%, 50%)",
-  },
-];
 
-const PieChart = ({isDashboard = false}) => {
+
+const PieChart = ({datos,isDashboard = false}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:1000px)");
-  const [graphicData,setGraphicData] = useState(datos)
 
-  useEffect(()=>{
-    graphicDiagEgreso().then((data)=>{
-      let datosCopy = [...graphicData]
-      datosCopy[0].value=data.data.graphicDiagnosticoEgreso.pacientes_defectos_pared
-      datosCopy[1].value=data.data.graphicDiagnosticoEgreso.pacientes_atresia_esofagica
-      datosCopy[2].value=data.data.graphicDiagnosticoEgreso.pacientes_atresias_y_estenosis_intestinales
-      datosCopy[3].value=data.data.graphicDiagnosticoEgreso.pacientes_defectos_diafragmaticos
-      datosCopy[4].value=data.data.graphicDiagnosticoEgreso.pacientes_otros
-      setGraphicData(datosCopy);
-    })
-
-  },[])
   
   return (
     <ResponsivePie
-      data={graphicData}
+      data={datos?datos:[]}
       theme={{
         axis: {
           domain: {

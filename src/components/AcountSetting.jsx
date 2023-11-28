@@ -16,7 +16,7 @@ import {useMediaQuery} from "@mui/material"
 
 
 const AcountSetting = ({open,onClose})=>{
-    const isNonMobile = useMediaQuery("(min-width:600px)");
+    const isNonMobile = useMediaQuery("(min-width:700px)");
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate()
@@ -71,7 +71,28 @@ const AcountSetting = ({open,onClose})=>{
                             },
                             "& .MuiButtonBase-root": {
                                 borderRadius: "0px !important"
-                            }
+                            },
+                            "& .MuiButtonBase-root": {
+                                borderRadius: "0px !important"
+                            },
+                            "& .MuiInput-root:after":{
+                              borderBottom: `2px solid ${colors.greenAccent[500]} !important`
+                            },
+            
+                          "& .MuiFormLabel-root":{
+                              opacity:"0.3",
+                              fontFamily:"Merriweather Sans"
+                          },
+              
+                          "& .Mui-focused":{
+                              opacity:"1 !important",
+                              color:`${colors.greenAccent[500]} !important`,
+                            },
+                          "& .MuiInputBase-input":{
+                              color:`${colors.greenAccent[100]} !important`,
+                              fontFamily:"Merriweather Sans"
+              
+                          },
 
                         }}
                 >
@@ -205,14 +226,39 @@ const AcountSetting = ({open,onClose})=>{
 
                                 </Box>
 
-                                <></>
-                                <TextField
-                                fullWidth
-                                type="submit"
-                                name="button"
-                                style={{backgroundColor:colors.greenSpace[500],}}
-                                onSubmit={handleSubmit}
-                                />
+                                <Box
+                                    margin={"auto"}
+                                    sx={{
+                                        "& .MuiInputBase-root":{
+                                        borderRadius:"10px",
+                                        width:"250px",
+                                        bgcolor:"rgb(12 88 103)",
+                                        cursor:"pointer !important"
+                                                                 
+                                      },
+                                        "& .MuiInputBase-root:hover":{
+                                            bgcolor:"rgb(8 45 53)",  
+                                                                  
+                                      },
+            
+            
+                                        "&  .MuiOutlinedInput-notchedOutline":{
+                                          border:"none !important",
+                                           
+                                        
+                                      }
+                                  
+                                  }}
+                                >
+                                   <TextField
+                                    fullWidth
+                                    type="submit"
+                                    name="button"
+                                    style={{backgroundColor:colors.greenSpace[500],}}
+                                    onSubmit={handleSubmit}
+                                    />
+                                </Box>
+
                                 </Box>
                 
                             </form>

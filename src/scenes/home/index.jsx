@@ -3,8 +3,8 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import PieChart from "../../components/PieChart";
-import BarChart from "../../components/BarChart";
+import GraphDiagnosticoEgreso from "../pieChartDiagnoticoEgres"
+import GraphResuladoAlta from "../pieChartResultadoAlta";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import "./index.css"
 
@@ -83,7 +83,7 @@ const Home = () => {
           
           >
             <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun Diagnostico de Egreso</h5>
-            <PieChart isDashboard={true} />
+            <GraphDiagnosticoEgreso isDashboard={true} />
           </Box>
           <Box
             width={isNonMobile?"50%":"100%"}
@@ -99,7 +99,7 @@ const Home = () => {
             
           >
             <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun relustado del alta</h5>
-              <PieChart isDashboard={true} />
+              <GraphResuladoAlta  isDashboard={true} />
           </Box>
         </Box>
           

@@ -80,7 +80,7 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
       </Modal>
       <Box
         position={"fixed"}    
-        left={isCollapsed?"-80px":undefined}
+        left={isCollapsed?"-82px":undefined}
         zIndex={isCollapsed?50:10000}
         
         sx={{
@@ -97,13 +97,20 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
             backgroundColor: `${colors.greenSpace[700]} !important`,
           },
           "& .ps-menu-root": {
-            margin:"10px"
+            margin:"10px",
+           
+          },
+          "& .ps-menu-button": {
+            height:"35px !important",
+
           },
           "& .ps-menu-button:hover": {
             backgroundColor: `${colors.greenSpace[500]} !important`,
-            borderRadius:"20px",
-            boxShadow:`0px 0px 4px 0px ${colors.greenSpace[500]}`
+            borderRadius:"8px",
+            boxShadow:`0px 0px 1px 0px ${colors.blackGreenSpace[900]}`,
+            
           },
+
           "& .icon-wrapper": {
             backgroundColor: "transparent !important",
           },
@@ -132,7 +139,7 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
             borderRadius:"0px 15px 15px 0px",
           },
           "& .ps-sidebar-container": {
-            backgroundColor: `${colors.greenSpace[700]} !important`,
+            backgroundColor: `${colors.greenSpace[600]} !important`,
             borderRadius:"0px 15px 15px 0px",
           },
 
@@ -144,10 +151,10 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
         >
           <Menu
             iconShape="square"
-            style={{ height: "100vh", }}
+            style={{ height: "97vh", }}
           >
             {/* LOGO AND MENU ICON */}
-              {!isCollapsed && (
+           
                 <Box
                   display="flex"
                   justifyContent="space-between"
@@ -191,7 +198,7 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
                     <CloseRoundedIcon fontSize="small"/>
                   </IconButton>
                 </Box>
-              )}
+        
            
 
             <Box paddingTop={"40px"}>
