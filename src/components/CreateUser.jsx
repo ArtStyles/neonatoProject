@@ -48,6 +48,8 @@ const CreateUser=({onClick,onCreate})=>{
             if(result.errors[0].message==="['Enter a valid email address.']")
              setFieldError("email","Direccion invalida")
               console.log(result.errors[0].message)
+            if(result.errors[0].message=="['This password is too common.']")
+              setFieldError("password","Contraseña muy común")
           }
           else{
             onCreate();
@@ -277,9 +279,13 @@ const CreateUser=({onClick,onCreate})=>{
 
                             "&  .MuiOutlinedInput-notchedOutline":{
                               border:"none !important",
-                               
-                            
-                          }
+ 
+                          },
+                            "&  .MuiInputBase-input":{
+                            cursor:"pointer"
+                           
+                        }
+
                       
                       }}
                       >

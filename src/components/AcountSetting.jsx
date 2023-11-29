@@ -29,20 +29,40 @@ const AcountSetting = ({open,onClose})=>{
     const checkoutSchema = yup.object().shape({
         newPassword: yup.string().required("campo obligatorio"),
         oldPassword: yup.string().required("campo obligatorio"),
-        confirmPassword: yup.string().required("campo obligatorio"),
+        confirmPassword: yup.string().required("campo obligatorio").matches(
+            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
+            "La contraseña debe  contener 8 caracteres como mínimo \n al menos una mayúscula,  \n una  minúscula y un  \n número.")
     });
 
-    const handleOnSubmit = (values,{setFieldValue}) => {
+    const handleOnSubmit = (values,{setFieldValue,setFieldError}) => {
+        if(values.oldPassword == values.newPassword){
+              setFieldError("newPassword","La nueva contraseña no puede coincidir con la anterior")
+        }
+        if(values.confirmPassword != values.newPassword){
+            setFieldError("newPassword","Las  contraseñas no coinciden ")
+            setFieldError("confirmPassword","Las  contraseñas no coinciden ")
+        }
+        else{
+            changeUserPassword({oldPassword: values.oldPassword,
+                newPassword1: values.newPassword,
+                newPassword2: values.confirmPassword}).then((resp) => {
+            console.log(resp.data.passwordChange)
 
-        changeUserPassword({oldPassword: values.oldPassword,
-                            newPassword1: values.newPassword,
-                            newPassword2: values.confirmPassword}).then((resp) => {
-             console.log(resp.data)
-            setFieldValue("oldPassword", "")
-            setFieldValue("newPassword", "")
-            setFieldValue("confirmPassword", "")
+            if(resp.data.passwordChange.success == false)
+                setFieldError("newPassword","Contraseña muy común")
+            else{
+                setFieldValue("oldPassword", "")
+                setFieldValue("newPassword", "")
+                setFieldValue("confirmPassword", "")
+            }
 
-        });
+
+            }).then((result)=>{
+                console.log(result)
+            
+
+            })
+        }
 
     }
 
@@ -233,19 +253,23 @@ const AcountSetting = ({open,onClose})=>{
                                         borderRadius:"10px",
                                         width:"250px",
                                         bgcolor:"rgb(12 88 103)",
-                                        cursor:"pointer !important"
-                                                                 
+                                         
+
                                       },
                                         "& .MuiInputBase-root:hover":{
-                                            bgcolor:"rgb(8 45 53)",  
+                                            bgcolor:"rgb(8 45 53)", 
+                                            
                                                                   
                                       },
             
             
                                         "&  .MuiOutlinedInput-notchedOutline":{
                                           border:"none !important",
-                                           
-                                        
+                                         
+                                      },
+                                        "&  .MuiInputBase-input":{
+                                          cursor:"pointer"
+                                         
                                       }
                                   
                                   }}
