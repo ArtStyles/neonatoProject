@@ -54,7 +54,7 @@ const Home = () => {
       gap={"10px"}
       position={"relative"}
       flexWrap={"wrap"}
-      height={"90vh"}
+      height={"95vh"}
       alignItems={"center"}
       justifyContent={"center"}
       alignContent={"center"}
@@ -77,12 +77,12 @@ const Home = () => {
         <Box className='fondo_desenfocado'></Box>
         <Box
           width={"100%"}
-          height={"49%"}
+          height={"50%"}
           display={"flex"}
           flexDirection={isNonMobile?"row":"column"}
           gap={"10px"}
-          sx={{msUserSelect:"none"}}
           position={"relative"}
+      
 
         >
           <Box
@@ -96,7 +96,7 @@ const Home = () => {
             justifyContent={"center"}
             borderRadius={"8px"}
             boxSizing={"border-box"}   
-         
+            maxWidth={"695px"}
             zIndex={1}
             >
               <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun Diagnostico de Egreso</h5>
@@ -106,7 +106,7 @@ const Home = () => {
 
           <Box
             width={isNonMobile?"50%":"100%"}
-            height={isNonMobile?"100%":"50%"}
+            height={isNonMobile?"100%":"48%"}
             boxShadow={`0px 0px 2px 0px ${colors.greenSpace[100]}`}
             display={"flex"}
             flexDirection={"column"}
@@ -115,6 +115,7 @@ const Home = () => {
             position={"relative"}
             borderRadius={"8px"}
             boxSizing={"border-box"}
+            maxWidth={"695px"}
           >
             <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun relustado del alta</h5>
               <GraphResuladoAlta  isDashboard={true}/>
@@ -124,18 +125,17 @@ const Home = () => {
         {/* {Caja que esta por encima de las graficas} */}
         <Box
           width={"100%"}
-          height={"49%"}
+          height={"50%"}
           display={"flex"}
           flexDirection={isNonMobile?"row":"column"}
           gap={"10px"}
-          sx={{msUserSelect:"none"}}
           position={"absolute"}
-          top={"58.39px"} 
+          top={"48px"} 
         >
           <Box
             ref = {boxGraphicOver}
             width={isNonMobile?"50%":"100%"}
-            height={isNonMobile?"100%":"49%"}            
+            height={isNonMobile?"100%":"48%"}            
             position={"relative"}
             display={"flex"}
             flexDirection={"column"}
@@ -167,7 +167,7 @@ const Home = () => {
           <Box
             ref = {boxGraphicOver}
             width={isNonMobile?"50%":"100%"}
-            height={isNonMobile?"100%":"50%"}            
+            height={isNonMobile?"100%":"48.5%"}            
             position={"relative"}
             display={"flex"}
             flexDirection={"column"}
