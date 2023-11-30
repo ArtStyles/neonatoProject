@@ -24,7 +24,7 @@ const checkoutSchema = yup.object().shape({
   email: yup.string().required("required")
 });
 
-const CreateUser=({onClick,onCreate})=>{
+const CreateUser=({onClick,onCreate,activeAdvice})=>{
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [open, close] = useState(true);
@@ -53,6 +53,7 @@ const CreateUser=({onClick,onCreate})=>{
           }
           else{
             onCreate();
+            activeAdvice();
             close(!open);
           }
         });

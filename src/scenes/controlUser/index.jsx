@@ -30,7 +30,7 @@ const ControlUser = () => {
   const [adviceStatus,setAdviceStatus]= useState(false)
   
   const handleOnAdviceStatus = () => {
-    setTimeout(()=>setAdviceStatus(true),200) ;
+    setTimeout(()=>setAdviceStatus(true),300) ;
     setTimeout(()=>setAdviceStatus(false),2500)
   }
 
@@ -202,10 +202,10 @@ const ControlUser = () => {
           rows={userData.map(user => user.node)} columns={columns} />
       </Box>
       {
-        createUsers && <CreateUser onCreate={handleOnDataChange} onClick={handleOnClick}/>
+        createUsers && <CreateUser onCreate={handleOnDataChange} onClick={handleOnClick} activeAdvice={handleOnAdviceStatus}/>
       }
       {
-        adviceStatus && <Advice title={"Eliminación completada"} type={"success"}/>
+        adviceStatus && <Advice title={"Acción completada"} type={"success"}/>
       }
     </Box>
   );
