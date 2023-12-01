@@ -6,9 +6,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import logo from "../../img/OCCN2.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -17,6 +15,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {Modal} from "@mui/material";
 import Backdrop from '@mui/material/Backdrop';
 import Fade from '@mui/material/Fade';
+import Divider from '@mui/material/Divider';
 
 const Item = ({ title, to, icon, selected, setSelected,onItemClick,}) => {
   const theme = useTheme();
@@ -202,67 +201,78 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
            
 
             <Box paddingTop={"40px"}>
-              <Item
-                title="Home"
-                to="/home"
-                icon={<HomeOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-                onItemClick={handleOnClickItem}
-              />
-              {
-                localStorage.getItem("token") &&
-                <>
-                  <Item
-                    title="Datos de los Pacientes"
-                    to="/pacientesList"
-                    icon={<ContactsOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    onItemClick={handleOnClickItem}
-                  />
-                  <Item
-                    title="Gráfico Resultado del Alta"
-                    to="/graphResultadoAlta"
-                    icon={<PieChartOutlineOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    onItemClick={handleOnClickItem}
-                  />
-                  <Item
-                    title="Gráfico Diagnóstico Egreso" 
-                    to="/graphDiagEgreso"
-                    icon={<PieChartOutlineOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    onItemClick={handleOnClickItem}
-                  />
-                  <Item
-                    title="Ingresar Paciente"
-                    to="/form"
-                    icon={<PersonOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    onItemClick={handleOnClickItem}
+            {  
+             localStorage.getItem("token") &&
+              <>
+            
+                <Item
+                  title="Home"
+                  to="/home"
+                  icon={<HomeOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  onItemClick={handleOnClickItem}
                 />
-                </> 
-              }
+              
+                <Divider variant='middle' style={{marginTop:"5px",marginBottom:"5px"}}/>
+                
+                <Item
+                  title="Datos de los Pacientes"
+                  to="/pacientesList"
+                  icon={<ContactsOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  onItemClick={handleOnClickItem}
+                />
+
+                <Item
+                  title="Ingresar Paciente"
+                  to="/form"
+                  icon={<PersonOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  onItemClick={handleOnClickItem}
+                />
+
+                  <Divider variant='middle'  style={{marginTop:"5px",marginBottom:"5px"}}/>
+
+                <Item
+                  title="Gráfico Resultado del Alta"
+                  to="/graphResultadoAlta"
+                  icon={<PieChartOutlineOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  onItemClick={handleOnClickItem}
+                />
+
+                <Item
+                  title="Gráfico Diagnóstico Egreso" 
+                  to="/graphDiagEgreso"
+                  icon={<PieChartOutlineOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  onItemClick={handleOnClickItem}
+                />
+
+                <Divider variant='middle'  style={{marginTop:"5px",marginBottom:"5px"}}/>
+              </> 
+            }
     
-              {
-                localStorage.getItem("admin") === "true" 
-                &&
-                <>
-                  <Item
-                    title="Control de Usuarios"
-                    to="/controlUser"
-                    icon={<PeopleOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                    style={{ paddingLeft: "20px" }}
-                    onItemClick={handleOnClickItem}
-                  />
-                </>
-              }
+            {
+              localStorage.getItem("admin") === "true" 
+              &&
+              <>
+                <Item
+                  title="Control de Usuarios"
+                  to="/controlUser"
+                  icon={<PeopleOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                  style={{ paddingLeft: "20px" }}
+                  onItemClick={handleOnClickItem}
+                />
+              </>
+            }
             </Box>
           </Menu>
         </Sidebar>

@@ -11,6 +11,8 @@ import { useRef } from "react";
 import { useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
 
@@ -42,11 +44,6 @@ const Home = () => {
   const [boxActive2,setBoxActive2] = useState(false);
   const navigate = useNavigate()
   
-
-
-
-
-
   return (
     <Box
       m="10px"  
@@ -54,7 +51,7 @@ const Home = () => {
       gap={"10px"}
       position={"relative"}
       flexWrap={"wrap"}
-      height={"95vh"}
+      height={"87vh"}
       alignItems={"center"}
       justifyContent={"center"}
       alignContent={"center"}
@@ -219,11 +216,55 @@ const Home = () => {
             >
             </Box>
             <Box
+              display={"flex"}
+              flexDirection={"column"}
               width={isNonMobile?"30%":"100%"}
               height={isNonMobile?"100%":"50%"}
-              boxShadow={`0px 0px 2px 0px ${colors.greenSpace[100]}`}
+              gap={"8px"}
               borderRadius={"8px"}
             >
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                width={"100%"}
+                height={"49%"}
+                boxShadow={`0px 0px 2px 0px ${colors.greenSpace[100]}`}
+                borderRadius={"8px"}
+                padding={'0px 0px 0px 5px'}
+                position={"relative"}
+              
+              >    
+                <h2 style={{fontFamily:"Merriweather Sans",fontSize:"15px"}}>Total de pacientes </h2>
+                <Box
+                  position= {"absolute"}
+                  top={"37%"}
+                  right={"30px"}
+                  
+                ><ContactsOutlinedIcon fontSize="large" /></Box>
+                
+              </Box>
+
+              <Box
+                width={"100%"}
+                height={"49%"}
+                boxShadow={`0px 0px 2px 0px ${colors.greenSpace[100]}`}
+                borderRadius={"8px"}
+                position={"relative"}
+                 padding={'0px 0px 0px 5px'}
+                 bgcolor={"rgb(179, 79, 79,0.3)"}
+              >
+                <h2 style={{fontFamily:"Merriweather Sans",fontSize:"15px"}}>Taza de mortalidad</h2>
+                <Box
+                  position= {"absolute"}
+                  top={"37%"}
+                  right={"30px"}
+                  
+                ><HeartBrokenIcon fontSize="large"  /></Box>
+                
+
+              </Box>
+
+
             </Box>
         </Box>
 
