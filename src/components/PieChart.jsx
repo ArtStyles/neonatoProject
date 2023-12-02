@@ -13,6 +13,8 @@ const PieChart = ({datos,isDashboard = false}) => {
   
   return (
     <ResponsivePie
+      
+      transitionMode="startAngle"
       data={datos?datos:[]}
       theme={{
         axis: {
@@ -58,8 +60,8 @@ const PieChart = ({datos,isDashboard = false}) => {
       arcLinkLabelsTextColor={colors.grey[100]}
       arcLinkLabelsThickness={0}
       arcLinkLabelsColor={{ from: "color" }}
-      enableArcLabels={true}
-      arcLabelsRadiusOffset={0.2}
+      enableArcLabels={isDashboard?false:true}
+      arcLabelsRadiusOffset={0.5}
       arcLabelsSkipAngle={7}
       arcLabelsTextColor={{
         from: "color",
@@ -94,9 +96,9 @@ const PieChart = ({datos,isDashboard = false}) => {
           anchor: "bottom",
           direction:"column",
           justify: false,
-          translateX:isNonMobile ? 180:0,
+          translateX:isNonMobile ? 200:0,
           translateY: isDashboard? 80: 100,
-          itemsSpacing: 3,
+          itemsSpacing: 2,
           itemWidth: 150,
           itemHeight: 18,
           itemTextColor: "#999",

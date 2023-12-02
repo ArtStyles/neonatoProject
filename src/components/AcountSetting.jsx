@@ -4,8 +4,6 @@ import { useTheme} from "@mui/material"
 import Header from "./Header"
 import { Formik } from "formik"
 import * as yup from "yup";
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import {Modal} from "@mui/material";
 import PasswordIcon from '@mui/icons-material/Password';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
@@ -19,12 +17,11 @@ const AcountSetting = ({open,onClose})=>{
     const isNonMobile = useMediaQuery("(min-width:700px)");
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const navigate = useNavigate()
-    const [formData, setFormData] = useState({
+    const formData= {
         oldPassword:"",
         newPassword:"",
         confirmPassword:"",
-      });
+      }
 
     const checkoutSchema = yup.object().shape({
         newPassword: yup.string().required("campo obligatorio"),

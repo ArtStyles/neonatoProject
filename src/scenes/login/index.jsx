@@ -1,7 +1,7 @@
 import React, { useState, } from 'react';
 import { Box } from '@mui/material';
 import { tokens } from '../../theme';
-import {useTheme,TextField,Typography,Modal,IconButton} from '@mui/material';
+import {useTheme,TextField,Typography,Modal} from '@mui/material';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as yup from "yup";
@@ -22,10 +22,10 @@ const checkoutSchema = yup.object().shape({
 export default function Login({onLogin}){
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [formData, setFormData] = useState({
+    const formData = {
       username:"",
       password:""
-    });
+    };
     const isNonMobile = useMediaQuery("(min-width:1080px)");
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);

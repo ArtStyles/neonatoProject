@@ -1,39 +1,17 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import {  MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
 import GraphDiagnosticoEgreso from "../pieChartDiagnoticoEgres"
 import GraphResuladoAlta from "../pieChartResultadoAlta";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import "./index.css"
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
-
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
- 
-  return (
-    <Link to={to} style={{ textDecorationLine: "none" }}>
-      <MenuItem
-        active={selected === title}
-        style={{
-          color: colors.primary[100],
-        }}
-        onClick={() => setSelected(title)}
-        icon={icon}
-      >
-        <Typography>{title}</Typography>
-      </MenuItem>
-    </Link>
-  );
-};
 
 const Home = () => {
   const isNonMobile = useMediaQuery("(min-width:750px)");
@@ -43,7 +21,15 @@ const Home = () => {
   const [boxActive1,setBoxActive1] = useState(false);
   const [boxActive2,setBoxActive2] = useState(false);
   const navigate = useNavigate()
-  
+  const [allPatiens,setAllPatiens]= useState(0)
+
+
+  const getPatiens = (total) => {
+      setAllPatiens(total);
+  }
+
+
+
   return (
     <Box
       m="10px"  
@@ -96,8 +82,8 @@ const Home = () => {
             maxWidth={"695px"}
             zIndex={1}
             >
-              <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun Diagnostico de Egreso</h5>
-              <GraphDiagnosticoEgreso isDashboard={true}/>
+              <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Análisis según Diagnóstico de Egreso</h5>
+              <GraphDiagnosticoEgreso getAllPatiens={getPatiens} isDashboard={true}/>
               
             </Box>
 
@@ -114,7 +100,7 @@ const Home = () => {
             boxSizing={"border-box"}
             maxWidth={"695px"}
           >
-            <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Analisis segun relustado del alta</h5>
+            <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Análisis según relustado del alta</h5>
               <GraphResuladoAlta  isDashboard={true}/>
           </Box>
         </Box>
@@ -232,14 +218,16 @@ const Home = () => {
                 borderRadius={"8px"}
                 padding={'0px 0px 0px 5px'}
                 position={"relative"}
+                flexWrap={"wrap"}
+                gap={"10px"}
               
               >    
-                <h2 style={{fontFamily:"Merriweather Sans",fontSize:"15px"}}>Total de pacientes </h2>
+                <h2 style={{fontFamily:"Merriweather Sans",fontSize:isNonMobile?"15px":"8px",margin:isNonMobile?"20px 0px 0px 0px":"2px 0px 0px 0px"}}>Total de pacientes </h2>
+                <p style={{fontFamily:"Merriweather Sans",fontSize:isNonMobile?"30px":"18px",display:"block",margin:"0px"}}>{allPatiens}</p>
                 <Box
                   position= {"absolute"}
                   top={"37%"}
                   right={"30px"}
-                  
                 ><ContactsOutlinedIcon fontSize="large" /></Box>
                 
               </Box>
@@ -251,7 +239,7 @@ const Home = () => {
                 borderRadius={"8px"}
                 position={"relative"}
                  padding={'0px 0px 0px 5px'}
-                 bgcolor={"rgb(179, 79, 79,0.3)"}
+            
               >
                 <h2 style={{fontFamily:"Merriweather Sans",fontSize:"15px"}}>Taza de mortalidad</h2>
                 <Box

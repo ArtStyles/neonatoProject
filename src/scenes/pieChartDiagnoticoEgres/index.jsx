@@ -39,9 +39,8 @@ const datos = [
 ];
 
 
-const GraphDiagnosticoEgreso = ({isDashboard}) => {
+const GraphDiagnosticoEgreso = ({isDashboard,getAllPatiens}) => {
   const [graphicData,setGraphicData] = useState(datos)
-
   useEffect(()=>{
     graphicDiagEgreso().then((data)=>{
       let datosCopy = [...graphicData]
@@ -50,16 +49,18 @@ const GraphDiagnosticoEgreso = ({isDashboard}) => {
       datosCopy[2].value=data.data.graphicDiagnosticoEgreso.pacientes_atresias_y_estenosis_intestinales
       datosCopy[3].value=data.data.graphicDiagnosticoEgreso.pacientes_defectos_diafragmaticos
       datosCopy[4].value=data.data.graphicDiagnosticoEgreso.pacientes_otros
+      getAllPatiens(data.data.graphicDiagnosticoEgreso.total_pacientes);
       setGraphicData(datosCopy);
     })
 
-  },[])
+ 
+    },[])
   return (
     <>
        { !isDashboard ?
         <Box m="20px">
           <Header title="ANÁLISIS SEGÚN DIAGNÓSTICO DE EGRESO"/>
-          <Box height={"82vh"}>
+          <Box height={"78vh"}>
             <PieChart datos={graphicData} />
           </Box>
         </Box>:

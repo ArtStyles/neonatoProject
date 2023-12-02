@@ -3,14 +3,12 @@ import { useState, } from 'react';
 import {tokens } from '../../theme';
 import AcountMenuItem from '../../components/AcountMenuItem';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import {useMediaQuery} from '@mui/material';
 import AcountSetting from '../../components/AcountSetting';
 import logo from "../../img/OCCN2.svg";
 import { useNavigate } from "react-router-dom";
 
 
 const Topbar=({onLogout,onCollapsed})=>{
-    const isNonMobile = useMediaQuery("(min-width:600px)");
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [activeAcountSetting,setActiveAcountSetting] = useState(false)

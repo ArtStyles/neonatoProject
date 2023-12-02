@@ -9,7 +9,7 @@ import GraphDiagnosticoEgreso from "./scenes/pieChartDiagnoticoEgres";
 import FormData from "./scenes/form";
 import GraphResultadoAlta from "./scenes/pieChartResultadoAlta";
 import Login from "./scenes/login";
-import { CssBaseline, ThemeProvider, colors,Modal,Box } from "@mui/material";
+import { CssBaseline, ThemeProvider} from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import { tokens } from "./theme";
 
@@ -34,7 +34,7 @@ function App() {
       isAdmin: localStorage.getItem("admin") || null,
     })
 
-  }, [localStorage.getItem("admin"),localStorage.getItem("token")]);
+  }, [localStorage.getItem("token")]);
  
   const handleOnCollapsed= () => {
       setIsCollapsed(!isCollapsed);

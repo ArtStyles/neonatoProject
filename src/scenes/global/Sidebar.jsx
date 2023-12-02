@@ -10,7 +10,6 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import logo from "../../img/OCCN2.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import {useMediaQuery} from "@mui/material";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {Modal} from "@mui/material";
 import Backdrop from '@mui/material/Backdrop';
@@ -42,7 +41,6 @@ const Item = ({ title, to, icon, selected, setSelected,onItemClick,}) => {
 };
 
 const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState("Home");
@@ -84,7 +82,10 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
         
         sx={{
           "& .ps-sidebar-root":{
-              width:"150px",
+            width:"150px",
+            borderRight: "none !important",
+            boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]}`,
+            borderRadius:"0px 15px 15px 0px",
           
           },
             
@@ -93,12 +94,10 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
           },
   
           "& .ps-menu-root": {
-            backgroundColor: `${colors.greenSpace[700]} !important`,
-          },
-          "& .ps-menu-root": {
+            backgroundColor: `${colors.greenSpace[600]} !important`,
             margin:"10px",
-           
           },
+
           "& .ps-menu-button": {
             height:"35px !important",
 
@@ -126,21 +125,16 @@ const SideBar = ({isCollapsed,onCollapsed,isAdmin}) => {
           },
           "& .ps-sidebar-container": {
             overflowY: "hidden !important",
+            backgroundColor: `${colors.greenSpace[600]} !important`,
+            borderRadius:"0px 15px 15px 0px",
             
           },
           "& .css-pxpt32": {
             paddingTop: "25px",
             
           },
-          "& .ps-sidebar-root": {
-            borderRight: "none !important",
-            boxShadow:`0px 0px 1px 0px ${colors.greenSpace[100]}`,
-            borderRadius:"0px 15px 15px 0px",
-          },
-          "& .ps-sidebar-container": {
-            backgroundColor: `${colors.greenSpace[600]} !important`,
-            borderRadius:"0px 15px 15px 0px",
-          },
+
+
 
         }}
       >

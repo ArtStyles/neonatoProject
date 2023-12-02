@@ -1,4 +1,4 @@
-import { Box, Button, TextField,Fab } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -49,7 +49,6 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
 
   const handleFormSubmit = (values, { setFieldValue }) => {
     console.log(values);
-    var empty = false;
   
     if (onSubmit === "updatePaciente") {
       updatePaciente({ params: values }).then(() => {

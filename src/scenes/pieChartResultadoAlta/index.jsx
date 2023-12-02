@@ -38,8 +38,8 @@ const GraphResuladoAlta = ({isDashboard}) => {
 <>
        { !isDashboard ?
         <Box m="20px">
-          <Header title="ANÁLISIS SEGÚN DIAGNÓSTICO DE EGRESO"/>
-          <Box height={"82vh"}>
+          <Header title="ANÁLISIS SEGÚN RESULTADO DEL ALTA"/>
+          <Box height={"78vh"}>
             <PieChart datos={data} />
           </Box>
         </Box>:

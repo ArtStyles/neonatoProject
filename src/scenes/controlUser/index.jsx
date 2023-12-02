@@ -1,11 +1,10 @@
-import { Box, Typography, useTheme,IconButton,Button } from "@mui/material";
+import { Box, Typography, useTheme,Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import Header from "../../components/Header";
-import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
 import CreateUser from "../../components/CreateUser";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -21,7 +20,6 @@ const ControlUser = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const navigate = useNavigate();
   const [createUsers,activeCreateUser] = useState(false);
   const [userData,setUserData] = useState([]);
   const [loading,setLoading] = useState(false);
