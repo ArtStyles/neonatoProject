@@ -2,7 +2,6 @@ import { useState } from "react";
 import { getAllInfo } from "../services/getAllInfo";
 import { useEffect } from "react";
 import Form from "./Form";
-import { useLocation } from "react-router-dom";
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box } from "@mui/material";
@@ -11,7 +10,6 @@ import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
 
 const AllData=({mainRef,id,activateAdvice,desactivateAllData})=>{
-  const url = useLocation();
   console.log(id);
   const [paciente, setPaciente] = useState([])
   const [loading, setLoading] = useState(true)

@@ -32,10 +32,10 @@ const AcountSetting = ({open,onClose})=>{
     });
 
     const handleOnSubmit = (values,{setFieldValue,setFieldError}) => {
-        if(values.oldPassword == values.newPassword){
+        if(values.oldPassword === values.newPassword){
               setFieldError("newPassword","La nueva contraseña no puede coincidir con la anterior")
         }
-        if(values.confirmPassword != values.newPassword){
+        if(values.confirmPassword !== values.newPassword){
             setFieldError("newPassword","Las  contraseñas no coinciden ")
             setFieldError("confirmPassword","Las  contraseñas no coinciden ")
         }
@@ -45,7 +45,7 @@ const AcountSetting = ({open,onClose})=>{
                 newPassword2: values.confirmPassword}).then((resp) => {
             console.log(resp.data.passwordChange)
 
-            if(resp.data.passwordChange.success == false)
+            if(resp.data.passwordChange.success === false)
                 setFieldError("newPassword","Contraseña muy común")
             else{
                 setFieldValue("oldPassword", "")

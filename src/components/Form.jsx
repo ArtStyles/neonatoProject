@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import ScrollToTopButton from "./ScrollToTopButton";
 import EvalualuationItem from "./evaluationItem";
 import { getAllInfo } from "../services/getAllInfo";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 
 const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvice,desactivateAllData}) => {
@@ -154,20 +155,30 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails style={{ display: isNonMobile?"grid":"flex", gap: "30px",flexDirection: "column "}}
-          
+                    
                   >
-                    <TextField 
-                      type="date"
-                      onChange={handleChange}
-                      value={String(values.fecha).substring(0,10)}
-                      name="fecha"
-                      error={!!touched.fecha && !!errors.fecha}
-                      helperText={touched.fecha && errors.fecha}
-                      sx={{
-                       gridColumn:isNonMobile?"span 4":undefined,
-                       display:"flex"
-                      }}
-                    />
+                    <Box
+                     sx={{
+                      gridColumn:isNonMobile?"span 4":undefined,
+                      display:"flex",
+                      alignItems:"center",
+                      justifyContent:"center",
+                      color:colors.greenAccent[100]
+                      }}>
+                      <TextField 
+                        variant = "standard"
+                        type="date"
+                        onChange={handleChange}
+                        value={String(values.fecha).substring(0,10)}
+                        name="fecha"
+                        error={!!touched.fecha && !!errors.fecha}
+                        helperText={touched.fecha && errors.fecha}
+                       
+                      />
+                    </Box>
+
+           
+
                     <TextField
                       variant="standard"
                       type="text"
