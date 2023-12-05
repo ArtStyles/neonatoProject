@@ -10,6 +10,8 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { changeUserPassword } from "../services/changeUserPassword"
 import {Typography} from "@mui/material"
 import {useMediaQuery} from "@mui/material"
+import Advice from "./Advice";
+import { useState } from "react"
 
 
 
@@ -22,6 +24,7 @@ const AcountSetting = ({open,onClose})=>{
         newPassword:"",
         confirmPassword:"",
       }
+    const [advice,setAdvice] = useState(false)
 
     const checkoutSchema = yup.object().shape({
         newPassword: yup.string().required("campo obligatorio"),
@@ -51,6 +54,8 @@ const AcountSetting = ({open,onClose})=>{
                 setFieldValue("oldPassword", "")
                 setFieldValue("newPassword", "")
                 setFieldValue("confirmPassword", "")
+                setAdvice(true);
+                setTimeout(() => setAdvice(false), 2000);
             }
 
 
@@ -66,11 +71,12 @@ const AcountSetting = ({open,onClose})=>{
     return(
        <>
            {
-            localStorage.getItem('token')!==null?
+            localStorage.getItem('token')!==null?   
             <Modal
                 open={open}
                 
             >
+
                 <Box bgcolor={colors.blackGreenSpace[700]}
                    display={"flex"}
                    alignItems={"center"}
@@ -113,6 +119,14 @@ const AcountSetting = ({open,onClose})=>{
 
                         }}
                 >
+                {
+                    
+                    advice && 
+                    <Box position={"absolute"}>
+                        <Advice title= "Contraseña cambiada con éxito"  type="success" />
+                    </Box>
+                  
+                }
                     <IconButton style={{display:"flex",gap:"10px",position:"absolute",top:"0",right:"0"}}  onClick={()=>{
                             onClose();
                         }}
@@ -140,6 +154,7 @@ const AcountSetting = ({open,onClose})=>{
                     flexDirection={"column"}
                     >
                         <Box>
+
                             <Typography  variant="p" color={colors.greenSpace[200]}>
                                 Acount type:                         
                             </Typography>
@@ -285,10 +300,13 @@ const AcountSetting = ({open,onClose})=>{
                             </form>
                             )}
                             </Formik>
+
                     </Box>
+
                 </Box>
             </Modal>
-            : <Box></Box>
+            : <Box>
+        </Box>
        }
        </>
 

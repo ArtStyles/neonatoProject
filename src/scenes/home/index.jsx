@@ -22,10 +22,15 @@ const Home = () => {
   const [boxActive2,setBoxActive2] = useState(false);
   const navigate = useNavigate()
   const [allPatiens,setAllPatiens]= useState(0)
+  const [mortalityRate,setMortalityRate]= useState(0)
 
 
   const getPatiens = (total) => {
       setAllPatiens(total);
+  }
+
+  const getMortalityRate = (rate) => {
+      setMortalityRate(rate);
   }
 
 
@@ -101,7 +106,7 @@ const Home = () => {
             maxWidth={"695px"}
           >
             <h5 style={{position:"absolute", top:"-10px",fontFamily:"Merriweather Sans"}}>Análisis según relustado del alta</h5>
-              <GraphResuladoAlta  isDashboard={true}/>
+              <GraphResuladoAlta mortalityRate={getMortalityRate} isDashboard={true}/>
           </Box>
         </Box>
 
@@ -216,7 +221,7 @@ const Home = () => {
                 height={"49%"}
                 boxShadow={`0px 0px 2px 0px ${colors.greenSpace[100]}`}
                 borderRadius={"8px"}
-                padding={'0px 0px 0px 5px'}
+                padding={'0px 0px 0px 35px'}
                 position={"relative"}
                 flexWrap={"wrap"}
                 gap={"10px"}
@@ -233,15 +238,22 @@ const Home = () => {
               </Box>
 
               <Box
+                display={"flex"}
+                flexDirection={"column"}
                 width={"100%"}
                 height={"49%"}
                 boxShadow={`0px 0px 2px 0px ${colors.greenSpace[100]}`}
                 borderRadius={"8px"}
+                padding={'0px 0px 0px 35px'}
                 position={"relative"}
-                 padding={'0px 0px 0px 5px'}
+                flexWrap={"wrap"}
+                gap={"10px"}
+              
             
               >
-                <h2 style={{fontFamily:"Merriweather Sans",fontSize:"15px"}}>Taza de mortalidad</h2>
+                <h2 style={{fontFamily:"Merriweather Sans",fontSize:isNonMobile?"15px":"8px",margin:isNonMobile?"20px 0px 0px 0px":"2px 0px 0px 0px"}}>Taza de mortalidad</h2>
+                <p style={{fontFamily:"Merriweather Sans",fontSize:isNonMobile?"30px":"18px",display:"block",margin:"0px"}}>{`${Math.round((mortalityRate + Number.EPSILON) * 100) / 100}%`}</p>
+
                 <Box
                   position= {"absolute"}
                   top={"37%"}

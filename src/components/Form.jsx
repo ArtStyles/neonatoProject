@@ -1447,7 +1447,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   </Button>
               </Box>
               
-              {!advice&&<Advice
+              {!advice && <Advice
                   title={
                     onSubmit === "updatePaciente"
                       ? "Datos actualizados correctamente"

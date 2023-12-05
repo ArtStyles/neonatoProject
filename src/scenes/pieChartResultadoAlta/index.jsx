@@ -22,7 +22,7 @@ const initialData=[
 ]
 
 
-const GraphResuladoAlta = ({isDashboard}) => {
+const GraphResuladoAlta = ({isDashboard,mortalityRate}) => {
   const [data,setData]= useState(initialData)
 
   useEffect(() =>{
@@ -31,6 +31,7 @@ const GraphResuladoAlta = ({isDashboard}) => {
       aux[0].value = info.data.graphicResultadoAlta.vivos
       aux[1].value = info.data.graphicResultadoAlta.fallecidos
       setData(aux)
+      mortalityRate(info.data.graphicResultadoAlta.fallecidos * 100/info.data.graphicResultadoAlta.total_pacientes)
     })
   },[])
 
@@ -43,7 +44,7 @@ const GraphResuladoAlta = ({isDashboard}) => {
             <PieChart datos={data} />
           </Box>
         </Box>:
-         <PieChart datos={data} isDashboard={isDashboard} />
+         <PieChart datos={data} isDashboard={isDashboard}/>
       }
     </>
   );
