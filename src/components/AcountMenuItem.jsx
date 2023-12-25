@@ -23,6 +23,7 @@ const AcountMenuItem= ({title,onLogout,onHandleClick})=> {
     else
       navigate("/") 
     };
+       
   const handleClose = () => {
     setAnchorEl(null);
   };
