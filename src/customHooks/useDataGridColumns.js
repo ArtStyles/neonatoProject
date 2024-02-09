@@ -3,9 +3,13 @@ import {useTheme,} from "@mui/material";
 import {Typography, Button} from "@mui/material";
 import { tokens } from "../theme";
 import { formatDate } from '../utils/formatDate';
+import { DeleteOutlineOutlined } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
+import {Box} from "@mui/material";
 
 
-export function useDataGridColumns({activateAllData,setID}){
+
+export function useDataGridColumns({activateAllData,setID,deletePatient}){
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -61,16 +65,44 @@ export function useDataGridColumns({activateAllData,setID}){
           flex: 0.5,
           filterable: false,
           renderCell: (params) => (
-              <Button 
-                style={{backgroundColor:`${colors.greenAccent[600]}`,margin:"auto"}}
+            <Box
+              bgcolor={colors.greenAccent[700]}
+              borderRadius={"4px"}
+              sx={{"& :hover":{backgroundColor:colors.greenAccent[800]}}}
+            >
+              <Button fullWidth
                 onClick={() => {
                   setID(params.row.id);
                   activateAllData()}}
                 >
-                <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-                  Ver
-                </Typography>
+                  <Visibility color="primary"/>
               </Button>
+            </Box>
+
+            ) 
+        },
+        {
+          field: "eliminar",
+          headerName: "Eliminar",
+          type: "button",
+          minWidth:100,
+          flex: 0.5,
+          filterable: false,
+          renderCell: (params) => (
+            <Box
+              bgcolor={colors.blackGreenSpace[400]}
+              borderRadius={"4px"}
+              sx={{"& :hover":{backgroundColor:colors.blackGreenSpace[500]}}}
+            >
+                <Button fullWidth  
+                onClick={() => {
+                  deletePatient(params.row.id);
+                }}
+                >
+                <DeleteOutlineOutlined color="success"/>
+              </Button>
+            </Box>
+
             ) 
         },
     ];

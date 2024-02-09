@@ -100,29 +100,26 @@ const ControlUser = () => {
       },
     },
     {
-      field: "delete",
+      field: "Eliminar",
       headerName: "Eliminar",
       flex: 1,
       minWidth:120,
       renderCell: (params) => {
         return (
           <Box
-            width="100px"
-            p="5px"
+            width="60px"
             display="flex"
             justifyContent="center"
             backgroundColor={colors.blackGreenSpace[400]}
             borderRadius="4px"
+            sx={{"& :hover":{backgroundColor:colors.blackGreenSpace[500]}}}
           >
             <Button fullWidth
-            
+           
             onClick={()=>{
                 showPopover(true)
               }}>
-              <DeleteOutlineOutlined />
-              <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-                Delete
-              </Typography>
+              <DeleteOutlineOutlined color="secondary" />
               {popoverIsVisible && (
                         <ConfirmationAdv
                           popoverIsVisivle={popoverIsVisible}

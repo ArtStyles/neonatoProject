@@ -149,7 +149,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                   }}
                   defaultExpanded
                 >
-                  <AccordionSummary  expandIcon={<ExpandMoreIcon />}>
+                  <AccordionSummary  expandIcon={<ExpandMoreIcon />} >
                     <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
                       Identificación
                     </Typography>
@@ -234,6 +234,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                       error={!!touched.telefono && !!errors.telefono}
                       helperText={touched.telefono && errors.telefono}
                       sx={{ gridColumn: isNonMobile?"span 2":undefined,display:"flex" }}
+                      
                     />
                     <TextField
                       
@@ -423,7 +424,6 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     gridColumn: "span 4",
                     bgcolor: colors.greenSpace[800],
                   }}
-                  defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
@@ -431,7 +431,7 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     </Typography>
                   </AccordionSummary>
                   <EvalualuationItem evaluation={values.evaluacionAtencionPrimaria}/>
-                  <AccordionDetails style={{ display: "grid", gap: "30px" }}>
+                  <AccordionDetails style={{ display: "grid", gap: "30px" }} >
                   
                     <CheckField
                       title="Identificación de la embarazada como riesgo
@@ -572,7 +572,6 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     gridColumn: "span 4",
                     bgcolor: colors.greenSpace[800],
                   }}
-                  defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
@@ -670,7 +669,6 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     gridColumn: "span 4",
                     bgcolor: colors.greenSpace[800],
                   }}
-                  defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography fontFamily="Merriweather Sans"  color={colors.greenAccent[100]} variant="h5">
@@ -777,7 +775,6 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     gridColumn: "span 4",
                     bgcolor: colors.greenSpace[800],
                   }}
-                  defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
@@ -920,7 +917,6 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     gridColumn: "span 4",
                     bgcolor: colors.greenSpace[800],
                   }}
-                  defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
@@ -1273,7 +1269,6 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     gridColumn: "span 4",
                     bgcolor: colors.greenSpace[800],
                   }}
-                  defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">
@@ -1370,7 +1365,6 @@ const Form = ({title, subtitle, initialValues, onSubmit, id,mainRef,activateAdvi
                     gridColumn: "span 4",
                     bgcolor: colors.greenSpace[800],
                   }}
-                  defaultExpanded
                 >
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography fontFamily="Merriweather Sans" color={colors.greenAccent[100]} variant="h5">

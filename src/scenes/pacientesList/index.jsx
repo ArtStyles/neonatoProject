@@ -14,6 +14,9 @@ import AllData from "../../components/AllData";
 import {Modal} from "@mui/material";
 import {IconButton} from "@mui/material";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { deletePaciente } from "../../services/deletePacienete";
+import ConfirmationAdv from "../../components/ConfirmationAdvice";
+import { useRef } from "react";
 
 const PacientesList = ({mainRef}) => {
   const theme = useTheme();
@@ -23,6 +26,9 @@ const PacientesList = ({mainRef}) => {
   const [adviceStatus,setAdviceStatus] = useState(false)
   const [allDataStatus,setAllDtaStatus] = useState(false);
   const [id,setID] = useState(null);
+  const [popoverIsVisible,setPopoverIsVisible] = useState(false);
+  const [deleteId,setDeleteId] = useState(null);
+  const popoverRef = useRef(null);
 
   const handleOnAllDataStatus =()=> { 
     setAllDtaStatus(!allDataStatus);
@@ -33,21 +39,37 @@ const PacientesList = ({mainRef}) => {
     
   }
 
+  const handleOnDeleteButton =(id)=> {  
+      setDeleteId(id);
+      setPopoverIsVisible(true);
+  }
+
     const handleSetId = (newId) => {
       setID(newId)
   }
-  const {columns} = useDataGridColumns({activateAllData:handleOnAllDataStatus,setID:handleSetId}) 
-  
+
+ const handleOndelete = () => {
+    deletePaciente({id:deleteId}).then(() => {
+      setLoading(true)
+      getPacientes()
+      .then(data => {
+      setPacientes(data.data.pacientes.edges)
+      setLoading(false)
+      handleAdviceStatus()
+    })
+    })
+  }
+
+  const {columns} = useDataGridColumns({activateAllData:handleOnAllDataStatus,setID:handleSetId,deletePatient:handleOnDeleteButton}) 
+
   useEffect(() => {
     setLoading(true)
     getPacientes()
     .then(data => {
       setPacientes(data.data.pacientes.edges)
-      console.log(data.data.pacientes.edges)
       setLoading(false)
     })
   },[allDataStatus])
-
 
 
 
@@ -94,11 +116,20 @@ const PacientesList = ({mainRef}) => {
           },
         }}
       >
+        {popoverIsVisible && (
+          <ConfirmationAdv
+            popoverIsVisivle={popoverIsVisible}
+            togglePopover={() => setPopoverIsVisible(!popoverIsVisible)}
+            delete={() => {
+              handleOndelete()
+            }}
+            anchorElement={popoverRef.current}
+          />
+        )}
         {loading && <div className = "loader-container"><CircularProgress color="success"/></div>}
-        <DataGrid 
-        
+        <DataGrid   
+        ref={popoverRef}      
         disableColumnSelector
-         
         rows={pacientes.map(paciente => paciente.node)} 
         columns={columns}/>
       </Box>

@@ -17,7 +17,7 @@ const CheckField = ({
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  
+
 
   return (
     <Box
@@ -59,9 +59,6 @@ const CheckField = ({
         gap="1em"
       >
         {cantElments.map((dato, index) => (
-          <Box alignItems={"center"} key={index} textAlign={"center"}      
-              >
-          
             <Chip
               label={`${checkBoxNames.length > 0 ? checkBoxNames[index] : dato}`}
               variant={`${(checkedAll ===true? String(value).includes(dato): value === dato)?"filled":"outlined"}`}
@@ -69,7 +66,6 @@ const CheckField = ({
               color={"success"}
               style={{fontSize:"1.2em",fontFamily:"Merriweather Sans"}}
             />
-          </Box>
         ))}
 
       </Box>

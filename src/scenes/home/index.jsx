@@ -193,19 +193,12 @@ const Home = () => {
             width={"100%"}
             height={"50%"}
             display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
             flexDirection={isNonMobile?"row":"column"}
             gap={"10px"}
             sx={{msUserSelect:"none"}}
           >
-            <Box
-              width={isNonMobile?"70%":"100%"}
-              height={isNonMobile?"100%":"50%"}
-              sx={{msUserSelect:"none"}}
-              boxShadow={`0px 0px 2px 0px ${colors.greenSpace[100]}`}
-              position={"relative"}
-              borderRadius={"8px"}
-            >
-            </Box>
             <Box
               display={"flex"}
               flexDirection={"column"}
@@ -248,10 +241,10 @@ const Home = () => {
                 position={"relative"}
                 flexWrap={"wrap"}
                 gap={"10px"}
-              
+                
             
               >
-                <h2 style={{fontFamily:"Merriweather Sans",fontSize:isNonMobile?"15px":"8px",margin:isNonMobile?"20px 0px 0px 0px":"2px 0px 0px 0px"}}>Taza de mortalidad</h2>
+                <h2 style={{fontFamily:"Merriweather Sans",fontSize:isNonMobile?"15px":"8px",margin:isNonMobile?"20px 0px 0px 0px":"2px 0px 0px 0px"}}  >Taza de mortalidad</h2>
                 <p style={{fontFamily:"Merriweather Sans",fontSize:isNonMobile?"30px":"18px",display:"block",margin:"0px"}}>{`${Math.round((mortalityRate + Number.EPSILON) * 100) / 100}%`}</p>
 
                 <Box
